@@ -1,0 +1,23 @@
+{
+    "name": "fwcc/client",
+    "description": "The client binary which sends the data to the server and creates the output from the API response.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Basil Suter",
+            "email": "git@nadar.io"
+        }
+    ],
+    "require": {
+        "luyadev/luya-core" : "~1.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "fwcc\\client\\" : "src/"
+        }
+    },
+    "bin" : [
+        "src/fwcc"
+    ]
+}
