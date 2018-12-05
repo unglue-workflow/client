@@ -41,7 +41,7 @@ class Connection
         $map = [];
         foreach ($files as $name => $value) {
             if (in_array($name, $exclude)) {
-                $this->infoMessage("Exclude file: " . $name);
+                //$this->infoMessage("Exclude file: " . $name);
                 continue;
             }
             if (is_file($name) && is_readable($name)) {
