@@ -1,11 +1,12 @@
 <?php
 
-namespace fwcc\client;
+namespace fwcc\client\tasks;
 
 use Curl\Curl;
 use yii\helpers\Console;
+use fwcc\client\helpers\FileHelper;
 
-class Connection
+class ConfigConnection
 {
     public $configFile;
     public $folder;

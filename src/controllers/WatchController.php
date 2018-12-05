@@ -1,7 +1,6 @@
 <?php
 
-namespace fwcc\client;
-
+namespace fwcc\client\controllers;
 
 class WatchController extends BaseCompileController
 {
@@ -15,7 +14,6 @@ class WatchController extends BaseCompileController
                 $con->iterate();
             }
 
-            //$this->outputInfo(microtime(true) . " [".memory_get_usage()."] - Stack");
             gc_collect_cycles();
             usleep(300000);
         }

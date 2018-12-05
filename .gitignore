@@ -1,3 +1,4 @@
 /vendor/
 /luya
-/data/main.css
+/tests/data/output.js
+/tests/data/output.css

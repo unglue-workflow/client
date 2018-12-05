@@ -7,6 +7,7 @@ $loaders = [
     '/../vendor/autoload.php',
     '/../../vendor/autoload.php',
     '/../../../vendor/autoload.php',
+    '/../../../../vendor/autoload.php',
 ];
 // find vendor if exists
 foreach ($loaders as $file) {
@@ -19,12 +20,12 @@ foreach ($loaders as $file) {
 $boot = new \luya\Boot();
 $boot->setBaseYiiFile($vendor . '/yiisoft/yii2/Yii.php');
 $boot->setConfigArray([
-    'id' => 'gmf', 
+    'id' => 'clientfwcc', 
     'basePath' => dirname(__DIR__), 
     'enableCoreCommands' => false,
     'controllerMap' => [
-        'watch' => 'fwcc\client\WatchController',
-        'compile' => 'fwcc\client\CompileController',
+        'watch' => 'fwcc\client\controllers\WatchController',
+        'compile' => 'fwcc\client\controllers\CompileController',
     ],
 ]);
 $boot->applicationConsole();

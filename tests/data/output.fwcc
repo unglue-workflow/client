@@ -1,0 +1,8 @@
+{
+    "css" : [
+        "input.scss"
+    ],
+    "js" : [
+        "input.js"
+    ]
+}

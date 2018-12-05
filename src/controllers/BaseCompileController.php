@@ -1,8 +1,10 @@
 <?php
 
-namespace fwcc\client;
+namespace fwcc\client\controllers;
 
 use luya\console\Command;
+use fwcc\client\helpers\FileHelper;
+use fwcc\client\tasks\ConfigConnection;
 
 
 class BaseCompileController extends Command
@@ -31,7 +33,7 @@ class BaseCompileController extends Command
         }
 
         foreach ($fwccs as $name => $file) {
-            $con =  new Connection($name, $folder);
+            $con = new ConfigConnection($name, $folder);
             if ($con->test()) {
                 $con->iterate(true);
                 $this->connections[] = $con;

@@ -1,7 +1,6 @@
 <?php
 
-namespace fwcc\client;
-
+namespace fwcc\client\controllers;
 
 class CompileController extends BaseCompileController
 {
@@ -9,7 +8,5 @@ class CompileController extends BaseCompileController
     {
         $this->setFolder($path);
         $this->initConfigsAndTest();
-
-        
     }
 }

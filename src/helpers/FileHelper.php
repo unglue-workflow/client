@@ -1,6 +1,6 @@
 <?php
 
-namespace fwcc\client;
+namespace fwcc\client\helpers;
 
 class FileHelper
 {
