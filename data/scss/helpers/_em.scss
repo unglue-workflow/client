@@ -1,0 +1,5 @@
+$root-font-size: 16px !default;
+
+@function em($size, $parent-size: $root-font-size) {
+    @return 1em * ( strip-unit($size) / strip-unit($parent-size) );
+}

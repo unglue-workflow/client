@@ -1,0 +1,3 @@
+@function xdem-to-rem($xdEm, $fontSize) {
+    @return rem(strip-unit($fontSize) * (strip-unit($xdEm) / 1000));
+}

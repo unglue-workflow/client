@@ -2,6 +2,9 @@
 
 namespace fwcc\client;
 
+use Curl\Curl;
+
+
 class Connection
 {
     public $configFile;
@@ -39,7 +42,7 @@ class Connection
     public function test()
     {
         $this->map = $this->generateMap($this->folder);
-
+        $this->triggerBuild();
         return true;
     }
 
@@ -64,29 +67,44 @@ class Connection
 
     public function triggerBuild()
     {
+        $status = true;
+        $dir = dirname($this->configFile);
+        $css = null;
         foreach ($this->config['scss'] as $scss) {
+            $map = [];
+            foreach ($this->map as $file) {
+                $map[] = [
+                    'file' => $file['file'],
+                    'content' => file_get_contents($file['file']),
+                ];
+            }
+
             $payload = [
-                'mainFile' => $scss,
-                'files' => $this->map,
+                'mainFile' => $dir . DIRECTORY_SEPARATOR . $scss,
+                'files' => $map,
                 'options' => [
                     'sourcesMaps' => true,
                 ]
             ];
-            var_dump($payload);
+            unset($map);
             $json = json_encode($payload);
-            $ch = curl_init('http://192.168.0.143:3000/compile/scss');
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt(
-                $ch,
-                CURLOPT_HTTPHEADER,
-                array(
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($json))
-            );
-                                                                                                                                 
-            $result = curl_exec($ch);
+            $curl = new Curl();
+            $curl->setHeader('Content-Type', 'application/json');
+            $curl->setHeader('Content-Length', strlen($json));
+            $curl->post('http://192.168.0.143:3000/compile/scss', $json);
+
+            $status = $curl->isSuccess();
+
+            $response = json_decode($curl->response, true);
+
+            $css .= $response['css'];
+        }
+
+        if ($status) {
+            $cssFilePath = $dir . DIRECTORY_SEPARATOR . basename($this->configFile, '.fwcc') . '.css';
+            file_put_contents($cssFilePath, $css);
+        } else {
+            echo "FEHLER: file nid schriebe!";
         }
     }
 }

@@ -1,0 +1,25 @@
+$layers: (
+    general: (
+        example: 1
+    ),
+) !default;
+
+@function layer($element, $groupName: false) {
+    @if $groupName == false {
+        $groupName: general;
+    }
+
+    @if map_has_key($layers, $groupName) {
+        $map: map_get($layers, $groupName);
+
+        @if map_has_key($map, $element) {
+            @return map_get($map, $element);
+        } @else {
+            @error "Z-Index element does not exist (searched for '#{$element}' in '#{$groupName}'). Returning 0.";
+            @return 0;
+        }
+    } @else {
+        @error "Z-Index group does not exist (searched for '#{$element}' in '#{$groupName}').  Returning 0.";
+        @return 0;
+    }
+}

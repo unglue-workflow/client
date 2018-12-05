@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+define('YII_DEBUG', true);
 // loaders array
 $loaders = [
     'vendor/autoload.php',

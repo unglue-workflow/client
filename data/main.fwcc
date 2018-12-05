@@ -1,0 +1,6 @@
+{
+    "scss" : [
+        "scss/main.scss",
+        "scss/roland.scss"
+    ]
+}
