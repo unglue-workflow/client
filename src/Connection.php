@@ -30,11 +30,14 @@ class Connection
         return isset($this->config['js']) ? $this->config['js'] : false;
     }
 
-    public function generateMap($folder, $extension)
+    public function generateMap($folder, $extension, $exclude = [])
     {
         $files = FileHelper::findFiles($folder, $extension);
         $map = [];
         foreach ($files as $name => $value) {
+            if (in_array($name, $exclude)) {
+                continue;
+            }
             if (is_file($name) && is_readable($name)) {
                 $map[] = ['file' => $name, 'filemtime' => filemtime($name)];
             }
@@ -65,16 +68,33 @@ class Connection
         }
         
         if ($this->getHasJsConfig()) {
-            $this->jsMap = $this->generateMap($this->folder, 'js');
+            $this->jsMap = $this->generateMap($this->folder, 'js', [
+                $this->createFwccFile('js'),
+            ]);
         }
 
         return true;
     }
 
+    public function createFwccFile($extension)
+    {
+        return $this->getFwccDir() . DIRECTORY_SEPARATOR . $this->getFwccFile() . '.'.$extension;
+    }
+
+    public function getFwccDir()
+    {
+        return dirname($this->configFile);
+    }
+
+    public function getFwccFile()
+    {
+        return basename($this->configFile, '.fwcc');
+    }
+
     public function iterate($force = false)
     {
-        $dir = dirname($this->configFile);
-        $baseName = basename($this->configFile, '.fwcc');
+        $dir = $this->getFwccDir();
+        $baseName = $this->getFwccFile();
 
         if ($this->getHasCssConfig() && ($this->findMapChange($this->scssMap) || $force)) {
             self::infoMessage($baseName . '.css compile request');
