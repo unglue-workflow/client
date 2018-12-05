@@ -5,7 +5,6 @@ namespace fwcc\client;
 use Curl\Curl;
 use yii\helpers\Console;
 
-
 class Connection
 {
     public $configFile;
@@ -16,10 +15,10 @@ class Connection
 
     public function __construct($configFile, $folder)
     {
-        $this->configFile = $configFile;   
+        $this->configFile = $configFile;
         $this->folder = $folder;
-        $this->config = json_decode(file_get_contents($configFile), true); 
-    }   
+        $this->config = json_decode(file_get_contents($configFile), true);
+    }
 
     public function getHasCssConfig()
     {
@@ -90,7 +89,7 @@ class Connection
             self::infoMessage($baseName . '.js compile request');
             $js = $this->getJsResponse($this->getHasJsConfig(), $this->jsMap, $dir);
             if ($js) {
-                file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.js', $css);
+                file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.js', $js);
                 self::successMessage($baseName.'.js compiled');
             }
         }
