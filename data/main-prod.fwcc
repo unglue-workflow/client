@@ -7,7 +7,7 @@
         "js/test2.js"
     ],
     "options": {
-        "maps": true,
-        "compress": false
+        "maps": false,
+        "compress": true
     }
 }
