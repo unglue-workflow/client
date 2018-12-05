@@ -12,8 +12,13 @@ Add the `.fwcc` files, for example `main.fwcc`:
 
 ```json
 {
-    "scss" : [
+    "css" : [
         "../../src/scss/main.scss"
+    ],
+    "js" : [
+        "js/jquery.js",
+        "js/app.js",
+        "js/datepicker.js"
     ]
 }
 ```

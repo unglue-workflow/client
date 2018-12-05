@@ -1,5 +1,9 @@
 {
     "css" : [
         "scss/main.scss"
+    ],
+    "js" : [
+        "js/test1.js",
+        "js/test2.js"
     ]
 }

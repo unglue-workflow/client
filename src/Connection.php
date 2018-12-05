@@ -18,7 +18,7 @@ class Connection
     {
         $this->configFile = $configFile;   
         $this->folder = $folder;
-        $this->config = json_decode(file_get_contents($configFile), true);
+        $this->config = json_decode(file_get_contents($configFile), true); 
     }   
 
     public function getHasCssConfig()
@@ -74,40 +74,26 @@ class Connection
 
     public function iterate()
     {
-        $build = false;
+        $dir = dirname($this->configFile);
+        $baseName = basename($this->configFile, '.fwcc');
 
         if ($this->getHasCssConfig() && $this->findMapChange($this->scssMap)) {
-            $build = true;
+            self::infoMessage($baseName . '.css compile request');
+            $css = $this->getCssResponse($this->getHasCssConfig(), $this->scssMap, $dir);
+            if ($css) {
+                file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.css', $css);
+                self::successMessage($baseName.'.css compiled');
+            }
         }
 
         if ($this->getHasJsConfig() && $this->findMapChange($this->jsMap)) {
-            $build = true;
-        }
-
-        if ($build) {
-            $this->triggerBuild();
-        }
-    }
-
-    public function triggerBuild()
-    {
-        $dir = dirname($this->configFile);
-
-        $baseName = basename($this->configFile, '.fwcc');
-
-        if ($this->getHasCssConfig()) {
-            $css = $this->getCssResponse($this->getHasCssConfig(), $this->scssMap, $dir);
-            file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.css', $css);
-            echo "[".date("H:i:s")."] ".Console::ansiFormat($baseName.'.css compiled', [Console::FG_GREEN]) . PHP_EOL;
-
-        }
-
-        if ($this->getHasJsConfig()) {
+            self::infoMessage($baseName . '.js compile request');
             $js = $this->getJsResponse($this->getHasJsConfig(), $this->jsMap, $dir);
-            file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.js', $css);
-            echo "[".date("H:i:s")."] ".Console::ansiFormat($baseName.'js compiled', [Console::FG_GREEN]) . PHP_EOL;
+            if ($js) {
+                file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.js', $css);
+                self::successMessage($baseName.'.js compiled');
+            }
         }
-        
     }
 
     public function getCssResponse($config, array $maps, $dir)
@@ -137,6 +123,10 @@ class Connection
             }
         }
 
+        if (empty($content)) {
+            return false;
+        }
+        
         return $content;
     }
 
@@ -160,6 +150,8 @@ class Connection
         if ($r) {
             return $r['js'];
         }
+
+        return false;
     }
 
     public function generateRequest($url, array $payload)
@@ -169,12 +161,31 @@ class Connection
         $curl->setHeader('Content-Type', 'application/json');
         $curl->setHeader('Content-Length', strlen($json));
         $curl->post($url, $json);
+        $response = json_decode($curl->response, true);
 
         if ($curl->isSuccess()) {
-            return json_decode($curl->response, true);
+            return $response;
         }
 
-        var_dump($curl->response);
-        echo Console::ansiFormat($curl->error_message, [Console::FG_RED]);
+        $message = (isset($response['message']) && !empty($response['message'])) ? $response['message'] : $curl->error_message;
+
+        return self::errorMessage($message);
+    }
+
+    public static function infoMessage($message)
+    {
+        echo "[".date("H:i:s")."] ". $message . PHP_EOL;
+    }
+
+    public static function errorMessage($message)
+    {
+        echo "[".date("H:i:s")."] Error: ". Console::ansiFormat($message, [Console::FG_RED]) . PHP_EOL;
+        return false;
+    }
+
+    public static function successMessage($message)
+    {
+        echo "[".date("H:i:s")."] ". Console::ansiFormat($message, [Console::FG_GREEN]) . PHP_EOL;
+        return true;
     }
 }
