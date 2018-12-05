@@ -33,7 +33,7 @@ class BaseCompileController extends Command
         foreach ($fwccs as $name => $file) {
             $con =  new Connection($name, $folder);
             if ($con->test()) {
-                $con->iterate();
+                $con->iterate(true);
                 $this->connections[] = $con;
             } else {
                 unset($con);

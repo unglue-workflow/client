@@ -5,7 +5,7 @@ The client binary which sends the data to the server and creates the output from
 ## Usage
 
 ```sh
-composer require fwcc/client
+composer require --dev fwcc/client
 ```
 
 Add the `.fwcc` files, for example `main.fwcc`:

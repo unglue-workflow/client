@@ -71,12 +71,12 @@ class Connection
         return true;
     }
 
-    public function iterate()
+    public function iterate($force = false)
     {
         $dir = dirname($this->configFile);
         $baseName = basename($this->configFile, '.fwcc');
 
-        if ($this->getHasCssConfig() && $this->findMapChange($this->scssMap)) {
+        if ($this->getHasCssConfig() && ($this->findMapChange($this->scssMap) || $force)) {
             self::infoMessage($baseName . '.css compile request');
             $css = $this->getCssResponse($this->getHasCssConfig(), $this->scssMap, $dir);
             if ($css) {
@@ -85,7 +85,7 @@ class Connection
             }
         }
 
-        if ($this->getHasJsConfig() && $this->findMapChange($this->jsMap)) {
+        if ($this->getHasJsConfig() && ($this->findMapChange($this->jsMap) || $force)) {
             self::infoMessage($baseName . '.js compile request');
             $js = $this->getJsResponse($this->getHasJsConfig(), $this->jsMap, $dir);
             if ($js) {
