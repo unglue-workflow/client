@@ -1,2 +1,7 @@
-alert('hello world!');
-alert('wowodfdfasdfsdsdfssdfsddf');
+class Test {
+
+    constructor(x) {
+        this._y = x;
+    }
+
+}
