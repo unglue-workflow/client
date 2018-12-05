@@ -23,7 +23,8 @@ $boot->setConfigArray([
     'basePath' => dirname(__DIR__), 
     'enableCoreCommands' => false,
     'controllerMap' => [
-        'listen' => 'fwcc\client\ListenController',
+        'watch' => 'fwcc\client\WatchController',
+        'compile' => 'fwcc\client\CompileController',
     ],
 ]);
 $boot->applicationConsole();

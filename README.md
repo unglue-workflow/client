@@ -22,11 +22,17 @@ Add the `.fwcc` files, for example `main.fwcc`:
 Run inside current directory and all sub directories:
 
 ```sh
-./vendor/bin/fwcc listen
+./vendor/bin/fwcc watch
 ```
 
 Listen inside a certain folder:
 
 ```sh
-./vendor/bin/fwcc listen resources/
+./vendor/bin/fwcc watch resources/
 ````
+
+Run only once
+
+```sh
+./vendor/bin/fwcc compile
+```

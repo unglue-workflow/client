@@ -4,16 +4,26 @@ namespace fwcc\client;
 
 use luya\console\Command;
 
-class ListenController extends Command
-{
-    public $extension;
 
+class BaseCompileController extends Command
+{
     public $connections = [];
 
-    public function actionIndex($path = null)
-    {
-        $folder = $path ?  getcwd() . DIRECTORY_SEPARATOR . $path : getcwd();
+    private $_folder;
 
+    public function setFolder($path)
+    {
+        $this->_folder = $path ?  getcwd() . DIRECTORY_SEPARATOR . $path : getcwd();
+    }
+
+    public function getFolder()
+    {
+        return $this->_folder;
+    }
+
+    public function initConfigsAndTest()
+    {
+        $folder = $this->getFolder();
         $fwccs = FileHelper::findFiles($folder, 'fwcc');
 
         if (count($fwccs) == 0) {
@@ -23,6 +33,7 @@ class ListenController extends Command
         foreach ($fwccs as $name => $file) {
             $con =  new Connection($name, $folder);
             if ($con->test()) {
+                $con->triggerBuild();
                 $this->connections[] = $con;
             } else {
                 unset($con);
@@ -31,16 +42,6 @@ class ListenController extends Command
 
         if (empty($this->connections)) {
             return $this->outputError("Not valid connection detected.");
-        }
-
-        while (true) {
-            foreach ($this->connections as $con) {
-                $con->iterate();
-            }
-
-            //$this->outputInfo(microtime(true) . " [".memory_get_usage()."] - Stack");
-            gc_collect_cycles();
-            usleep(300000);
         }
     }
 }

@@ -1,6 +1,5 @@
 {
-    "scss" : [
-        "scss/main.scss",
-        "scss/roland.scss"
+    "css" : [
+        "scss/main.scss"
     ]
 }
