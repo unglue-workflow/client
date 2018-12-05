@@ -115,7 +115,7 @@ class Connection
                 ]
             ];
 
-            $r = $this->generateRequest('http://ec2-34-251-174-157.eu-west-1.compute.amazonaws.com:3000/compile/scss', $payload);
+            $r = $this->generateRequest('http://ec2-52-50-217-165.eu-west-1.compute.amazonaws.com:3000/compile/scss', $payload);
 
             if ($r) {
                 $content .= $r['css'];
@@ -144,7 +144,7 @@ class Connection
             'files' => $map,
         ];
 
-        $r = $this->generateRequest('http://ec2-34-251-174-157.eu-west-1.compute.amazonaws.com:3000/compile/js', $payload);
+        $r = $this->generateRequest('http://ec2-52-50-217-165.eu-west-1.compute.amazonaws.com:3000/compile/js', $payload);
 
         if ($r) {
             return $r['js'];
