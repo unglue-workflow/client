@@ -41,6 +41,7 @@ class Connection
         $map = [];
         foreach ($files as $name => $value) {
             if (in_array($name, $exclude)) {
+                $this->infoMessage("Exclude file: " . $name);
                 continue;
             }
             if (is_file($name) && is_readable($name)) {
@@ -57,6 +58,7 @@ class Connection
         foreach ($map as $key => $item) {
             $time = filemtime($item['file']);
             if ($time > $item['filemtime']) {
+                $this->infoMessage("file " .$item['file'] . " has changed.");
                 $hasChange = true;
                 $map[$key]['filemtime'] = $time;
             }

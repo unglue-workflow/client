@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
@@ -12,6 +12,7 @@ var Test = function Test(x) {
     this._y = x;
 };
 
+console.log('barfoo');
 var Test2 = function (_Test) {
     _inherits(Test2, _Test);
 

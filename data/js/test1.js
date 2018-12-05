@@ -5,3 +5,5 @@ class Test {
     }
 
 }
+
+console.log('barfoo');
