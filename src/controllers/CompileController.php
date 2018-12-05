@@ -8,5 +8,7 @@ class CompileController extends BaseCompileController
     {
         $this->setFolder($path);
         $this->initConfigsAndTest();
+
+        return self::EXIT_CODE_NORMAL;
     }
 }
