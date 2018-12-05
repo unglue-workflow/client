@@ -19,7 +19,11 @@ Add the `.fwcc` files, for example `main.fwcc`:
         "js/jquery.js",
         "js/app.js",
         "js/datepicker.js"
-    ]
+    ],
+    "options": {
+        "compress" : true,
+        "maps" : true
+    }
 }
 ```
 

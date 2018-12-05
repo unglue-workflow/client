@@ -30,6 +30,11 @@ class Connection
         return isset($this->config['js']) ? $this->config['js'] : false;
     }
 
+    public function getConfigOptions()
+    {
+        return isset($this->config['options']) ? $this->config['options'] : [];
+    }
+
     public function generateMap($folder, $extension, $exclude = [])
     {
         $files = FileHelper::findFiles($folder, $extension);
@@ -175,6 +180,7 @@ class Connection
 
     public function generateRequest($url, array $payload)
     {
+        $payload['options'] = $this->getConfigOptions();
         $json = json_encode($payload);
         $curl = new Curl();
         $curl->setHeader('Content-Type', 'application/json');
