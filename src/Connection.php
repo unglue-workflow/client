@@ -93,17 +93,19 @@ class Connection
     {
         $dir = dirname($this->configFile);
 
+        $baseName = basename($this->configFile, '.fwcc');
+
         if ($this->getHasCssConfig()) {
             $css = $this->getCssResponse($this->getHasCssConfig(), $this->scssMap, $dir);
-            file_put_contents($dir . DIRECTORY_SEPARATOR . basename($this->configFile, '.fwcc') . '.css', $css);
-            echo Console::ansiFormat('CSS Compiled', [Console::FG_GREEN]);
+            file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.css', $css);
+            echo "[".date("H:i:s")."] ".Console::ansiFormat($baseName.'.css compiled', [Console::FG_GREEN]) . PHP_EOL;
 
         }
 
         if ($this->getHasJsConfig()) {
             $js = $this->getJsResponse($this->getHasJsConfig(), $this->jsMap, $dir);
-            file_put_contents($dir . DIRECTORY_SEPARATOR . basename($this->configFile, '.fwcc') . '.js', $css);
-            echo Console::ansiFormat('JS Compiled', [Console::FG_GREEN]);
+            file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.js', $css);
+            echo "[".date("H:i:s")."] ".Console::ansiFormat($baseName.'js compiled', [Console::FG_GREEN]) . PHP_EOL;
         }
         
     }
