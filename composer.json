@@ -27,5 +27,8 @@
     },
     "bin" : [
         "src/bin/fwcc"
-    ]
+    ],
+    "archive": {
+        "exclude": ["/tests"]
+    }
 }
