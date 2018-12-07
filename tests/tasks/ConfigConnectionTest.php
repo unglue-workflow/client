@@ -9,7 +9,7 @@ class ConfigConnectionTest extends ClientTestCase
 {
     public function testCompiler()
     {
-        $connection = new ConfigConnection(__DIR__.'/../data/output.unglue', __DIR__);
+        $connection = new ConfigConnection(__DIR__.'/../data/output.unglue', __DIR__, 'localhost');
         $this->assertContains('../data', $connection->getunglueDir());
         $this->assertSame('output', $connection->getunglueFile());
         $this->assertContains('../data/output.js', $connection->createunglueFile('js'));

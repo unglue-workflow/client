@@ -13,11 +13,13 @@ class ConfigConnection
     public $config = [];
     public $scssMap = [];
     public $jsMap = [];
+    public $server;
 
-    public function __construct($configFile, $folder)
+    public function __construct($configFile, $folder, $server)
     {
         $this->configFile = $configFile;
         $this->folder = $folder;
+        $this->server = $server;
         $this->config = json_decode(file_get_contents($configFile), true);
     }
 
@@ -71,17 +73,21 @@ class ConfigConnection
 
     public function test()
     {
+        $has = false;
+
         if ($this->getHasCssConfig()) {
             $this->scssMap = $this->generateMap($this->folder, 'scss');
+            $has = true;
         }
         
         if ($this->getHasJsConfig()) {
             $this->jsMap = $this->generateMap($this->folder, 'js', [
                 $this->createunglueFile('js'),
             ]);
+            $has = true;
         }
 
-        return true;
+        return $has;
     }
 
     public function createunglueFile($extension)
@@ -143,7 +149,7 @@ class ConfigConnection
                 ]
             ];
 
-            $r = $this->generateRequest('http://ec2-52-50-217-165.eu-west-1.compute.amazonaws.com:3000/compile/scss', $payload);
+            $r = $this->generateRequest($this->server . '/compile/scss', $payload);
 
             if ($r) {
                 $content .= $r['css'];
@@ -172,7 +178,7 @@ class ConfigConnection
             'files' => $map,
         ];
 
-        $r = $this->generateRequest('http://ec2-52-50-217-165.eu-west-1.compute.amazonaws.com:3000/compile/js', $payload);
+        $r = $this->generateRequest($this->server . '/compile/js', $payload);
 
         if ($r) {
             return $r['js'];

@@ -2,20 +2,34 @@
 
 namespace unglue\client\controllers;
 
+/**
+ * Watch for file changes.
+ * 
+ * @author Basil Suter <basil@nadar.io>
+ * @since 1.0.0
+ */
 class WatchController extends BaseCompileController
 {
+    /**
+     * @var integer A timeout value between checking files in micro seconds.
+     */
+    public $timeout = 300000;
+
     public function actionIndex($path = null)
     {
         $this->setFolder($path);
-        $this->initConfigsAndTest();
+        $connections = $this->createConnections();
 
+        // infinite loop
         while (true) {
-            foreach ($this->connections as $con) {
+            // iterator rough all connections
+            foreach ($connections as $con) {
                 $con->iterate();
             }
-
+            // cleanup memory
             gc_collect_cycles();
-            usleep(300000);
+            // sleep
+            usleep($this->timeout);
         }
     }
 }
