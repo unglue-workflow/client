@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "99009201d4b1a15d91f2008718cf7b7c",
+    "content-hash": "4c0377ea3835cb12a43f4a4d779c7aef",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -819,16 +819,16 @@
         },
         {
             "name": "luyadev/luya-module-admin",
-            "version": "1.2.3",
+            "version": "1.2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/luyadev/luya-module-admin.git",
-                "reference": "dc7031e7c994cd76881c16049b2b60b2d1f78f73"
+                "reference": "58d70f66edabb68ad93224174f7389676ae08b29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/luyadev/luya-module-admin/zipball/dc7031e7c994cd76881c16049b2b60b2d1f78f73",
-                "reference": "dc7031e7c994cd76881c16049b2b60b2d1f78f73",
+                "url": "https://api.github.com/repos/luyadev/luya-module-admin/zipball/58d70f66edabb68ad93224174f7389676ae08b29",
+                "reference": "58d70f66edabb68ad93224174f7389676ae08b29",
                 "shasum": ""
             },
             "require": {
@@ -889,7 +889,7 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2018-11-21T21:00:04+00:00"
+            "time": "2018-12-06T19:34:24+00:00"
         },
         {
             "name": "luyadev/luya-module-cms",
