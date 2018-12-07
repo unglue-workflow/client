@@ -115,6 +115,12 @@ class ConfigConnection
             $css = $this->getCssResponse($this->getHasCssConfig(), $this->scssMap, $dir);
             if ($css) {
                 file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.css', $css);
+                $mapPath = $dir . DIRECTORY_SEPARATOR . $baseName . '.css.map';
+                if ($css['map']) {
+                    file_put_contents($mapPath, $css['map']);
+                } elseif (file_exists($mapPath)) {
+                    unlink($mapPath);
+                }
                 self::successMessage($baseName.'.css compiled');
             }
         }
@@ -137,28 +143,32 @@ class ConfigConnection
 
     public function getCssResponse($config, array $maps, $dir)
     {
-        $content = '';
+        $content = [
+            'code' => '',
+            'map' => ''
+        ];
         foreach ($config as $scss) {
             $map = [];
             foreach ($maps as $file) {
                 $map[] = [
                     'file' => $file['file'],
-                    'content' => file_get_contents($file['file']),
+                    'code' => file_get_contents($file['file']),
                 ];
             }
 
             $payload = [
+                'distFile' => $this->getunglueFile() . '.css',
                 'mainFile' => $dir . DIRECTORY_SEPARATOR . $scss,
                 'files' => $map,
-                'options' => [
-                    'sourcesMaps' => true,
-                ]
             ];
 
             $r = $this->generateRequest($this->server . '/compile/scss', $payload);
 
             if ($r) {
-                $content .= $r['css'];
+                $content['code'] .= $r['code'];
+                if ($r['map']) {
+                    $content['map'] .= $r['map'];
+                }
             }
         }
 
