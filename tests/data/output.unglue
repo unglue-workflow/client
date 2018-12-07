@@ -3,6 +3,10 @@
         "input.scss"
     ],
     "js" : [
-        "input.js"
-    ]
+        "input.js",
+        "input2.js"
+    ],
+    "options" : {
+        "maps": true
+    }
 }

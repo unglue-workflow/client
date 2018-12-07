@@ -16,6 +16,8 @@ class ConfigConnectionTest extends ClientTestCase
 
         $this->assertNotFalse($connection->getHasCssConfig());
         $this->assertNotFalse($connection->getHasJsConfig());
-        $this->assertSame([], $connection->getConfigOptions());
+        $this->assertSame([
+            "maps" => true
+        ], $connection->getConfigOptions());
     }
 }

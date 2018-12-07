@@ -123,7 +123,13 @@ class ConfigConnection
             self::infoMessage($baseName . '.js compile request');
             $js = $this->getJsResponse($this->getHasJsConfig(), $this->jsMap, $dir);
             if ($js) {
-                file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.js', $js);
+                file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.js', $js['code']);
+                $mapPath = $dir . DIRECTORY_SEPARATOR . $baseName . '.js.map';
+                if ($js['map']) {
+                    file_put_contents($mapPath, $js['map']);
+                } elseif (file_exists($mapPath)) {
+                    unlink($mapPath);
+                }
                 self::successMessage($baseName.'.js compiled');
             }
         }
@@ -170,18 +176,19 @@ class ConfigConnection
             $p = $dir . DIRECTORY_SEPARATOR . $js;
             $map[] = [
                 'file' => $p,
-                'content' => file_get_contents($p),
+                'code' => file_get_contents($p),
             ];
         }
 
         $payload = [
+            'distFile' => $this->getunglueFile() . '.js',
             'files' => $map,
         ];
 
         $r = $this->generateRequest($this->server . '/compile/js', $payload);
 
         if ($r) {
-            return $r['js'];
+            return $r;
         }
 
         return false;

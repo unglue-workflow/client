@@ -9,7 +9,7 @@ use unglue\client\tasks\ConfigConnection;
 
 /**
  * Base Compile Controller.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
@@ -18,7 +18,7 @@ class BaseCompileController extends Command
     /**
      * @var string The server the client should connect.
      */
-    public $server = 'http://ec2-52-50-217-165.eu-west-1.compute.amazonaws.com:3000';
+    public $server = 'http://ec2-52-18-191-179.eu-west-1.compute.amazonaws.com:3000';
 
     /**
      * {@inheritDoc}
