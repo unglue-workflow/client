@@ -5,7 +5,6 @@ namespace unglue\client\tests\tasks;
 use unglue\client\tests\ClientTestCase;
 use unglue\client\tasks\ConfigConnection;
 
-
 class ConfigConnectionTest extends ClientTestCase
 {
     public function testCompiler()

@@ -6,7 +6,6 @@ use luya\console\Command;
 use unglue\client\helpers\FileHelper;
 use unglue\client\tasks\ConfigConnection;
 
-
 class BaseCompileController extends Command
 {
     public $connections = [];
