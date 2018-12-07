@@ -1,6 +1,6 @@
 <?php
 
-namespace fwcc\client\controllers;
+namespace unglue\client\controllers;
 
 class WatchController extends BaseCompileController
 {

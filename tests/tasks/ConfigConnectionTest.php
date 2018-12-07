@@ -1,19 +1,19 @@
 <?php
 
-namespace fwcc\client\tests\tasks;
+namespace unglue\client\tests\tasks;
 
-use fwcc\client\tests\ClientTestCase;
-use fwcc\client\tasks\ConfigConnection;
+use unglue\client\tests\ClientTestCase;
+use unglue\client\tasks\ConfigConnection;
 
 
 class ConfigConnectionTest extends ClientTestCase
 {
     public function testCompiler()
     {
-        $connection = new ConfigConnection(__DIR__.'/../data/output.fwcc', __DIR__);
-        $this->assertContains('../data', $connection->getFwccDir());
-        $this->assertSame('output', $connection->getFwccFile());
-        $this->assertContains('../data/output.js', $connection->createFwccFile('js'));
+        $connection = new ConfigConnection(__DIR__.'/../data/output.unglue', __DIR__);
+        $this->assertContains('../data', $connection->getunglueDir());
+        $this->assertSame('output', $connection->getunglueFile());
+        $this->assertContains('../data/output.js', $connection->createunglueFile('js'));
 
         $this->assertNotFalse($connection->getHasCssConfig());
         $this->assertNotFalse($connection->getHasJsConfig());

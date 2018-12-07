@@ -1,9 +1,9 @@
 <?php
 
-namespace fwcc\client\tests\controllers;
+namespace unglue\client\tests\controllers;
 
-use fwcc\client\tests\ClientTestCase;
-use fwcc\client\controllers\CompileController;
+use unglue\client\tests\ClientTestCase;
+use unglue\client\controllers\CompileController;
 
 class CompileControllerTest extends ClientTestCase
 {

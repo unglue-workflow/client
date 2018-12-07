@@ -20,12 +20,12 @@ foreach ($loaders as $file) {
 $boot = new \luya\Boot();
 $boot->setBaseYiiFile($vendor . '/yiisoft/yii2/Yii.php');
 $boot->setConfigArray([
-    'id' => 'clientfwcc', 
+    'id' => 'clientunglue', 
     'basePath' => dirname(__DIR__), 
     'enableCoreCommands' => false,
     'controllerMap' => [
-        'watch' => 'fwcc\client\controllers\WatchController',
-        'compile' => 'fwcc\client\controllers\CompileController',
+        'watch' => 'unglue\client\controllers\WatchController',
+        'compile' => 'unglue\client\controllers\CompileController',
     ],
 ]);
 $boot->applicationConsole();

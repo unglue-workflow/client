@@ -1,5 +1,5 @@
 {
-    "name": "fwcc/client",
+    "name": "unglue/client",
     "description": "The client binary which sends the data to the server and creates the output from the API response.",
     "type": "project",
     "license": "MIT",
@@ -17,16 +17,16 @@
     },
     "autoload": {
         "psr-4": {
-            "fwcc\\client\\" : "src/"
+            "unglue\\client\\" : "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "fwcc\\client\\tests\\" : "tests/"
+            "unglue\\client\\tests\\" : "tests/"
         }
     },
     "bin" : [
-        "src/bin/fwcc"
+        "src/bin/unglue"
     ],
     "archive": {
         "exclude": ["/tests"]

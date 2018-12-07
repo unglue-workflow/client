@@ -1,6 +1,6 @@
 <?php
 
-namespace fwcc\client\helpers;
+namespace unglue\client\helpers;
 
 class FileHelper
 {

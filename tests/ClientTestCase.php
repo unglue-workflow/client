@@ -1,6 +1,6 @@
 <?php
 
-namespace fwcc\client\tests;
+namespace unglue\client\tests;
 
 use luya\testsuite\cases\ConsoleApplicationTestCase;
 
@@ -9,7 +9,7 @@ class ClientTestCase extends ConsoleApplicationTestCase
     public function getConfigArray()
     {
         return [
-            'id' => 'fwccclient',
+            'id' => 'unglueclient',
             'basePath' => dirname(__DIR__),
         ];
     }

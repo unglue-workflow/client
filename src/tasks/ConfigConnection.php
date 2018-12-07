@@ -1,10 +1,10 @@
 <?php
 
-namespace fwcc\client\tasks;
+namespace unglue\client\tasks;
 
 use Curl\Curl;
 use yii\helpers\Console;
-use fwcc\client\helpers\FileHelper;
+use unglue\client\helpers\FileHelper;
 
 class ConfigConnection
 {
@@ -77,32 +77,32 @@ class ConfigConnection
         
         if ($this->getHasJsConfig()) {
             $this->jsMap = $this->generateMap($this->folder, 'js', [
-                $this->createFwccFile('js'),
+                $this->createunglueFile('js'),
             ]);
         }
 
         return true;
     }
 
-    public function createFwccFile($extension)
+    public function createunglueFile($extension)
     {
-        return $this->getFwccDir() . DIRECTORY_SEPARATOR . $this->getFwccFile() . '.'.$extension;
+        return $this->getunglueDir() . DIRECTORY_SEPARATOR . $this->getunglueFile() . '.'.$extension;
     }
 
-    public function getFwccDir()
+    public function getunglueDir()
     {
         return dirname($this->configFile);
     }
 
-    public function getFwccFile()
+    public function getunglueFile()
     {
-        return basename($this->configFile, '.fwcc');
+        return basename($this->configFile, '.unglue');
     }
 
     public function iterate($force = false)
     {
-        $dir = $this->getFwccDir();
-        $baseName = $this->getFwccFile();
+        $dir = $this->getunglueDir();
+        $baseName = $this->getunglueFile();
 
         if ($this->getHasCssConfig() && ($this->findMapChange($this->scssMap) || $force)) {
             self::infoMessage($baseName . '.css compile request');

@@ -5,10 +5,10 @@ The client binary which sends the data to the server and creates the output from
 ## Usage
 
 ```sh
-composer require --dev fwcc/client
+composer require --dev unglue/client
 ```
 
-Add the `.fwcc` files, for example `main.fwcc`:
+Add the `.unglue` files, for example `main.unglue`:
 
 ```json
 {
@@ -31,17 +31,17 @@ Add the `.fwcc` files, for example `main.fwcc`:
 Run inside current directory and all sub directories:
 
 ```sh
-./vendor/bin/fwcc watch
+./vendor/bin/unglue watch
 ```
 
 Listen inside a certain folder:
 
 ```sh
-./vendor/bin/fwcc watch resources/
+./vendor/bin/unglue watch resources/
 ````
 
 Run only once
 
 ```sh
-./vendor/bin/fwcc compile
+./vendor/bin/unglue compile
 ```

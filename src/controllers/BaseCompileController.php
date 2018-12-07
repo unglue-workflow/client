@@ -1,10 +1,10 @@
 <?php
 
-namespace fwcc\client\controllers;
+namespace unglue\client\controllers;
 
 use luya\console\Command;
-use fwcc\client\helpers\FileHelper;
-use fwcc\client\tasks\ConfigConnection;
+use unglue\client\helpers\FileHelper;
+use unglue\client\tasks\ConfigConnection;
 
 
 class BaseCompileController extends Command
@@ -26,13 +26,13 @@ class BaseCompileController extends Command
     public function initConfigsAndTest()
     {
         $folder = $this->getFolder();
-        $fwccs = FileHelper::findFiles($folder, 'fwcc');
+        $unglues = FileHelper::findFiles($folder, 'unglue');
 
-        if (count($fwccs) == 0) {
-            return $this->outputError("Unable to find any .fwcc files in '$folder' and subdirectories to start the compile listener.");
+        if (count($unglues) == 0) {
+            return $this->outputError("Unable to find any .unglue files in '$folder' and subdirectories to start the compile listener.");
         }
 
-        foreach ($fwccs as $name => $file) {
+        foreach ($unglues as $name => $file) {
             $con = new ConfigConnection($name, $folder);
             if ($con->test()) {
                 $con->iterate(true);
