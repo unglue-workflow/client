@@ -162,7 +162,7 @@ class ConfigConnection
                 'files' => $map,
             ];
 
-            $r = $this->generateRequest($this->server . '/compile/scss', $payload);
+            $r = $this->generateRequest($this->server . '/compile/css', $payload);
 
             if ($r) {
                 $content['code'] .= $r['code'];
