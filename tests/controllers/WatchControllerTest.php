@@ -10,7 +10,9 @@ class WatchControllerTest extends ClientTestCase
     public function testIndexAction()
     {
         $ctrl = new WatchController('watch-controller', $this->app);
-
+        $this->assertSame([
+            'verbose', 'interactive', 'server', 'timeout',
+        ], $ctrl->options('index'));
         $this->expectException("yii\console\Exception");
         $ctrl->actionIndex('/does/not/exists');
     }

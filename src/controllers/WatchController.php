@@ -15,6 +15,16 @@ class WatchController extends BaseCompileController
      */
     public $timeout = 300000;
 
+    /**
+     * {@inheritDoc}
+     */
+    public function options($actionID)
+    {
+        return array_merge(parent::options($actionID), [
+            'timeout',
+        ]);
+    }
+
     public function actionIndex($path = null)
     {
         $this->setFolder($path);
