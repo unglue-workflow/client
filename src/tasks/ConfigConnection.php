@@ -4,6 +4,7 @@ namespace unglue\client\tasks;
 
 use Curl\Curl;
 use yii\helpers\Console;
+use yii\helpers\Json;
 use unglue\client\helpers\FileHelper;
 use unglue\client\helpers\ConsoleHelper;
 
@@ -34,7 +35,7 @@ class ConfigConnection
     {
         if ($this->_config === null) {
             ConsoleHelper::infoMessage("Load unglue config (".$this->_configFile.")");
-            $this->_config = json_decode(file_get_contents($this->_configFile), true);
+            $this->_config = Json::decode(file_get_contents($this->_configFile));
         }
 
         return $this->_config;
@@ -70,6 +71,11 @@ class ConfigConnection
     public function getUnglueConfigFileBaseName()
     {
         return basename($this->_configFile, '.unglue');
+    }
+
+    public function getUnglueConfigName()
+    {
+        return pathinfo($this->_configFile, PATHINFO_BASENAME);
     }
 
     public function getUnglueConfigFolder()

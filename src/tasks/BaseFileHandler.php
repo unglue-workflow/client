@@ -9,8 +9,6 @@ abstract class BaseFileHandler implements FilesMapInterface
 {
     public $config;
 
-    private $_time;
-
     public function __construct(ConfigConnection $configConnection)
     {
         $this->config = $configConnection;
@@ -38,8 +36,7 @@ abstract class BaseFileHandler implements FilesMapInterface
     public function iterate($force)
     {
         if ($this->hasFileInMapChanged() || $force) {
-            ConsoleHelper::infoMessage("Start compile request (".get_called_class().")");
-            $this->_time = microtime();
+            ConsoleHelper::startProgress(0, $this->count(), $this->config->getUnglueConfigName(). ': ');
             $this->handleUpload();
         }
     }
@@ -68,17 +65,23 @@ abstract class BaseFileHandler implements FilesMapInterface
     public function getFilesContent()
     {
         $map = [];
+        $i=0;
         foreach ($this->getMap() as $item) {
+            ConsoleHelper::updateProgress($i++, $this->count());
             $map[] = [
                 'file' => $item['file'],
                 'code' => file_get_contents($item['file']),
             ];
         }
+        unset($i);
         return $map;
     }
 
     public function generateRequest($endpoint, array $payload)
     {
+        $time = microtime(true);
+        ConsoleHelper::endProgress();
+        ConsoleHelper::infoMessage("Send API request");
         $payload['options'] = $this->config->getHasUnglueConfigSection('options', []);
 
         $json = json_encode($payload);
@@ -89,7 +92,7 @@ abstract class BaseFileHandler implements FilesMapInterface
         $response = json_decode($curl->response, true);
 
         if ($curl->isSuccess()) {
-            ConsoleHelper::successMessage("Compile done in " . round((microtime() - $this->_time), 2) . "s");
+            ConsoleHelper::successMessage("Compling done in " . round((microtime(true) - $time), 2) . "s");
             return $response;
         }
 

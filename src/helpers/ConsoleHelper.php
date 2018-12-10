@@ -4,7 +4,7 @@ namespace unglue\client\helpers;
 
 use yii\helpers\Console;
 
-class ConsoleHelper
+class ConsoleHelper extends Console
 {
     public static function infoMessage($message)
     {
@@ -13,7 +13,7 @@ class ConsoleHelper
 
     public static function errorMessage($message)
     {
-        echo "[".date("H:i:s")."] Error: ". Console::ansiFormat($message, [Console::FG_RED]) . PHP_EOL;
+        echo "[".date("H:i:s")."] ". Console::ansiFormat('Error: ' . $message, [Console::FG_RED]) . PHP_EOL;
         return false;
     }
 

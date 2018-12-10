@@ -2,6 +2,9 @@
 
 namespace unglue\client\tasks;
 
+use unglue\client\helpers\ConsoleHelper;
+
+
 class JsFileHandler extends BaseFileHandler
 {
     public function init()
@@ -13,9 +16,16 @@ class JsFileHandler extends BaseFileHandler
 
     public function handleUpload()
     {
+        $files = $this->getFilesContent();
+
+        if (empty($files)) {
+            ConsoleHelper::errorMessage("no js files found to transmit.");
+            return false;
+        }
+
         $r = $this->generateRequest('/compile/js', [
             'distFile' => $this->config->getUnglueConfigFolderDistFilePath('js'),
-            'files' => $this->getFilesContent(),
+            'files' => $files,
         ]);
 
         if (!$r) {
