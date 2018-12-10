@@ -5,24 +5,128 @@ namespace unglue\client\tasks;
 use Curl\Curl;
 use yii\helpers\Console;
 use unglue\client\helpers\FileHelper;
+use unglue\client\helpers\ConsoleHelper;
 
 class ConfigConnection
 {
-    public $configFile;
-    public $folder;
-    public $config = [];
-    public $scssMap = [];
-    public $jsMap = [];
-    public $server;
+    private $_configFile;
+    private $_folder;
+    private $_server;
+
+    public $jsConnection;
+    public $cssConnection;
 
     public function __construct($configFile, $folder, $server)
     {
-        $this->configFile = $configFile;
-        $this->folder = $folder;
-        $this->server = $server;
-        $this->config = json_decode(file_get_contents($configFile), true);
+        $this->_configFile = $configFile;
+        $this->_folder = $folder;
+        $this->_server = $server;
     }
 
+    public function getServer()
+    {
+        return $this->_server;
+    }
+
+    private $_config;
+
+    public function getUnglueConfig()
+    {
+        if ($this->_config === null) {
+            ConsoleHelper::infoMessage("Load unglue config (".$this->_configFile.")");
+            $this->_config = json_decode(file_get_contents($this->_configFile), true);
+        }
+
+        return $this->_config;
+    }
+
+    public function getWatchFolder()
+    {
+        return $this->_folder;
+    }
+
+    public function getHasUnglueConfigSection($section, $defaultValue = false)
+    {
+        $config = $this->getUnglueConfig();
+
+        return isset($config[$section]) ? $config[$section] : $defaultValue;
+    }
+
+    public function getUnglueConfigFolderPath($name)
+    {
+        return $this->getUnglueConfigFolder() . DIRECTORY_SEPARATOR . ltrim($name, DIRECTORY_SEPARATOR);
+    }
+
+    public function getUnglueConfigFolderDistFilePath($extension)
+    {
+        return $this->getUnglueConfigFolder() . DIRECTORY_SEPARATOR . $this->getUnglueConfigFileBaseName() . '.'. $extension;
+    }
+
+    public function writeUnglueConfigFolderDistFile($content, $extension)
+    {
+        return file_put_contents($this->getUnglueConfigFolderDistFilePath($extension), $content);
+    }
+
+    public function getUnglueConfigFileBaseName()
+    {
+        return basename($this->_configFile, '.unglue');
+    }
+
+    public function getUnglueConfigFolder()
+    {
+        return rtrim(dirname($this->_configFile), DIRECTORY_SEPARATOR);
+    }
+
+    /*
+    public function createunglueFile($extension)
+    {
+        return $this->getUnglueDir() . DIRECTORY_SEPARATOR . $this->getUnglueFile() . '.'. $extension;
+    }
+
+    public function getUnglueDir()
+    {
+        return rtrim(dirname($this->configFile), '/');
+    }
+
+    public function getUnglueFile()
+    {
+        return basename($this->configFile, '.unglue');
+    }
+    */
+
+    public function test()
+    {
+        $success = false;
+        
+        // test js connection
+        $this->jsConnection = new JsFileHandler($this);
+        $this->jsConnection->init();
+        if ($this->jsConnection->count() > 0) {
+            $success = true;
+        }
+
+        // test valid css connection
+        $this->cssConnection = new CssFileHandler($this);
+        $this->cssConnection->init();
+        if ($this->cssConnection->count() > 0) {
+            $success = true;
+        }
+
+        return $success;
+    }
+
+    public function iterate($force = false)
+    {
+        $this->jsConnection->iterate($force);
+        $this->cssConnection->iterate($force);
+
+        // todo: maybe if there is an error - or both have errors return false.
+        return true;
+    }
+
+//***** OLD STACK */
+
+/*
     public function getHasCssConfig()
     {
         return isset($this->config['css']) ? $this->config['css'] : false;
@@ -38,21 +142,28 @@ class ConfigConnection
         return isset($this->config['options']) ? $this->config['options'] : [];
     }
 
-    public function generateMap($folder, $extension, $exclude = [])
+    public function generateMap($folder, $extension)
     {
         $files = FileHelper::findFiles($folder, $extension);
         $map = [];
         foreach ($files as $name => $value) {
-            if (in_array($name, $exclude)) {
-                //$this->infoMessage("Exclude file: " . $name);
-                continue;
+            $item = $this->generateMapItem($name);
+            if ($item) {
+                $map[] = $item;
             }
-            if (is_file($name) && is_readable($name)) {
-                $map[] = ['file' => $name, 'filemtime' => filemtime($name)];
-            }
+            unset($item);
         }
         unset($files);
         return $map;
+    }
+
+    private function generateMapItem($file, $exclude = [])
+    {
+        if (is_file($file) && is_readable($file)) {
+            return ['file' => $file, 'filemtime' => filemtime($file)];
+        }
+
+        return false;
     }
 
     public function findMapChange(array &$map)
@@ -81,9 +192,16 @@ class ConfigConnection
         }
         
         if ($this->getHasJsConfig()) {
-            $this->jsMap = $this->generateMap($this->folder, 'js', [
-                $this->createunglueFile('js'),
-            ]);
+            $map = [];
+            foreach ($this->getHasJsConfig() as $file) {
+                $jsFile = $this->getUnglueDir() . DIRECTORY_SEPARATOR . rtrim($file, '/');
+                $mapItem = $this->generateMapItem($jsFile);
+                if ($mapItem) {
+                    $map[] = $mapItem;
+                }
+            }
+            $this->jsMap = $map;
+            unset($map);
             $has = true;
         }
 
@@ -92,23 +210,23 @@ class ConfigConnection
 
     public function createunglueFile($extension)
     {
-        return $this->getunglueDir() . DIRECTORY_SEPARATOR . $this->getunglueFile() . '.'.$extension;
+        return $this->getUnglueDir() . DIRECTORY_SEPARATOR . $this->getUnglueFile() . '.'. $extension;
     }
 
-    public function getunglueDir()
+    public function getUnglueDir()
     {
-        return dirname($this->configFile);
+        return rtrim(dirname($this->configFile), '/');
     }
 
-    public function getunglueFile()
+    public function getUnglueFile()
     {
         return basename($this->configFile, '.unglue');
     }
 
     public function iterate($force = false)
     {
-        $dir = $this->getunglueDir();
-        $baseName = $this->getunglueFile();
+        $dir = $this->getUnglueDir();
+        $baseName = $this->getUnglueFile();
 
         if ($this->getHasCssConfig() && ($this->findMapChange($this->scssMap) || $force)) {
             self::infoMessage($baseName . '.css compile request');
@@ -157,7 +275,7 @@ class ConfigConnection
             }
 
             $payload = [
-                'distFile' => $this->getunglueFile() . '.css',
+                'distFile' => $this->getUnglueFile() . '.css',
                 'mainFile' => $dir . DIRECTORY_SEPARATOR . $scss,
                 'files' => $map,
             ];
@@ -191,7 +309,7 @@ class ConfigConnection
         }
 
         $payload = [
-            'distFile' => $this->getunglueFile() . '.js',
+            'distFile' => $this->getUnglueFile() . '.js',
             'files' => $map,
         ];
 
@@ -239,4 +357,5 @@ class ConfigConnection
         echo "[".date("H:i:s")."] ". Console::ansiFormat($message, [Console::FG_GREEN]) . PHP_EOL;
         return true;
     }
+    */
 }

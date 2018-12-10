@@ -20,5 +20,6 @@ class CompileControllerTest extends ClientTestCase
     {
         $ctrl = new CompileController('compile', $this->app);
         // reuires an unglue file without css or js defintion
+        
     }
 }
