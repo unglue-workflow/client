@@ -18,7 +18,7 @@ class BaseCompileController extends Command
     /**
      * @var string The server the client should connect.
      */
-    public $server = 'http://ec2-52-18-191-179.eu-west-1.compute.amazonaws.com:3000';
+    public $server = 'http://v1.api.unglue.io';
 
     /**
      * {@inheritDoc}
