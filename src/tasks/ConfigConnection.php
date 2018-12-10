@@ -114,7 +114,7 @@ class ConfigConnection
             self::infoMessage($baseName . '.css compile request');
             $css = $this->getCssResponse($this->getHasCssConfig(), $this->scssMap, $dir);
             if ($css) {
-                file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.css', $css);
+                file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.css', $css['code']);
                 $mapPath = $dir . DIRECTORY_SEPARATOR . $baseName . '.css.map';
                 if ($css['map']) {
                     file_put_contents($mapPath, $css['map']);
