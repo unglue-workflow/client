@@ -34,7 +34,7 @@ class ConfigConnection
     public function getUnglueConfig()
     {
         if ($this->_config === null) {
-            ConsoleHelper::infoMessage("Load unglue config (".$this->_configFile.")");
+            ConsoleHelper::infoMessage("Load unglue config (".$this->getUnglueConfigName().")");
             $this->_config = Json::decode(file_get_contents($this->_configFile));
         }
 

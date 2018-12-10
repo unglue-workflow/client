@@ -7,6 +7,11 @@ use unglue\client\helpers\FileHelper;
 
 class CssFileHandler extends BaseFileHandler
 {
+    public function name()
+    {
+        return 'css';
+    }
+    
     public function init()
     {
         $files = FileHelper::findFiles($this->config->getWatchFolder(), 'scss');

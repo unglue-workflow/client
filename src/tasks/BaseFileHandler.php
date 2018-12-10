@@ -14,6 +14,11 @@ abstract class BaseFileHandler implements FilesMapInterface
         $this->config = $configConnection;
     }
 
+    public function messagePrefix()
+    {
+        return " [".$this->name()."] ";
+    }
+
     public function init()
     {
 
@@ -36,7 +41,7 @@ abstract class BaseFileHandler implements FilesMapInterface
     public function iterate($force)
     {
         if ($this->hasFileInMapChanged() || $force) {
-            ConsoleHelper::startProgress(0, $this->count(), $this->config->getUnglueConfigName(). ': ');
+            ConsoleHelper::startProgress(0, $this->count(), $this->messagePrefix() . $this->config->getUnglueConfigName(). ': ');
             $this->handleUpload();
         }
     }
@@ -52,7 +57,7 @@ abstract class BaseFileHandler implements FilesMapInterface
         foreach ($this->_map as $key => $item) {
             $time = filemtime($item['file']);
             if ($time > $item['filemtime']) {
-                ConsoleHelper::infoMessage("file " .$item['file'] . " has changed.");
+                ConsoleHelper::infoMessage($this->messagePrefix() . "file " .$item['file'] . " has changed.");
                 $hasChange = true;
                 $this->_map[$key]['filemtime'] = $time;
             }
@@ -81,7 +86,7 @@ abstract class BaseFileHandler implements FilesMapInterface
     {
         $time = microtime(true);
         ConsoleHelper::endProgress();
-        ConsoleHelper::infoMessage("Send API request");
+        ConsoleHelper::infoMessage($this->messagePrefix() . "Send API request");
         $payload['options'] = $this->config->getHasUnglueConfigSection('options', []);
 
         $json = json_encode($payload);
@@ -92,7 +97,7 @@ abstract class BaseFileHandler implements FilesMapInterface
         $response = json_decode($curl->response, true);
 
         if ($curl->isSuccess()) {
-            ConsoleHelper::successMessage("Compling done in " . round((microtime(true) - $time), 2) . "s");
+            ConsoleHelper::successMessage($this->messagePrefix() . "Compling done in " . round((microtime(true) - $time), 2) . "s");
             return $response;
         }
 

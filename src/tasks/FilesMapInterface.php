@@ -13,4 +13,6 @@ interface FilesMapInterface
     public function iterate($force);
 
     public function handleUpload();
+
+    public function name();
 }

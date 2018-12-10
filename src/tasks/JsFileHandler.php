@@ -7,6 +7,11 @@ use unglue\client\helpers\ConsoleHelper;
 
 class JsFileHandler extends BaseFileHandler
 {
+    public function name()
+    {
+        return 'js';
+    }
+    
     public function init()
     {
         foreach ($this->config->getHasUnglueConfigSection('js', []) as $file) {
