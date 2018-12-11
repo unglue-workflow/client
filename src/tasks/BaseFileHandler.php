@@ -12,7 +12,6 @@ abstract class BaseFileHandler implements FilesMapInterface
     public function __construct(ConfigConnection $configConnection)
     {
         $this->config = $configConnection;
-        ConsoleHelper::infoMessage($this->messagePrefix() . 'load and test: ' . $this->config->getConfigFile());
     }
 
     public function messagePrefix()
@@ -42,7 +41,6 @@ abstract class BaseFileHandler implements FilesMapInterface
     public function iterate($force)
     {
         if ($this->hasFileInMapChanged() || $force) {
-            ConsoleHelper::startProgress(0, $this->count(), $this->messagePrefix() . "Collecting data ");
             $this->handleUpload();
         }
     }
@@ -55,7 +53,7 @@ abstract class BaseFileHandler implements FilesMapInterface
     public function hasFileInMapChanged()
     {
         $hasChange = false;
-        foreach ($this->_map as $key => $item) {
+        foreach ($this->getMap() as $key => $item) {
             $time = filemtime($item['file']);
             if ($time > $item['filemtime']) {
                 ConsoleHelper::infoMessage($this->messagePrefix() . "file " .$item['file'] . " has changed.");
@@ -70,6 +68,7 @@ abstract class BaseFileHandler implements FilesMapInterface
 
     public function getFilesContent()
     {
+        ConsoleHelper::startProgress(0, $this->count(), $this->messagePrefix() . "Collecting data ");
         $map = [];
         $i=1;
         foreach ($this->getMap() as $item) {
@@ -80,13 +79,13 @@ abstract class BaseFileHandler implements FilesMapInterface
             ];
         }
         unset($i);
+        ConsoleHelper::endProgress();
         return $map;
     }
 
     public function generateRequest($endpoint, array $payload)
     {
         $time = microtime(true);
-        ConsoleHelper::endProgress();
         ConsoleHelper::infoMessage($this->messagePrefix() . "Send API request");
         $payload['options'] = $this->config->getHasUnglueConfigSection('options', []);
 
