@@ -108,7 +108,7 @@ class ConfigConnection
     public function test()
     {
         $success = false;
-        ConsoleHelper::infoMessage($this->getUnglueConfigName() . ': load and test (' . $this->config->getConfigFile().')');
+        ConsoleHelper::infoMessage($this->getUnglueConfigName() . ': load and test (' . $this->getConfigFile().')');
 
         // test js connection
         $this->jsConnection = new JsFileHandler($this);
