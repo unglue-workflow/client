@@ -8,17 +8,54 @@ use yii\helpers\Json;
 use unglue\client\helpers\FileHelper;
 use unglue\client\helpers\ConsoleHelper;
 use luya\console\Command;
+use unglue\client\interfaces\ConnectionInterface;
 
-class ConfigConnection
+/**
+ * Represents a connection for an Unglue config file.
+ *
+ * @author Basil Suter <basil@nadar.io>
+ * @since 1.0.0
+ */
+class ConfigConnection implements ConnectionInterface
 {
+    /**
+     * @var string The path to the config file assigned while creating the connection object.
+     */
     private $_configFile;
+    
+    /**
+     * @var string The path to the watch folder assigned while creating the connection object.
+     */
     private $_folder;
+
+    /**
+     * @var string The server to connection assigned while creating the connection object.
+     */
     private $_server;
+
+    /**
+     * @var Command The command controller object.
+     */
     private $_command;
 
-    public $jsConnection;
-    public $cssConnection;
+    /**
+     * @var JsFileHandler The javascript files handler object.
+     */
+    public $jsHandler;
 
+    /**
+     * @var CssFileHandler The css files handler object.
+     */
+    public $cssHandler;
+
+    /**
+     * Config Connection Constructuro
+     *
+     * @param string $configFile
+     * @param string $folder
+     * @param string $server
+     * @param Command $command
+     */
     public function __construct($configFile, $folder, $server, Command $command)
     {
         $this->_configFile = $configFile;
@@ -27,23 +64,46 @@ class ConfigConnection
         $this->_command = $command;
     }
 
+    /**
+     * Get the context console command object
+     *
+     * @return Command
+     */
     public function getCommand()
     {
         return $this->_command;
     }
 
+    /**
+     * Get the server url for the api.
+     *
+     * @return string
+     */
     public function getServer()
     {
         return $this->_server;
     }
 
-    private $_config;
-
+    /**
+     * Get the aboslute path to the Unglue config ile.
+     *
+     * @return string
+     */
     public function getConfigFile()
     {
         return $this->_configFile;
     }
 
+    private $_config;
+
+    /**
+     * The unglue config file as array.
+     *
+     * @return array An array with key value pairing where keys can be:
+     * - css
+     * - js
+     * - options
+     */
     public function getUnglueConfig()
     {
         if ($this->_config === null) {
@@ -53,11 +113,23 @@ class ConfigConnection
         return $this->_config;
     }
 
+    /**
+     * The folder where all files are watched including subdirectories of the given folder
+     *
+     * @return string
+     */
     public function getWatchFolder()
     {
         return $this->_folder;
     }
 
+    /**
+     * Get the section from an unglue config file
+     *
+     * @param string $section The section name like `css`, `js` or `options`.
+     * @param mixed $defaultValue A value which is returned if the key is NOT found.
+     * @return array
+     */
     public function getHasUnglueConfigSection($section, $defaultValue = false)
     {
         $config = $this->getUnglueConfig();
@@ -65,11 +137,25 @@ class ConfigConnection
         return isset($config[$section]) ? $config[$section] : $defaultValue;
     }
 
+    /**
+     * Get an absolute path for a file along to the unglue config file.
+     *
+     * This is mainly used to generate the dist files which are stored in the same place.
+     *
+     * @param string $name The name of the file to append to the unglue base folder path.
+     * @return string
+     */
     public function getUnglueConfigFolderPath($name)
     {
         return $this->getUnglueConfigFolder() . DIRECTORY_SEPARATOR . ltrim($name, DIRECTORY_SEPARATOR);
     }
 
+    /**
+     * Generate absolute path for a file which is the same as unglue config except of another extension name.
+     *
+     * @param string $extension The extension which should be used to generate the file.
+     * @return string
+     */
     public function getUnglueConfigFolderDistFilePath($extension)
     {
         return $this->getUnglueConfigFolder() . DIRECTORY_SEPARATOR . $this->getUnglueConfigFileBaseName() . '.'. $extension;
@@ -80,12 +166,10 @@ class ConfigConnection
         $file = $this->getUnglueConfigFolderDistFilePath($extension);
         try {
             $write = file_put_contents($file, $content);
-
             if (!$write) {
                 ConsoleHelper::errorMessage("Unable to write file with no exception: " . $file);
             }
 
-        
             return $write;
         } catch (\Exception $e) {
             ConsoleHelper::errorMessage("Write file error: " . $e->getMessage() . " | " . $file);
@@ -94,306 +178,75 @@ class ConfigConnection
         return false;
     }
 
+    /**
+     * Get the base name of the unglue config file like `main` or `foobar` if the unglue config is `main.unglue`.
+     *
+     * @return string
+     */
     public function getUnglueConfigFileBaseName()
     {
         return basename($this->_configFile, '.unglue');
     }
 
+    /**
+     * Get only the name of the unglue config file without folder/path.
+     *
+     * @return string
+     */
     public function getUnglueConfigName()
     {
         return pathinfo($this->_configFile, PATHINFO_BASENAME);
     }
 
+    /**
+     * Get the folder where the unglue file is located without trailing slash.
+     *
+     * @return string
+     */
     public function getUnglueConfigFolder()
     {
         return rtrim(dirname($this->_configFile), DIRECTORY_SEPARATOR);
     }
 
-    /*
-    public function createunglueFile($extension)
-    {
-        return $this->getUnglueDir() . DIRECTORY_SEPARATOR . $this->getUnglueFile() . '.'. $extension;
-    }
-
-    public function getUnglueDir()
-    {
-        return rtrim(dirname($this->configFile), '/');
-    }
-
-    public function getUnglueFile()
-    {
-        return basename($this->configFile, '.unglue');
-    }
-    */
-
+    /**
+     * {@inheritDoc}
+     */
     public function test()
     {
         $success = false;
         ConsoleHelper::infoMessage($this->getUnglueConfigName() . ': load and test (' . $this->getConfigFile().')');
 
         // test js connection
-        $this->jsConnection = new JsFileHandler($this);
-        $this->jsConnection->init();
-        if ($this->jsConnection->count() > 0) {
+        $this->jsHandler = new JsFileHandler($this);
+        $this->jsHandler->init();
+        if ($this->jsHandler->count() > 0) {
             $success = true;
         }
 
         // test valid css connection
-        $this->cssConnection = new CssFileHandler($this);
-        $this->cssConnection->init();
-        if ($this->cssConnection->count() > 0) {
+        $this->cssHandler = new CssFileHandler($this);
+        $this->cssHandler->init();
+        if ($this->cssHandler->count() > 0) {
             $success = true;
         }
 
         return $success;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function iterate($force = false)
     {
-        if ($this->jsConnection->count() > 0) {
-            $this->jsConnection->iterate($force);
+        if ($this->jsHandler->count() > 0) {
+            $this->jsHandler->iterate($force);
         }
 
-        if ($this->cssConnection->count() > 0) {
-            $this->cssConnection->iterate($force);
+        if ($this->cssHandler->count() > 0) {
+            $this->cssHandler->iterate($force);
         }
 
         // todo: maybe if there is an error - or both have errors return false.
         return true;
     }
-
-    //***** OLD STACK */
-
-/*
-    public function getHasCssConfig()
-    {
-        return isset($this->config['css']) ? $this->config['css'] : false;
-    }
-
-    public function getHasJsConfig()
-    {
-        return isset($this->config['js']) ? $this->config['js'] : false;
-    }
-
-    public function getConfigOptions()
-    {
-        return isset($this->config['options']) ? $this->config['options'] : [];
-    }
-
-    public function generateMap($folder, $extension)
-    {
-        $files = FileHelper::findFiles($folder, $extension);
-        $map = [];
-        foreach ($files as $name => $value) {
-            $item = $this->generateMapItem($name);
-            if ($item) {
-                $map[] = $item;
-            }
-            unset($item);
-        }
-        unset($files);
-        return $map;
-    }
-
-    private function generateMapItem($file, $exclude = [])
-    {
-        if (is_file($file) && is_readable($file)) {
-            return ['file' => $file, 'filemtime' => filemtime($file)];
-        }
-
-        return false;
-    }
-
-    public function findMapChange(array &$map)
-    {
-        $hasChange = false;
-        foreach ($map as $key => $item) {
-            $time = filemtime($item['file']);
-            if ($time > $item['filemtime']) {
-                $this->infoMessage("file " .$item['file'] . " has changed.");
-                $hasChange = true;
-                $map[$key]['filemtime'] = $time;
-            }
-            unset($time);
-        }
-
-        return $hasChange;
-    }
-
-    public function test()
-    {
-        $has = false;
-
-        if ($this->getHasCssConfig()) {
-            $this->scssMap = $this->generateMap($this->folder, 'scss');
-            $has = true;
-        }
-
-        if ($this->getHasJsConfig()) {
-            $map = [];
-            foreach ($this->getHasJsConfig() as $file) {
-                $jsFile = $this->getUnglueDir() . DIRECTORY_SEPARATOR . rtrim($file, '/');
-                $mapItem = $this->generateMapItem($jsFile);
-                if ($mapItem) {
-                    $map[] = $mapItem;
-                }
-            }
-            $this->jsMap = $map;
-            unset($map);
-            $has = true;
-        }
-
-        return $has;
-    }
-
-    public function createunglueFile($extension)
-    {
-        return $this->getUnglueDir() . DIRECTORY_SEPARATOR . $this->getUnglueFile() . '.'. $extension;
-    }
-
-    public function getUnglueDir()
-    {
-        return rtrim(dirname($this->configFile), '/');
-    }
-
-    public function getUnglueFile()
-    {
-        return basename($this->configFile, '.unglue');
-    }
-
-    public function iterate($force = false)
-    {
-        $dir = $this->getUnglueDir();
-        $baseName = $this->getUnglueFile();
-
-        if ($this->getHasCssConfig() && ($this->findMapChange($this->scssMap) || $force)) {
-            self::infoMessage($baseName . '.css compile request');
-            $css = $this->getCssResponse($this->getHasCssConfig(), $this->scssMap, $dir);
-            if ($css) {
-                file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.css', $css['code']);
-                $mapPath = $dir . DIRECTORY_SEPARATOR . $baseName . '.css.map';
-                if ($css['map']) {
-                    file_put_contents($mapPath, $css['map']);
-                } elseif (file_exists($mapPath)) {
-                    unlink($mapPath);
-                }
-                self::successMessage($baseName.'.css compiled');
-            }
-        }
-
-        if ($this->getHasJsConfig() && ($this->findMapChange($this->jsMap) || $force)) {
-            self::infoMessage($baseName . '.js compile request');
-            $js = $this->getJsResponse($this->getHasJsConfig(), $this->jsMap, $dir);
-            if ($js) {
-                file_put_contents($dir . DIRECTORY_SEPARATOR . $baseName . '.js', $js['code']);
-                $mapPath = $dir . DIRECTORY_SEPARATOR . $baseName . '.js.map';
-                if ($js['map']) {
-                    file_put_contents($mapPath, $js['map']);
-                } elseif (file_exists($mapPath)) {
-                    unlink($mapPath);
-                }
-                self::successMessage($baseName.'.js compiled');
-            }
-        }
-    }
-
-    public function getCssResponse($config, array $maps, $dir)
-    {
-        $content = [
-            'code' => '',
-            'map' => ''
-        ];
-        foreach ($config as $scss) {
-            $map = [];
-            foreach ($maps as $file) {
-                $map[] = [
-                    'file' => $file['file'],
-                    'code' => file_get_contents($file['file']),
-                ];
-            }
-
-            $payload = [
-                'distFile' => $this->getUnglueFile() . '.css',
-                'mainFile' => $dir . DIRECTORY_SEPARATOR . $scss,
-                'files' => $map,
-            ];
-
-            $r = $this->generateRequest($this->server . '/compile/css', $payload);
-
-            if ($r) {
-                $content['code'] .= $r['code'];
-                if ($r['map']) {
-                    $content['map'] .= $r['map'];
-                }
-            }
-        }
-
-        if (empty($content)) {
-            return false;
-        }
-
-        return $content;
-    }
-
-    public function getJsResponse($config, array $maps, $dir)
-    {
-        $map = [];
-        foreach ($config as $js) {
-            $p = $dir . DIRECTORY_SEPARATOR . $js;
-            $map[] = [
-                'file' => $p,
-                'code' => file_get_contents($p),
-            ];
-        }
-
-        $payload = [
-            'distFile' => $this->getUnglueFile() . '.js',
-            'files' => $map,
-        ];
-
-        $r = $this->generateRequest($this->server . '/compile/js', $payload);
-
-        if ($r) {
-            return $r;
-        }
-
-        return false;
-    }
-
-    public function generateRequest($url, array $payload)
-    {
-        $payload['options'] = $this->getConfigOptions();
-        $json = json_encode($payload);
-        $curl = new Curl();
-        $curl->setHeader('Content-Type', 'application/json');
-        $curl->setHeader('Content-Length', strlen($json));
-        $curl->post($url, $json);
-        $response = json_decode($curl->response, true);
-
-        if ($curl->isSuccess()) {
-            return $response;
-        }
-
-        $message = (isset($response['message']) && !empty($response['message'])) ? $response['message'] : $curl->error_message;
-
-        return self::errorMessage($message);
-    }
-
-    public static function infoMessage($message)
-    {
-        echo "[".date("H:i:s")."] ". $message . PHP_EOL;
-    }
-
-    public static function errorMessage($message)
-    {
-        echo "[".date("H:i:s")."] Error: ". Console::ansiFormat($message, [Console::FG_RED]) . PHP_EOL;
-        return false;
-    }
-
-    public static function successMessage($message)
-    {
-        echo "[".date("H:i:s")."] ". Console::ansiFormat($message, [Console::FG_GREEN]) . PHP_EOL;
-        return true;
-    }
-    */
 }

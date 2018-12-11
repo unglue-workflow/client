@@ -52,6 +52,9 @@ class CssFileHandler extends BaseFileHandler
 
         if ($map) {
             $this->config->writeUnglueConfigFolderDistFile($map, 'css.map');
+        } else {
+            // if no map try to unlink the given file cause this options is not set.
+            FileHelper::unlink($this->config->getUnglueConfigFolderDistFilePath('css.map'));
         }
     }
 }
