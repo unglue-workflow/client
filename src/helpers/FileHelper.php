@@ -2,13 +2,15 @@
 
 namespace unglue\client\helpers;
 
+use luya\helpers\FileHelper as BaseFileHelper;
+
 /**
  * Helper for file Tasks.
  * 
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
-class FileHelper
+class FileHelper extends BaseFileHelper
 {
     /**
      * Find all files for a certain extension.
@@ -17,7 +19,7 @@ class FileHelper
      * @param string $extension
      * @return array
      */
-    public static function findFiles($folder, $extension)
+    public static function findFilesByExtension($folder, $extension)
     {
         if (!is_dir($folder)) {
             return [];

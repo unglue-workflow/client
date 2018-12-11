@@ -64,7 +64,7 @@ class ConfigConnection
 
     public function writeUnglueConfigFolderDistFile($content, $extension)
     {
-        return file_put_contents($this->getUnglueConfigFolderDistFilePath($extension), $content);
+        return FileHelper::writeFile($this->getUnglueConfigFolderDistFilePath($extension), $content);
     }
 
     public function getUnglueConfigFileBaseName()

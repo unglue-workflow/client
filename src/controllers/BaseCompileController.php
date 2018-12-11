@@ -61,7 +61,7 @@ class BaseCompileController extends Command
     {
         $folder = $this->getFolder();
 
-        $unglues = FileHelper::findFiles($folder, 'unglue');
+        $unglues = FileHelper::findFilesByExtension($folder, 'unglue');
 
         if (count($unglues) == 0) {
             throw new Exception("Unable to find any .unglue files in '$folder' and subdirectories to start the compile listener.");

@@ -14,7 +14,7 @@ class CssFileHandler extends BaseFileHandler
     
     public function init()
     {
-        $files = FileHelper::findFiles($this->config->getWatchFolder(), 'scss');
+        $files = FileHelper::findFilesByExtension($this->config->getWatchFolder(), 'scss');
         foreach ($files as $path => $name) {
             $this->addToMap($path);
         }
