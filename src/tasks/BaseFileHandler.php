@@ -55,6 +55,7 @@ abstract class BaseFileHandler implements FilesMapInterface
         $hasChange = false;
         foreach ($this->getMap() as $key => $item) {
             $time = filemtime($item['file']);
+            ConsoleHelper::infoMessage($this->messagePrefix() . ' watch ' . $item['file'] . ' - time: ' . $time);
             if ($time > $item['filemtime']) {
                 ConsoleHelper::infoMessage($this->messagePrefix() . "file " .$item['file'] . " has changed.");
                 $hasChange = true;
