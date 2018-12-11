@@ -24,7 +24,7 @@ class JsFileHandler extends BaseFileHandler
         $files = $this->getFilesContent();
 
         if (empty($files)) {
-            ConsoleHelper::errorMessage("no js files found to transmit.");
+            ConsoleHelper::errorMessage($this->messagePrefix() . "no js files found to transmit. count: " . $this->count());
             return false;
         }
 

@@ -13,7 +13,7 @@ class WatchController extends BaseCompileController
     /**
      * @var integer A timeout value between checking files in micro seconds.
      */
-    public $timeout = 300000;
+    public $timeout = 350000;
 
     /**
      * {@inheritDoc}

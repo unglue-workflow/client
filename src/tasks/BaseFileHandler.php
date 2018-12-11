@@ -16,7 +16,7 @@ abstract class BaseFileHandler implements FilesMapInterface
 
     public function messagePrefix()
     {
-        return " [".$this->name()."] ";
+        return $this->config->getUnglueConfigName() . " [".$this->name()."] ";
     }
 
     public function init()
@@ -41,7 +41,7 @@ abstract class BaseFileHandler implements FilesMapInterface
     public function iterate($force)
     {
         if ($this->hasFileInMapChanged() || $force) {
-            ConsoleHelper::startProgress(0, $this->count(), $this->messagePrefix() . $this->config->getUnglueConfigName(). ': ');
+            ConsoleHelper::startProgress(0, $this->count(), $this->messagePrefix());
             $this->handleUpload();
         }
     }

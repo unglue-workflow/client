@@ -34,7 +34,6 @@ class ConfigConnection
     public function getUnglueConfig()
     {
         if ($this->_config === null) {
-            ConsoleHelper::infoMessage("Load unglue config (".$this->getUnglueConfigName().")");
             $this->_config = Json::decode(file_get_contents($this->_configFile));
         }
 
@@ -123,8 +122,13 @@ class ConfigConnection
 
     public function iterate($force = false)
     {
-        $this->jsConnection->iterate($force);
-        $this->cssConnection->iterate($force);
+        if ($this->jsConnection->count() > 0) {
+            $this->jsConnection->iterate($force);
+        }
+
+        if ($this->cssConnection->count() > 0) {
+            $this->cssConnection->iterate($force);
+        }
 
         // todo: maybe if there is an error - or both have errors return false.
         return true;
