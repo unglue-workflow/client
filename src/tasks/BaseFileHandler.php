@@ -12,7 +12,7 @@ abstract class BaseFileHandler implements FilesMapInterface
     public function __construct(ConfigConnection $configConnection)
     {
         $this->config = $configConnection;
-        ConsoleHelper::infoMessage($this->messagePrefix() . ' loaded from ' . $this->config->getConfigFile());
+        ConsoleHelper::infoMessage($this->messagePrefix() . 'load and test: ' . $this->config->getConfigFile());
     }
 
     public function messagePrefix()
