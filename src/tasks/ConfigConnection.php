@@ -70,7 +70,21 @@ class ConfigConnection
 
     public function writeUnglueConfigFolderDistFile($content, $extension)
     {
-        return FileHelper::writeFile($this->getUnglueConfigFolderDistFilePath($extension), $content);
+        $file = $this->getUnglueConfigFolderDistFilePath($extension);
+        try {
+            $write = file_put_contents($file, $content);
+
+            if (!$write) {
+                ConsoleHelper::errorMessage("Unable to write file with no exception: " . $file);
+            }
+
+        
+            return $write;
+        } catch (\Exception $e) {
+            ConsoleHelper::errorMessage("Write file error: " . $e->getMessage() . " | " . $file);
+        }
+
+        return false;
     }
 
     public function getUnglueConfigFileBaseName()

@@ -28,7 +28,7 @@ abstract class BaseFileHandler implements FilesMapInterface
 
     public function addToMap($file)
     {
-        if (is_file($file) && is_readable($file)) {
+        if (is_file($file) && is_readable($file) && file_exists($file)) {
             $this->_map[] = ['file' => $file, 'filemtime' => filemtime($file)];
         }
     }
@@ -55,7 +55,8 @@ abstract class BaseFileHandler implements FilesMapInterface
         $hasChange = false;
         foreach ($this->getMap() as $key => $item) {
             $time = filemtime($item['file']);
-            ConsoleHelper::infoMessage($this->messagePrefix() . ' watch ' . $item['file'] . ' - time: ' . $time);
+            $ra = is_readable($item['file']);
+            ConsoleHelper::infoMessage($this->messagePrefix() . ' watch ' . $item['file'] . ' - time: ' . $time . ' - readable: ' . var_export($ra, true));
             if ($time > $item['filemtime']) {
                 ConsoleHelper::infoMessage($this->messagePrefix() . "file " .$item['file'] . " has changed.");
                 $hasChange = true;
