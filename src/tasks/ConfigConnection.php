@@ -31,9 +31,15 @@ class ConfigConnection
 
     private $_config;
 
+    public function getConfigFile()
+    {
+        return $this->_configFile;
+    }
+
     public function getUnglueConfig()
     {
         if ($this->_config === null) {
+
             $this->_config = Json::decode(file_get_contents($this->_configFile));
         }
 
@@ -102,7 +108,7 @@ class ConfigConnection
     public function test()
     {
         $success = false;
-        
+
         // test js connection
         $this->jsConnection = new JsFileHandler($this);
         $this->jsConnection->init();

@@ -12,6 +12,7 @@ abstract class BaseFileHandler implements FilesMapInterface
     public function __construct(ConfigConnection $configConnection)
     {
         $this->config = $configConnection;
+        ConsoleHelper::infoMessage($this->messagePrefix() . ' loaded from ' . $this->config->getConfigFile());
     }
 
     public function messagePrefix()
@@ -41,7 +42,7 @@ abstract class BaseFileHandler implements FilesMapInterface
     public function iterate($force)
     {
         if ($this->hasFileInMapChanged() || $force) {
-            ConsoleHelper::startProgress(0, $this->count(), $this->messagePrefix() . ' collecting data ');
+            ConsoleHelper::startProgress(0, $this->count(), $this->messagePrefix() . "Collecting data ");
             $this->handleUpload();
         }
     }
