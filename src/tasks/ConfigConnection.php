@@ -47,7 +47,6 @@ class ConfigConnection
     public function getUnglueConfig()
     {
         if ($this->_config === null) {
-
             $this->_config = Json::decode(file_get_contents($this->_configFile));
         }
 
@@ -163,7 +162,7 @@ class ConfigConnection
         return true;
     }
 
-//***** OLD STACK */
+    //***** OLD STACK */
 
 /*
     public function getHasCssConfig()
@@ -229,7 +228,7 @@ class ConfigConnection
             $this->scssMap = $this->generateMap($this->folder, 'scss');
             $has = true;
         }
-        
+
         if ($this->getHasJsConfig()) {
             $map = [];
             foreach ($this->getHasJsConfig() as $file) {
@@ -332,7 +331,7 @@ class ConfigConnection
         if (empty($content)) {
             return false;
         }
-        
+
         return $content;
     }
 

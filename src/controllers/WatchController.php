@@ -6,7 +6,7 @@ use unglue\client\base\BaseCompileController;
 
 /**
  * Watch for file changes.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */

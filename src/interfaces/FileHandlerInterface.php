@@ -4,7 +4,6 @@ namespace unglue\client\interfaces;
 
 use unglue\client\tasks\ConfigConnection;
 
-
 interface FileHandlerInterface
 {
     public function __construct(ConfigConnection $configConnection);

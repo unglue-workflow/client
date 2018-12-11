@@ -6,7 +6,6 @@ use unglue\client\helpers\FileHelper;
 use unglue\client\helpers\ConsoleHelper;
 use unglue\client\base\BaseFileHandler;
 
-
 class CssFileHandler extends BaseFileHandler
 {
     public function name()

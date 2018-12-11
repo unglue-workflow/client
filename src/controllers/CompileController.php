@@ -4,10 +4,9 @@ namespace unglue\client\controllers;
 
 use unglue\client\base\BaseCompileController;
 
-
 /**
  * Compile all files once.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */

@@ -23,7 +23,6 @@ abstract class BaseFileHandler implements FileHandlerInterface
 
     public function init()
     {
-
     }
 
     private $_map = [];

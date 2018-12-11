@@ -6,7 +6,7 @@ use luya\helpers\FileHelper as BaseFileHelper;
 
 /**
  * Helper for file Tasks.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */

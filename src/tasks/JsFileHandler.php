@@ -5,7 +5,6 @@ namespace unglue\client\tasks;
 use unglue\client\helpers\ConsoleHelper;
 use unglue\client\base\BaseFileHandler;
 
-
 class JsFileHandler extends BaseFileHandler
 {
     public function name()
