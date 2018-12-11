@@ -52,6 +52,7 @@ abstract class BaseFileHandler implements FilesMapInterface
 
     public function hasFileInMapChanged()
     {
+        clearstatcache();
         $hasChange = false;
         foreach ($this->getMap() as $key => $item) {
             $time = filemtime($item['file']);
