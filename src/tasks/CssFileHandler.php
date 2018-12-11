@@ -3,6 +3,7 @@
 namespace unglue\client\tasks;
 
 use unglue\client\helpers\FileHelper;
+use unglue\client\helpers\ConsoleHelper;
 
 
 class CssFileHandler extends BaseFileHandler
@@ -29,6 +30,9 @@ class CssFileHandler extends BaseFileHandler
         $code = null;
         $map = null;
         foreach ($this->config->getHasUnglueConfigSection('css', []) as $scss) {
+
+            ConsoleHelper::infoMessage($this->messagePrefix() . "scss file: " . $scss);
+
             $payload = [
                 'distFile' => $distFile,
                 'mainFile' => $this->config->getUnglueConfigFolderPath($scss),
