@@ -1,6 +1,6 @@
 <?php
 
-namespace unglue\client\controllers;
+namespace unglue\client\base;
 
 use yii\console\Exception;
 use luya\console\Command;
@@ -13,7 +13,7 @@ use unglue\client\tasks\ConfigConnection;
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
-class BaseCompileController extends Command
+abstract class BaseCompileController extends Command
 {
     /**
      * @var string The server the client should connect.

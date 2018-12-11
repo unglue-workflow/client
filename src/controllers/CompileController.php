@@ -2,6 +2,9 @@
 
 namespace unglue\client\controllers;
 
+use unglue\client\base\BaseCompileController;
+
+
 /**
  * Compile all files once.
  * 

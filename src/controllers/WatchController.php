@@ -2,6 +2,8 @@
 
 namespace unglue\client\controllers;
 
+use unglue\client\base\BaseCompileController;
+
 /**
  * Watch for file changes.
  * 

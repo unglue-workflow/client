@@ -1,11 +1,13 @@
 <?php
 
-namespace unglue\client\tasks;
+namespace unglue\client\base;
 
 use Curl\Curl;
 use unglue\client\helpers\ConsoleHelper;
+use unglue\client\interfaces\FileHandlerInterface;
+use unglue\client\tasks\ConfigConnection;
 
-abstract class BaseFileHandler implements FilesMapInterface
+abstract class BaseFileHandler implements FileHandlerInterface
 {
     public $config;
 

@@ -1,8 +1,11 @@
 <?php
 
-namespace unglue\client\tasks;
+namespace unglue\client\interfaces;
 
-interface FilesMapInterface
+use unglue\client\tasks\ConfigConnection;
+
+
+interface FileHandlerInterface
 {
     public function __construct(ConfigConnection $configConnection);
 
