@@ -14,8 +14,8 @@ class ConfigConnectionTest extends ClientTestCase
 
         $connection = new ConfigConnection(__DIR__.'/../data/output.unglue', __DIR__ .'/../', 'https://v1.api.unglue.io', $ctrl);
         $this->assertTrue($connection->test());
-        $this->assertSame(2, $connection->jsConnection->count());
-        $this->assertSame(1, $connection->cssConnection->count());
+        $this->assertSame(2, $connection->jsHandler->count());
+        $this->assertSame(1, $connection->cssHandler->count());
 
         $this->assertTrue($connection->iterate(true));
     }

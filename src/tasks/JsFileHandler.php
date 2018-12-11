@@ -5,13 +5,25 @@ namespace unglue\client\tasks;
 use unglue\client\helpers\ConsoleHelper;
 use unglue\client\base\BaseFileHandler;
 
+/**
+ * Handles Js Files.
+ *
+ * @author Basil Suter <basil@nadar.io>
+ * @since 1.0.0
+ */
 class JsFileHandler extends BaseFileHandler
 {
+    /**
+     * {@inheritDoc}
+     */
     public function name()
     {
         return 'js';
     }
     
+    /**
+     * {@inheritDoc}
+     */
     public function init()
     {
         foreach ($this->config->getHasUnglueConfigSection('js', []) as $file) {
@@ -19,6 +31,9 @@ class JsFileHandler extends BaseFileHandler
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function handleUpload()
     {
         $files = $this->getFilesContent();

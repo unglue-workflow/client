@@ -6,13 +6,25 @@ use unglue\client\helpers\FileHelper;
 use unglue\client\helpers\ConsoleHelper;
 use unglue\client\base\BaseFileHandler;
 
+/**
+ * Handles Css Files.
+ *
+ * @author Basil Suter <basil@nadar.io>
+ * @since 1.0.0
+ */
 class CssFileHandler extends BaseFileHandler
 {
+    /**
+     * {@inheritDoc}
+     */
     public function name()
     {
         return 'css';
     }
     
+    /**
+     * {@inheritDoc}
+     */
     public function init()
     {
         $files = FileHelper::findFilesByExtension($this->config->getWatchFolder(), 'scss');
@@ -21,6 +33,9 @@ class CssFileHandler extends BaseFileHandler
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function handleUpload()
     {
         $files = $this->getFilesContent();

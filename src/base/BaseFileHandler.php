@@ -7,26 +7,46 @@ use unglue\client\helpers\ConsoleHelper;
 use unglue\client\interfaces\FileHandlerInterface;
 use unglue\client\tasks\ConfigConnection;
 
+/**
+ * Base class for File Handlers.
+ *
+ * This class implements common used methods when working with File Handlers.
+ *
+ * @author Basil Suter <basil@nadar.io>
+ * @since 1.0.0
+ */
 abstract class BaseFileHandler implements FileHandlerInterface
 {
-    public $config;
+    /**
+     * @var ConfigConnection Contains the config connection object from constructor.
+     */
+    protected $config;
 
+    /**
+     * {@inheritDoc}
+     */
     public function __construct(ConfigConnection $configConnection)
     {
         $this->config = $configConnection;
     }
 
+    /**
+     * Prefix for output messages
+     *
+     * @return string
+     */
     public function messagePrefix()
     {
         return $this->config->getUnglueConfigName() . " [".$this->name()."] ";
     }
 
-    public function init()
-    {
-    }
-
     private $_map = [];
 
+    /**
+     * Add a file to the map array
+     *
+     * @param string $file The absolute path to a file.
+     */
     public function addToMap($file)
     {
         if (is_file($file) && is_readable($file) && file_exists($file)) {
@@ -34,11 +54,19 @@ abstract class BaseFileHandler implements FileHandlerInterface
         }
     }
 
+    /**
+     * Get all files in the current map array
+     *
+     * @return array
+     */
     public function getMap()
     {
         return $this->_map;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function iterate($force)
     {
         if ($this->hasFileInMapChanged() || $force) {
@@ -46,11 +74,19 @@ abstract class BaseFileHandler implements FileHandlerInterface
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function count()
     {
         return count($this->_map);
     }
 
+    /**
+     * Check if the current map has file changes by compare filemtime.
+     *
+     * @return boolean Whether a file has changed since last check or not.
+     */
     public function hasFileInMapChanged()
     {
         clearstatcache();
@@ -74,6 +110,11 @@ abstract class BaseFileHandler implements FileHandlerInterface
         return $hasChange;
     }
 
+    /**
+     * Get an array with file name and content.
+     *
+     * @return array
+     */
     public function getFilesContent()
     {
         ConsoleHelper::startProgress(0, $this->count(), $this->messagePrefix() . "Collecting data ");
@@ -91,6 +132,13 @@ abstract class BaseFileHandler implements FileHandlerInterface
         return $map;
     }
 
+    /**
+     * Generate a request to the api endpoint with the given payload array.
+     *
+     * @param string $endpoint
+     * @param array $payload
+     * @return boolean
+     */
     public function generateRequest($endpoint, array $payload)
     {
         $time = microtime(true);
