@@ -4,12 +4,15 @@ namespace unglue\client\tests\tasks;
 
 use unglue\client\tests\ClientTestCase;
 use unglue\client\tasks\ConfigConnection;
+use unglue\client\controllers\CompileController;
 
 class ConfigConnectionTest extends ClientTestCase
 {
     public function testConnectionObjects()
     {
-        $connection = new ConfigConnection(__DIR__.'/../data/output.unglue', __DIR__ .'/../', 'https://v1.api.unglue.io');
+        $ctrl = new CompileController('compile-controller', $this->app);
+
+        $connection = new ConfigConnection(__DIR__.'/../data/output.unglue', __DIR__ .'/../', 'https://v1.api.unglue.io', $ctrl);
         $this->assertTrue($connection->test());
         $this->assertSame(2, $connection->jsConnection->count());
         $this->assertSame(1, $connection->cssConnection->count());

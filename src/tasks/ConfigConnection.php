@@ -7,21 +7,29 @@ use yii\helpers\Console;
 use yii\helpers\Json;
 use unglue\client\helpers\FileHelper;
 use unglue\client\helpers\ConsoleHelper;
+use luya\console\Command;
 
 class ConfigConnection
 {
     private $_configFile;
     private $_folder;
     private $_server;
+    private $_command;
 
     public $jsConnection;
     public $cssConnection;
 
-    public function __construct($configFile, $folder, $server)
+    public function __construct($configFile, $folder, $server, Command $command)
     {
         $this->_configFile = $configFile;
         $this->_folder = $folder;
         $this->_server = $server;
+        $this->_command = $command;
+    }
+
+    public function getCommand()
+    {
+        return $this->_command;
     }
 
     public function getServer()

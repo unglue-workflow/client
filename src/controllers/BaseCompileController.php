@@ -69,7 +69,7 @@ class BaseCompileController extends Command
 
         $connections = [];
         foreach ($unglues as $name => $file) {
-            $con = new ConfigConnection($name, $folder, rtrim($this->server, '/'));
+            $con = new ConfigConnection($name, $folder, rtrim($this->server, '/'), $this);
             if ($con->test()) {
                 $con->iterate(true);
                 $connections[] = $con;
