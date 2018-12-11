@@ -61,7 +61,7 @@ abstract class BaseFileHandler implements FileHandlerInterface
             $ra = is_readable($item['file']);
             
             if ($this->config->getCommand()->verbose) {
-                ConsoleHelper::infoMessage($this->messagePrefix() . ' watch ' . $item['file'] . ' - time: ' . $time . ' - readable: ' . var_export($ra, true));
+                ConsoleHelper::infoMessage($this->messagePrefix() . 'watch ' . $item['file']);
             }
 
             if ($time > $item['filemtime']) {
