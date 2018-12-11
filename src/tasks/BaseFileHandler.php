@@ -41,7 +41,7 @@ abstract class BaseFileHandler implements FilesMapInterface
     public function iterate($force)
     {
         if ($this->hasFileInMapChanged() || $force) {
-            ConsoleHelper::startProgress(0, $this->count(), $this->messagePrefix());
+            ConsoleHelper::startProgress(0, $this->count(), $this->messagePrefix() . ' collecting data ');
             $this->handleUpload();
         }
     }
@@ -70,7 +70,7 @@ abstract class BaseFileHandler implements FilesMapInterface
     public function getFilesContent()
     {
         $map = [];
-        $i=0;
+        $i=1;
         foreach ($this->getMap() as $item) {
             ConsoleHelper::updateProgress($i++, $this->count());
             $map[] = [
