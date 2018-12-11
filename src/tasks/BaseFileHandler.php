@@ -57,7 +57,7 @@ abstract class BaseFileHandler implements FilesMapInterface
         foreach ($this->getMap() as $key => $item) {
             $time = filemtime($item['file']);
             $ra = is_readable($item['file']);
-            ConsoleHelper::infoMessage($this->messagePrefix() . ' watch ' . $item['file'] . ' - time: ' . $time . ' - readable: ' . var_export($ra, true));
+            //ConsoleHelper::infoMessage($this->messagePrefix() . ' watch ' . $item['file'] . ' - time: ' . $time . ' - readable: ' . var_export($ra, true));
             if ($time > $item['filemtime']) {
                 ConsoleHelper::infoMessage($this->messagePrefix() . "file " .$item['file'] . " has changed.");
                 $hasChange = true;

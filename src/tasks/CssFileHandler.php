@@ -47,11 +47,11 @@ class CssFileHandler extends BaseFileHandler
         }
 
         if ($code) {
-            $this->config->writeUnglueConfigFolderDistFile($code, 'js');
+            $this->config->writeUnglueConfigFolderDistFile($code, 'css');
         }
 
         if ($map) {
-            $this->config->writeUnglueConfigFolderDistFile($map, 'js.map');
+            $this->config->writeUnglueConfigFolderDistFile($map, 'css.map');
         }
     }
 }
