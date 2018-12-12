@@ -40,7 +40,49 @@ class ConfigConnectionTest extends ClientTestCase
         $distCss = $unglue['folder'] . 'mytest.css';
         $distJs = $unglue['folder'] . 'mytest.js';
 
-        $this->assertSameNoSpace('.class{color:red}', file_get_contents($distCss));
+        $this->assertSame('.class{color:red}
+', file_get_contents($distCss));
         $this->assertSame('"use strict";function hello(l){console.log(hello)}', file_get_contents($distJs));
     }
+
+
+    public function testCreateUnglueFileWithOptions()
+    {
+        $unglue = $this->createUnglueFile('mytest.unglue', [
+            'js' => ['foobar.js'],
+            'css' => ['barfoo.scss'],
+            'options' => [
+                'compress' => false,
+                'maps' => true,
+            ]
+        ], [
+            'foobar.js' => 'function hello(say) { console.log(hello); }',
+            'barfoo.scss' => '.class { color:red; }',
+        ]);
+
+        $ctrl = new CompileController('compile-controller', $this->app);
+
+        $connection = new ConfigConnection($unglue['source'], $unglue['folder'], 'https://v1.api.unglue.io', $ctrl);
+        $connection->test();
+        $connection->iterate(true);
+
+        $distCss = $unglue['folder'] . 'mytest.css';
+        $distCssMap = $unglue['folder'] . 'mytest.css.map';
+        $distJs = $unglue['folder'] . 'mytest.js';
+        $distJsMap = $unglue['folder'] . 'mytest.js.map';
+
+        $this->assertSame('.class {
+  color: red;
+}
+/*# sourceMappingURL=mytest.css.map */', file_get_contents($distCss));
+        $this->assertSame('{"version":3,"sources":["barfoo.scss"],"names":[],"mappings":"AAAA;EACE,WAAW;CACZ","file":"mytest.css","sourcesContent":[".class {\n  color: red;\n}\n\n/*# sourceMappingURL=mytest.css.map */"]}', file_get_contents($distCssMap));
+        $this->assertSame('"use strict";
+
+function hello(say) {
+  console.log(hello);
+}
+//# sourceMappingURL=mytest.js.map', file_get_contents($distJs));
+        $this->assertSame('{"version":3,"sources":["/Users/basil/websites/client/foobar.js"],"names":[],"mappings":";;AAAA,SAAA,KAAA,CAAA,GAAA,EAAA;AAAA,UAAA,GAAA,CAAA,KAAA;AAAA","sourcesContent":["function hello(say) { console.log(hello); }"]}', file_get_contents($distJsMap));
+    }
+    
 }

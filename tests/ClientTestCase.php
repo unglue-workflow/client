@@ -58,7 +58,9 @@ abstract class ClientTestCase extends ConsoleApplicationTestCase
         foreach ($this->unglueFiles as $file) {
             $r = FileHelper::unlink($file['source']);
             FileHelper::unlink($file['distName'].'.css');
+            FileHelper::unlink($file['distName'].'.css.map');
             FileHelper::unlink($file['distName'].'.js');
+            FileHelper::unlink($file['distName'].'.js.map');
             foreach ($file['files'] as $a) {
                 FileHelper::unlink($a['source']);
             }
