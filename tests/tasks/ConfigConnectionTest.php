@@ -81,7 +81,7 @@ class ConfigConnectionTest extends ClientTestCase
 function hello(say) {
   console.log(hello);
 }
-//# sourceMappingURL=mytest.js.map', file_get_contents($distJs));
+//# sourceMappingURL=/Users/basil/websites/client/mytest.js.map', file_get_contents($distJs));
         $this->assertSame('{"version":3,"sources":["/Users/basil/websites/client/foobar.js"],"names":[],"mappings":";;AAAA,SAAA,KAAA,CAAA,GAAA,EAAA;AAAA,UAAA,GAAA,CAAA,KAAA;AAAA","sourcesContent":["function hello(say) { console.log(hello); }"]}', file_get_contents($distJsMap));
     }
     

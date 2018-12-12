@@ -28,7 +28,6 @@ abstract class ClientTestCase extends ConsoleApplicationTestCase
         foreach ($files as $file => $content)
         {
             $nf = getcwd() . DIRECTORY_SEPARATOR . $file;
-            var_dump($nf);
             $g = FileHelper::writeFile($nf, $content);
             $map[]  = [
                 'name' => $name,
