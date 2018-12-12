@@ -70,19 +70,22 @@ class ConfigConnectionTest extends ClientTestCase
         $distCssMap = $unglue['folder'] . 'mytest.css.map';
         $distJs = $unglue['folder'] . 'mytest.js';
         $distJsMap = $unglue['folder'] . 'mytest.js.map';
-
-        $this->assertSame('.class {
+$this->assertContains('.class {
   color: red;
 }
-/*# sourceMappingURL=mytest.css.map */', file_get_contents($distCss));
+/*# sourceMappingURL=', file_get_contents($distCss));
+        $this->assertContains('mytest.css.map', file_get_contents($distCss));
         $this->assertSame('{"version":3,"sources":["barfoo.scss"],"names":[],"mappings":"AAAA;EACE,WAAW;CACZ","file":"mytest.css","sourcesContent":[".class {\n  color: red;\n}\n\n/*# sourceMappingURL=mytest.css.map */"]}', file_get_contents($distCssMap));
-        $this->assertSame('"use strict";
+        $this->assertContains('"use strict";
 
 function hello(say) {
   console.log(hello);
 }
-//# sourceMappingURL=/Users/basil/websites/client/mytest.js.map', file_get_contents($distJs));
-        $this->assertSame('{"version":3,"sources":["/Users/basil/websites/client/foobar.js"],"names":[],"mappings":";;AAAA,SAAA,KAAA,CAAA,GAAA,EAAA;AAAA,UAAA,GAAA,CAAA,KAAA;AAAA","sourcesContent":["function hello(say) { console.log(hello); }"]}', file_get_contents($distJsMap));
+//# sourceMappingURL=', file_get_contents($distJs));
+        $this->assertContains('mytest.js.map', file_get_contents($distJs));
+        $this->assertContains('foobar.js"],"names":[],"mappings":";;AAAA,SAAA,KAAA,CAAA,GAAA,EAAA;AAAA,UAAA,GAAA,CAAA,KAAA;AAAA","sourcesContent":["function hello(say) { console.log(hello); }"]}', file_get_contents($distJsMap));
+    
+        
     }
     
 }
