@@ -5,6 +5,7 @@ namespace unglue\client\tests\tasks;
 use unglue\client\tests\ClientTestCase;
 use unglue\client\tasks\ConfigConnection;
 use unglue\client\controllers\CompileController;
+use unglue\client\helpers\FileHelper;
 
 class ConfigConnectionTest extends ClientTestCase
 {
@@ -19,38 +20,27 @@ class ConfigConnectionTest extends ClientTestCase
 
         $this->assertTrue($connection->iterate(true));
     }
-    /*
-    public function testCompiler()
+
+    public function testCreateUnglueFileWithoutOptions()
     {
-        $connection = new ConfigConnection(__DIR__.'/../data/output.unglue', __DIR__, 'localhost');
-        $this->assertContains('../data', $connection->getunglueDir());
-        $this->assertSame('output', $connection->getunglueFile());
-        $this->assertContains('../data/output.js', $connection->createunglueFile('js'));
+        $unglue = $this->createUnglueFile('mytest.unglue', [
+            'js' => ['foobar.js'],
+            'css' => ['barfoo.scss']
+        ], [
+            'foobar.js' => 'function hello(say) { console.log(hello); }',
+            'barfoo.scss' => '.class { color:red; }',
+        ]);
 
-        $this->assertNotFalse($connection->getHasCssConfig());
-        $this->assertNotFalse($connection->getHasJsConfig());
-        $this->assertSame([
-            "maps" => true
-        ], $connection->getConfigOptions());
-    }
+        $ctrl = new CompileController('compile-controller', $this->app);
 
-    public function testIgnoreOfDistFiles()
-    {
-        $connection = new ConfigConnection(__DIR__.'/../data/output.unglue', __DIR__, 'localhost');
-
-        $distUnglueFile = $connection->createunglueFile('js');
+        $connection = new ConfigConnection($unglue['source'], $unglue['folder'], 'https://v1.api.unglue.io', $ctrl);
         $connection->test();
+        $connection->iterate(true);
 
-        0 => Array &1 (
-        'file' => '/Users/basil/websites/client/tests/tasks/../data/input.js'
-        'filemtime' => 1544288795
-    )
-    1 => Array &2 (
-        'file' => '/Users/basil/websites/client/tests/tasks/../data/input2.js'
-        'filemtime' => 1544288795
-    )
-        $this->assertSame(2, count($connection->jsMap));
-        $this->assertFalse($connection->findMapChange($connection->jsMap));
+        $distCss = $unglue['folder'] . 'mytest.css';
+        $distJs = $unglue['folder'] . 'mytest.js';
+
+        $this->assertSameNoSpace('.class{color:red}', file_get_contents($distCss));
+        $this->assertSame('"use strict";function hello(l){console.log(hello)}', file_get_contents($distJs));
     }
-    */
 }

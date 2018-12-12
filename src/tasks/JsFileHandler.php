@@ -4,6 +4,7 @@ namespace unglue\client\tasks;
 
 use unglue\client\helpers\ConsoleHelper;
 use unglue\client\base\BaseFileHandler;
+use unglue\client\helpers\FileHelper;
 
 /**
  * Handles Js Files.
