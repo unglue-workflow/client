@@ -30,5 +30,10 @@
     ],
     "archive": {
         "exclude": ["/tests"]
+    },
+    "extra" : {
+        "luya" : {
+            "symlink": false
+        }
     }
 }
