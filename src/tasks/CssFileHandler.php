@@ -43,33 +43,28 @@ class CssFileHandler extends BaseFileHandler
         $distFile = $this->config->getUnglueConfigFolderDistFilePath('css');
 
         $code = null;
-        $map = null;
         foreach ($this->config->getHasUnglueConfigSection('css', []) as $scss) {
+            
             $payload = [
                 'distFile' => $distFile,
                 'mainFile' => $this->config->getUnglueConfigFolderPath($scss),
                 'files' => $files,
+                /*
+                'distFile' => $this->config->getUnglueConfigFileBaseName().'.css',
+                'mainFile' => $scss,
+                'files' => $files,
+                */
             ];
 
             $r = $this->generateRequest('/compile/css', $payload);
 
             if ($r) {
                 $code .= $r['code'];
-                if (!empty($r['map'])) {
-                    $map .= $r['map'];
-                }
             }
         }
 
         if ($code) {
             $this->config->writeUnglueConfigFolderDistFile($code, 'css');
-        }
-
-        if ($map) {
-            $this->config->writeUnglueConfigFolderDistFile($map, 'css.map');
-        } else {
-            // if no map try to unlink the given file cause this options is not set.
-            FileHelper::unlink($this->config->getUnglueConfigFolderDistFilePath('css.map'));
         }
     }
 }

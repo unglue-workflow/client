@@ -67,24 +67,17 @@ class ConfigConnectionTest extends ClientTestCase
         $connection->iterate(true);
 
         $distCss = $unglue['folder'] . 'mytest.css';
-        $distCssMap = $unglue['folder'] . 'mytest.css.map';
         $distJs = $unglue['folder'] . 'mytest.js';
-        $distJsMap = $unglue['folder'] . 'mytest.js.map';
-$this->assertContains('.class {
+$this->assertSame('.class {
   color: red;
 }
-/*# sourceMappingURL=', file_get_contents($distCss));
-        $this->assertContains('mytest.css.map', file_get_contents($distCss));
-        $this->assertSame('{"version":3,"sources":["barfoo.scss"],"names":[],"mappings":"AAAA;EACE,WAAW;CACZ","file":"mytest.css","sourcesContent":[".class {\n  color: red;\n}\n\n/*# sourceMappingURL=mytest.css.map */"]}', file_get_contents($distCssMap));
-        $this->assertContains('"use strict";
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9iYXNpbC93ZWJzaXRlcy9jbGllbnQvYmFyZm9vLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFBUyxXQUFTO0NBQUkiLCJmaWxlIjoidG8uY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNsYXNzIHsgY29sb3I6cmVkOyB9Il19 */', file_get_contents($distCss));
+
+$this->assertSame('"use strict";
 
 function hello(say) {
   console.log(hello);
-}
-//# sourceMappingURL=', file_get_contents($distJs));
-        $this->assertContains('mytest.js.map', file_get_contents($distJs));
-        $this->assertContains('foobar.js"],"names":[],"mappings":";;AAAA,SAAA,KAAA,CAAA,GAAA,EAAA;AAAA,UAAA,GAAA,CAAA,KAAA;AAAA","sourcesContent":["function hello(say) { console.log(hello); }"]}', file_get_contents($distJsMap));
-    
+}//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9iYXNpbC93ZWJzaXRlcy9jbGllbnQvZm9vYmFyLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsU0FBQSxLQUFBLENBQUEsR0FBQSxFQUFBO0FBQUEsVUFBQSxHQUFBLENBQUEsS0FBQTtBQUFBIiwic291cmNlc0NvbnRlbnQiOlsiZnVuY3Rpb24gaGVsbG8oc2F5KSB7wqBjb25zb2xlLmxvZyhoZWxsbyk7IH0iXX0=', file_get_contents($distJs));
         
     }
     
