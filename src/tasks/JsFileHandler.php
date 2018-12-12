@@ -37,7 +37,7 @@ class JsFileHandler extends BaseFileHandler
      */
     public function handleUpload()
     {
-        $files = $this->getFilesContent();
+        $files = $this->getFilesContent($this->config->getUnglueConfigFolder());
 
         if (empty($files)) {
             ConsoleHelper::errorMessage($this->messagePrefix() . "no js files found to transmit. count: " . $this->count());

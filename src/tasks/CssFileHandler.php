@@ -38,7 +38,7 @@ class CssFileHandler extends BaseFileHandler
      */
     public function handleUpload()
     {
-        $files = $this->getFilesContent();
+        $files = $this->getFilesContent($this->config->getUnglueConfigFolder());
 
         $distFile = $this->config->getUnglueConfigFolderDistFilePath('css');
 

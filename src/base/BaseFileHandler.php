@@ -115,7 +115,7 @@ abstract class BaseFileHandler implements FileHandlerInterface
      *
      * @return array
      */
-    public function getFilesContent()
+    public function getFilesContent($relativ)
     {
         ConsoleHelper::startProgress(0, $this->count(), $this->messagePrefix() . "Collecting data ");
         $map = [];
@@ -124,12 +124,25 @@ abstract class BaseFileHandler implements FileHandlerInterface
             ConsoleHelper::updateProgress($i++, $this->count());
             $map[] = [
                 'file' => $item['file'],
+                'relative' => $this->relativePath($relativ, $item['file']),
                 'code' => file_get_contents($item['file']),
             ];
         }
         unset($i);
         ConsoleHelper::endProgress();
         return $map;
+    }
+
+    public function relativePath($from, $to, $ps = DIRECTORY_SEPARATOR)
+    {
+        $arFrom = explode($ps, rtrim($from, $ps));
+        $arTo = explode($ps, rtrim($to, $ps));
+        while(count($arFrom) && count($arTo) && ($arFrom[0] == $arTo[0]))
+        {
+            array_shift($arFrom);
+            array_shift($arTo);
+        }
+        return str_pad("", count($arFrom) * 3, '..'.$ps).implode($ps, $arTo);
     }
 
     /**
