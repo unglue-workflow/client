@@ -326,16 +326,16 @@
         },
         {
             "name": "luyadev/luya-composer",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/luyadev/luya-composer.git",
-                "reference": "d5274bd0e7a67987c7b4b3ee9d91f8268f638174"
+                "reference": "5d5277df9c5be6d5db9d5af5adb9ed37e8c6ab36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/luyadev/luya-composer/zipball/d5274bd0e7a67987c7b4b3ee9d91f8268f638174",
-                "reference": "d5274bd0e7a67987c7b4b3ee9d91f8268f638174",
+                "url": "https://api.github.com/repos/luyadev/luya-composer/zipball/5d5277df9c5be6d5db9d5af5adb9ed37e8c6ab36",
+                "reference": "5d5277df9c5be6d5db9d5af5adb9ed37e8c6ab36",
                 "shasum": ""
             },
             "require": {
@@ -372,7 +372,7 @@
                 "composer",
                 "luya"
             ],
-            "time": "2018-01-16T09:12:39+00:00"
+            "time": "2018-12-12T14:55:37+00:00"
         },
         {
             "name": "luyadev/luya-core",
