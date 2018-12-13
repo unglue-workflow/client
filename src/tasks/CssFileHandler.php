@@ -44,7 +44,6 @@ class CssFileHandler extends BaseFileHandler
 
         $code = null;
         foreach ($this->config->getHasUnglueConfigSection('css', []) as $scss) {
-            
             $payload = [
                 /*
                 'distFile' => $distFile,

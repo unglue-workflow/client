@@ -19,14 +19,12 @@ abstract class ClientTestCase extends ConsoleApplicationTestCase
 
     public function createUnglueFile($name, array $content, array $files = [])
     {
-
         $source = getcwd() . DIRECTORY_SEPARATOR . $name;
 
         $r = FileHelper::writeFile($source, json_encode($content));
 
         $map = [];
-        foreach ($files as $file => $content)
-        {
+        foreach ($files as $file => $content) {
             $nf = getcwd() . DIRECTORY_SEPARATOR . $file;
             $g = FileHelper::writeFile($nf, $content);
             $map[]  = [

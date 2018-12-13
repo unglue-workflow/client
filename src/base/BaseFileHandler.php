@@ -123,13 +123,8 @@ abstract class BaseFileHandler implements FileHandlerInterface
         foreach ($this->getMap() as $item) {
             ConsoleHelper::updateProgress($i++, $this->count());
             $map[] = [
-                /*
-                'file' => $item['file'],
-                'relative' => $this->relativePath($relativ, $item['file']),
-                */
-                //'file' => $item['file'],
+                'absolute' => $item['file'],
                 'file' => $this->relativePath($relativ, $item['file']),
-                
                 'code' => file_get_contents($item['file']),
             ];
         }
@@ -138,12 +133,20 @@ abstract class BaseFileHandler implements FileHandlerInterface
         return $map;
     }
 
+    /**
+     * Calculate the relative from a given path to a given path.
+     *
+     * @param string $from From path
+     * @param string $to To path
+     * @param string $ps The path seperator
+     * @return string
+     * @see http://php.net/manual/en/function.realpath.php#105876
+     */
     public function relativePath($from, $to, $ps = DIRECTORY_SEPARATOR)
     {
         $arFrom = explode($ps, rtrim($from, $ps));
         $arTo = explode($ps, rtrim($to, $ps));
-        while(count($arFrom) && count($arTo) && ($arFrom[0] == $arTo[0]))
-        {
+        while (count($arFrom) && count($arTo) && ($arFrom[0] == $arTo[0])) {
             array_shift($arFrom);
             array_shift($arTo);
         }

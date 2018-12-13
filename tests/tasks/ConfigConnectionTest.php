@@ -68,17 +68,15 @@ class ConfigConnectionTest extends ClientTestCase
 
         $distCss = $unglue['folder'] . 'mytest.css';
         $distJs = $unglue['folder'] . 'mytest.js';
-$this->assertSame('.class {
+        $this->assertSame('.class {
   color: red;
 }
 /*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9iYXNpbC93ZWJzaXRlcy9jbGllbnQvYmFyZm9vLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFBUyxXQUFTO0NBQUkiLCJmaWxlIjoidG8uY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNsYXNzIHsgY29sb3I6cmVkOyB9Il19 */', file_get_contents($distCss));
 
-$this->assertSame('"use strict";
+        $this->assertSame('"use strict";
 
 function hello(say) {
   console.log(hello);
 }//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9iYXNpbC93ZWJzaXRlcy9jbGllbnQvZm9vYmFyLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsU0FBQSxLQUFBLENBQUEsR0FBQSxFQUFBO0FBQUEsVUFBQSxHQUFBLENBQUEsS0FBQTtBQUFBIiwic291cmNlc0NvbnRlbnQiOlsiZnVuY3Rpb24gaGVsbG8oc2F5KSB7wqBjb25zb2xlLmxvZyhoZWxsbyk7IH0iXX0=', file_get_contents($distJs));
-        
     }
-    
 }
