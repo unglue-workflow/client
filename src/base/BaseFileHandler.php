@@ -123,8 +123,8 @@ abstract class BaseFileHandler implements FileHandlerInterface
         foreach ($this->getMap() as $item) {
             ConsoleHelper::updateProgress($i++, $this->count());
             $map[] = [
-                'absolute' => $item['file'],
-                'file' => $this->relativePath($relativ, $item['file']),
+                'relative' => $this->relativePath($relativ, $item['file']),
+                'file' => realpath($item['file']),
                 'code' => file_get_contents($item['file']),
             ];
         }

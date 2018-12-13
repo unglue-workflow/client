@@ -45,7 +45,7 @@ class JsFileHandler extends BaseFileHandler
         }
 
         $r = $this->generateRequest('/compile/js', [
-            'distFile' => $this->config->getUnglueConfigFolderDistFilePath('js'),
+            'distFile' => $this->config->getUnglueConfigFileBaseName() . '.js',
             'files' => $files,
         ]);
 

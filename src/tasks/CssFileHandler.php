@@ -45,15 +45,9 @@ class CssFileHandler extends BaseFileHandler
         $code = null;
         foreach ($this->config->getHasUnglueConfigSection('css', []) as $scss) {
             $payload = [
-                /*
-                'distFile' => $distFile,
+                'distFile' => $this->config->getUnglueConfigFileBaseName().'.css',
                 'mainFile' => $this->config->getUnglueConfigFolderPath($scss),
                 'files' => $files,
-                */
-                'distFile' => $this->config->getUnglueConfigFileBaseName().'.css',
-                'mainFile' => $scss,
-                'files' => $files,
-                
             ];
 
             $r = $this->generateRequest('/compile/css', $payload);
