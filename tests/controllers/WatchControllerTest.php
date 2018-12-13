@@ -10,6 +10,7 @@ class WatchControllerTest extends ClientTestCase
     public function testIndexAction()
     {
         $ctrl = new WatchController('watch-controller', $this->app);
+        $ctrl->verbose = 1;
         $this->assertSame([
             'verbose', 'interactive', 'server', 'timeout',
         ], $ctrl->options('index'));

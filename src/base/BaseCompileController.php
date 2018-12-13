@@ -39,7 +39,7 @@ abstract class BaseCompileController extends Command
      */
     public function setFolder($path)
     {
-        $this->_folder = $path ?  getcwd() . DIRECTORY_SEPARATOR . $path : getcwd();
+        $this->_folder = $path ?  $path : getcwd();
     }
 
     /**
@@ -64,7 +64,7 @@ abstract class BaseCompileController extends Command
         $unglues = FileHelper::findFilesByExtension($folder, 'unglue');
 
         if (count($unglues) == 0) {
-            throw new Exception("Unable to find any .unglue files in '$folder' and subdirectories to start the compile listener.");
+            throw new Exception("Unable to find any .unglue files in '$folder' and subdirectories.");
         }
 
         $connections = [];

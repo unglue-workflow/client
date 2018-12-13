@@ -21,6 +21,8 @@ abstract class ClientTestCase extends ConsoleApplicationTestCase
     {
         $source = getcwd() . DIRECTORY_SEPARATOR . $name;
 
+
+        $folder = FileHelper::createDirectory(dirname($source));
         $r = FileHelper::writeFile($source, json_encode($content));
 
         $map = [];
@@ -38,7 +40,7 @@ abstract class ClientTestCase extends ConsoleApplicationTestCase
             'name' => $name,
             'source' => $source,
             'content' => $content,
-            'folder' => getcwd() . DIRECTORY_SEPARATOR,
+            'folder' => dirname($source),
             'files' => $map,
             'distName' => basename($name, '.unglue'),
         ];
