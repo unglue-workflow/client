@@ -13,6 +13,7 @@ class BaseFileHandlerTest extends ClientTestCase
     public function testHasFileInMapChanged()
     {
         $ctrl = new WatchController('watch', $this->app);
+        $ctrl->verbose = 1;
         $con = new ConfigConnection('barfoo', 'barfoo', 'barfoo', $ctrl);
         $f = new TestFileHandler($con);
 
@@ -30,13 +31,9 @@ class BaseFileHandlerTest extends ClientTestCase
     public function testFailingRequest()
     {
         $ctrl = new WatchController('watch', $this->app);
-
         $testUnglueRequst = $this->createUnglueFile('failingrequest.unglue', ['js' => ['none.js']]);
-
-
         $con = new ConfigConnection($testUnglueRequst['source'], 'barfoo', 'barfoo', $ctrl);
         $f = new TestFileHandler($con);
-
         $this->assertFalse($f->generateRequest('endpoint', ['pay' => 'load']));
     }
 }

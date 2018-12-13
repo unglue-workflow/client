@@ -14,6 +14,9 @@ class ConfigConnectionTest extends ClientTestCase
         $ctrl = new CompileController('compile-controller', $this->app);
 
         $connection = new ConfigConnection(__DIR__.'/../data/output.unglue', __DIR__ .'/../', 'https://v1.api.unglue.io', $ctrl);
+
+        $this->assertFalse('sdfsdf', $connection->writeUnglueConfigFolderDistFile(false, 'null'));
+
         $this->assertTrue($connection->test());
         $this->assertSame(2, $connection->jsHandler->count());
         $this->assertSame(1, $connection->cssHandler->count());

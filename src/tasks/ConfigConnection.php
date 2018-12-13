@@ -161,21 +161,23 @@ class ConfigConnection implements ConnectionInterface
         return $this->getUnglueConfigFolder() . DIRECTORY_SEPARATOR . $this->getUnglueConfigFileBaseName() . '.'. $extension;
     }
 
+    /**
+     * Write a file next to the unglue config file (dist) with content and a given extension.
+     *
+     * @param string $content The content to write.
+     * @param string $extension The extension
+     * @return boolean
+     */
     public function writeUnglueConfigFolderDistFile($content, $extension)
     {
         $file = $this->getUnglueConfigFolderDistFilePath($extension);
-        try {
-            $write = file_put_contents($file, $content);
-            if (!$write) {
-                ConsoleHelper::errorMessage("Unable to write file with no exception: " . $file);
-            }
-
-            return $write;
-        } catch (\Exception $e) {
-            ConsoleHelper::errorMessage("Write file error: " . $e->getMessage() . " | " . $file);
+        $write = @file_put_contents($file, $content);
+        if (!$write) {
+            ConsoleHelper::errorMessage("Unable to write file '{$file}'.");
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     /**

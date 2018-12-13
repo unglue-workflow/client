@@ -1,5 +1,6 @@
 /vendor/
 /luya
+/tests/data/output.null
 /tests/data/output.js
 /tests/data/output.js.map
 /tests/data/output.css
