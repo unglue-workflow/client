@@ -1,1 +1,0 @@
-"use strict";function hello(l){console.log(hello)}

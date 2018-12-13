@@ -40,7 +40,7 @@ abstract class ClientTestCase extends ConsoleApplicationTestCase
             'name' => $name,
             'source' => $source,
             'content' => $content,
-            'folder' => dirname($source),
+            'folder' => dirname($source) . DIRECTORY_SEPARATOR,
             'files' => $map,
             'distName' => basename($name, '.unglue'),
         ];
