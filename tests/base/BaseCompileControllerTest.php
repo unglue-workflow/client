@@ -5,7 +5,6 @@ namespace unglue\client\tests\base;
 use unglue\client\tests\ClientTestCase;
 use unglue\client\base\BaseCompileController;
 
-
 class BaseCompileControllerTest extends ClientTestCase
 {
     public function testEmptyConnectionsExceptions()
@@ -22,5 +21,4 @@ class BaseCompileControllerTest extends ClientTestCase
 
 class TestBaseCompileController extends BaseCompileController
 {
-
 }

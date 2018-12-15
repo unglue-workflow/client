@@ -44,15 +44,15 @@ class JsFileHandler extends BaseFileHandler
             return false;
         }
 
-        $r = $this->generateRequest('/compile/js', [
+        $response = $this->generateRequest('/compile/js', [
             'distFile' => $this->config->getUnglueConfigFileBaseName() . '.js',
             'files' => $files,
         ]);
 
-        if (!$r) {
+        if (!$response) {
             return false;
         }
 
-        $this->config->writeUnglueConfigFolderDistFile($r['code'], 'js');
+        return $this->config->writeUnglueConfigFolderDistFile($response['code'], 'js');
     }
 }

@@ -43,17 +43,14 @@ class TestFileHandler extends BaseFileHandler
 {
     public function name()
     {
-        return 'test';    
+        return 'test';
     }
 
     public function handleUpload()
     {
-        
     }
 
     public function init()
     {
-
     }
 }
-
