@@ -6,6 +6,7 @@ use Curl\Curl;
 use unglue\client\helpers\ConsoleHelper;
 use unglue\client\interfaces\FileHandlerInterface;
 use unglue\client\tasks\ConfigConnection;
+use unglue\client\helpers\FileHelper;
 
 /**
  * Base class for File Handlers.
@@ -123,7 +124,7 @@ abstract class BaseFileHandler implements FileHandlerInterface
         foreach ($this->getMap() as $item) {
             ConsoleHelper::updateProgress($i++, $this->count());
             $map[] = [
-                'relative' => $this->relativePath($relativ, $item['file']),
+                'relative' => FileHelper::relativePath($relativ, $item['file']),
                 'file' => realpath($item['file']),
                 'code' => file_get_contents($item['file']),
             ];
@@ -131,26 +132,6 @@ abstract class BaseFileHandler implements FileHandlerInterface
         unset($i);
         ConsoleHelper::endProgress();
         return $map;
-    }
-
-    /**
-     * Calculate the relative from a given path to a given path.
-     *
-     * @param string $from From path
-     * @param string $to To path
-     * @param string $ps The path seperator
-     * @return string
-     * @see http://php.net/manual/en/function.realpath.php#105876
-     */
-    public function relativePath($from, $to, $ps = DIRECTORY_SEPARATOR)
-    {
-        $arFrom = explode($ps, rtrim($from, $ps));
-        $arTo = explode($ps, rtrim($to, $ps));
-        while (count($arFrom) && count($arTo) && ($arFrom[0] == $arTo[0])) {
-            array_shift($arFrom);
-            array_shift($arTo);
-        }
-        return str_pad("", count($arFrom) * 3, '..'.$ps).implode($ps, $arTo);
     }
 
     /**

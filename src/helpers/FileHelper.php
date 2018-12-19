@@ -31,4 +31,24 @@ class FileHelper extends BaseFileHelper
 
         return iterator_to_array($regex);
     }
+
+    /**
+     * Calculate the relative from a given path to a given path.
+     *
+     * @param string $from From path
+     * @param string $to To path
+     * @param string $ps The path seperator
+     * @return string
+     * @see http://php.net/manual/en/function.realpath.php#105876
+     */
+    public static function relativePath($from, $to, $ps = DIRECTORY_SEPARATOR)
+    {
+        $arFrom = explode($ps, rtrim($from, $ps));
+        $arTo = explode($ps, rtrim($to, $ps));
+        while (count($arFrom) && count($arTo) && ($arFrom[0] == $arTo[0])) {
+            array_shift($arFrom);
+            array_shift($arTo);
+        }
+        return str_pad("", count($arFrom) * 3, '..'.$ps).implode($ps, $arTo);
+    }
 }
