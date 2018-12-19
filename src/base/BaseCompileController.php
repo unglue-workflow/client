@@ -39,8 +39,7 @@ abstract class BaseCompileController extends Command
      */
     public function setFolder($path)
     {
-
-        $this->_folder = $path ? realpath(FileHelper::relativePath(getcwd(), ltrim($path, DIRECTORY_SEPARATOR))) : getcwd();
+        $this->_folder = $path ? realpath($path) : getcwd();
     }
 
     /**
