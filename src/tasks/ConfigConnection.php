@@ -41,12 +41,14 @@ class ConfigConnection implements ConnectionInterface
     /**
      * @var JsFileHandler The javascript files handler object.
      */
-    public $jsHandler;
+    //public $jsHandler;
 
     /**
      * @var CssFileHandler The css files handler object.
      */
-    public $cssHandler;
+    //public $cssHandler;
+
+    public $handlers = [];
 
     /**
      * Config Connection Constructuro
@@ -211,6 +213,20 @@ class ConfigConnection implements ConnectionInterface
     }
 
     /**
+     * Returns the list of possible built in file handlers.
+     *
+     * @return array An array with objects of files handlers implementing the FileHandlerInterface
+     */
+    public function getAvailableHandlers()
+    {
+        return [
+            new JsFileHandler($this),
+            new CssFileHandler($this),
+            new SvgSpriteFileHandler($this),
+        ];
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function test()
@@ -218,18 +234,12 @@ class ConfigConnection implements ConnectionInterface
         $success = false;
         ConsoleHelper::infoMessage($this->getUnglueConfigName() . ': load and test (' . $this->getConfigFile().')');
 
-        // test js connection
-        $this->jsHandler = new JsFileHandler($this);
-        $this->jsHandler->init();
-        if ($this->jsHandler->count() > 0) {
-            $success = true;
-        }
-
-        // test valid css connection
-        $this->cssHandler = new CssFileHandler($this);
-        $this->cssHandler->init();
-        if ($this->cssHandler->count() > 0) {
-            $success = true;
+        foreach ($this->getAvailableHandlers() as $handler) {
+            $handler->init();
+            if ($handler->count() > 0) {
+                $success = true;
+                $this->handlers[get_class($handler)] = $handler;
+            }
         }
 
         return $success;
@@ -240,15 +250,13 @@ class ConfigConnection implements ConnectionInterface
      */
     public function iterate($force = false)
     {
-        if ($this->jsHandler->count() > 0) {
-            $this->jsHandler->iterate($force);
+        foreach ($this->handlers as $handler) {
+            if ($handler->count() > 0) {
+                $handler->iterate($force);
+            }
         }
 
-        if ($this->cssHandler->count() > 0) {
-            $this->cssHandler->iterate($force);
-        }
-
-        // todo: maybe if there is an error - or both have errors return false.
+        // maybe if there is an error - or both have errors return false.
         return true;
     }
 }

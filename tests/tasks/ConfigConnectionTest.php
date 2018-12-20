@@ -18,8 +18,9 @@ class ConfigConnectionTest extends ClientTestCase
         $this->assertFalse($connection->writeUnglueConfigFolderDistFile(false, 'null'));
 
         $this->assertTrue($connection->test());
-        $this->assertSame(2, $connection->jsHandler->count());
-        $this->assertSame(1, $connection->cssHandler->count());
+
+        $this->assertSame(2, $connection->handlers['unglue\client\tasks\JsFileHandler']->count());
+        $this->assertSame(1, $connection->handlers['unglue\client\tasks\CssFileHandler']->count());
 
         $this->assertTrue($connection->iterate(true));
     }
