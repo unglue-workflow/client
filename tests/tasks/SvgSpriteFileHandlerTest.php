@@ -22,7 +22,7 @@ class SvgSpriteFileHandlerTest extends ClientTestCase
         ]);
 
         $ctrl = new CompileController('svg-compile-controller', $this->app);
-        $connection = new ConfigConnection($unglue['source'], $unglue['folder'], 'https://v1.api.unglue.io', $ctrl);
+        $connection = new ConfigConnection($unglue['source'], $unglue['folder'], $this->api, $ctrl);
         $connection->test();
         $connection->iterate(true);
 

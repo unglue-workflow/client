@@ -38,24 +38,19 @@ class CssFileHandler extends BaseFileHandler
      */
     public function handleUpload()
     {
-        $code = null;
-        $files = $this->getFilesContent($this->config->getUnglueConfigFolder());
-        
+        $mainFiles = [];
         foreach ($this->config->getHasUnglueConfigSection('css', []) as $scss) {
-            $response = $this->generateRequest('/compile/css', [
-                'distFile' => $this->config->getUnglueConfigFileBaseName().'.css',
-                'mainFile' => $this->config->getUnglueConfigFolderPath($scss),
-                'files' => $files,
-            ]);
-            if ($response) {
-                $code .= $response['code'];
-            }
-
-            unset($response);
+            $mainFiles[] = $this->config->getUnglueConfigFolderPath($scss);
         }
 
-        if ($code) {
-            return $this->config->writeUnglueConfigFolderDistFile($code, 'css');
+        $response = $this->generateRequest('/compile/css', [
+            'distFile' => $this->config->getUnglueConfigFileBaseName().'.css',
+            'mainFiles' => $mainFiles,
+            'files' => $this->getFilesContent($this->config->getUnglueConfigFolder()),
+        ]);
+
+        if ($response) {
+            return $this->config->writeUnglueConfigFolderDistFile($response['code'], 'css');
         }
 
         return false;

@@ -9,6 +9,8 @@ abstract class ClientTestCase extends ConsoleApplicationTestCase
 {
     public $unglueFiles = [];
 
+    public $api = 'https://v1.api.unglue.io';
+
     public function getConfigArray()
     {
         return [

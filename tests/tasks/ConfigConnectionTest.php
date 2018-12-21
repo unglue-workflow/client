@@ -13,7 +13,7 @@ class ConfigConnectionTest extends ClientTestCase
     {
         $ctrl = new CompileController('compile-controller', $this->app);
 
-        $connection = new ConfigConnection(__DIR__.'/../data/output.unglue', __DIR__ .'/../', 'https://v1.api.unglue.io', $ctrl);
+        $connection = new ConfigConnection(__DIR__.'/../data/output.unglue', __DIR__ .'/../', $this->api, $ctrl);
 
         $this->assertFalse($connection->writeUnglueConfigFolderDistFile(false, 'null'));
 
@@ -37,7 +37,7 @@ class ConfigConnectionTest extends ClientTestCase
 
         $ctrl = new CompileController('compile-controller', $this->app);
 
-        $connection = new ConfigConnection($unglue['source'], $unglue['folder'], 'https://v1.api.unglue.io', $ctrl);
+        $connection = new ConfigConnection($unglue['source'], $unglue['folder'], $this->api, $ctrl);
         $connection->test();
         $connection->iterate(true);
 
@@ -66,7 +66,7 @@ class ConfigConnectionTest extends ClientTestCase
 
         $ctrl = new CompileController('compile-controller', $this->app);
 
-        $connection = new ConfigConnection($unglue['source'], $unglue['folder'], 'https://v1.api.unglue.io', $ctrl);
+        $connection = new ConfigConnection($unglue['source'], $unglue['folder'], $this->api, $ctrl);
         $connection->test();
         $connection->iterate(true);
 
