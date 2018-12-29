@@ -34,11 +34,12 @@ abstract class BaseFileHandler implements FileHandlerInterface
     /**
      * Prefix for output messages
      *
+     * @param string $message The message which should contain the generic prefix.
      * @return string
      */
-    public function messagePrefix()
+    public function messagePrefix($message = null)
     {
-        return $this->config->getUnglueConfigName() . " [".$this->name()."] ";
+        return $this->config->getUnglueConfigName() . " [".$this->name()."] " . $message;
     }
 
     private $_map = [];
@@ -97,11 +98,11 @@ abstract class BaseFileHandler implements FileHandlerInterface
             $ra = is_readable($item['file']);
             
             if ($this->config->getCommand()->verbose) {
-                ConsoleHelper::infoMessage($this->messagePrefix() . 'watch ' . $item['file']);
+                ConsoleHelper::infoMessage($this->messagePrefix('watch ' . $item['file']));
             }
 
             if ($time > $item['filemtime']) {
-                ConsoleHelper::infoMessage($this->messagePrefix() . "file " .$item['file'] . " has changed.");
+                ConsoleHelper::infoMessage($this->messagePrefix("file " .$item['file'] . " has changed."));
                 $hasChange = true;
                 $this->_map[$key]['filemtime'] = $time;
             }
@@ -118,7 +119,7 @@ abstract class BaseFileHandler implements FileHandlerInterface
      */
     public function getFilesContent($relativ)
     {
-        ConsoleHelper::startProgress(0, $this->count(), $this->messagePrefix() . "Collecting data ");
+        ConsoleHelper::startProgress(0, $this->count(), $this->messagePrefix("Collecting data "));
         $map = [];
         $i=1;
         foreach ($this->getMap() as $item) {
@@ -144,7 +145,7 @@ abstract class BaseFileHandler implements FileHandlerInterface
     public function generateRequest($endpoint, array $payload)
     {
         $time = microtime(true);
-        ConsoleHelper::infoMessage($this->messagePrefix() . "Send API request");
+        ConsoleHelper::infoMessage($this->messagePrefix("Send API request"));
         $payload['options'] = $this->config->getHasUnglueConfigSection('options', []);
 
         $json = json_encode($payload);
@@ -155,7 +156,7 @@ abstract class BaseFileHandler implements FileHandlerInterface
         $response = json_decode($curl->response, true);
 
         if ($curl->isSuccess()) {
-            ConsoleHelper::successMessage($this->messagePrefix() . "Compling done in " . round((microtime(true) - $time), 2) . "s");
+            ConsoleHelper::successMessage($this->messagePrefix("Compling done in " . round((microtime(true) - $time), 2) . "s"));
             return $response;
         }
 

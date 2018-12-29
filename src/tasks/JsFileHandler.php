@@ -40,7 +40,7 @@ class JsFileHandler extends BaseFileHandler
         $files = $this->getFilesContent($this->config->getUnglueConfigFolder());
 
         if (empty($files)) {
-            ConsoleHelper::errorMessage($this->messagePrefix() . "no js files found to transmit. count: " . $this->count());
+            ConsoleHelper::errorMessage($this->messagePrefix("No js files found to transmit. count: " . $this->count()));
             return false;
         }
 
