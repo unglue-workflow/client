@@ -22,6 +22,9 @@
 		</blacklist>
 		<whitelist processUncoveredFilesFromWhitelist="false">
             <directory suffix=".php">./src</directory>
+            <exclude>
+                 <directory suffix=".php">./src/interfaces</directory>
+            </exclude>
         </whitelist>
 	</filter>
 </phpunit>
