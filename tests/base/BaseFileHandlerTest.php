@@ -10,6 +10,9 @@ use unglue\client\helpers\FileHelper;
 
 class BaseFileHandlerTest extends ClientTestCase
 {
+    /**
+     * @covers \unglue\client\interfaces\FileHandlerInterface
+     */
     public function testHasFileInMapChanged()
     {
         $ctrl = new WatchController('watch', $this->app);

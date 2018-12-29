@@ -9,6 +9,9 @@ use unglue\client\helpers\FileHelper;
 
 class ConfigConnectionTest extends ClientTestCase
 {
+    /**
+     * @covers \unglue\client\interfaces\ConnectionInterface
+     */
     public function testConnectionObjects()
     {
         $ctrl = new CompileController('compile-controller', $this->app);
