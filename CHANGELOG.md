@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## in progress
 
++ [#5](https://github.com/unglue-workflow/client/issues/5) Do not run css compile when css section is empty in unglue config file.
 + Added unit tests
 + Add option to provide message for the prefix.
 
