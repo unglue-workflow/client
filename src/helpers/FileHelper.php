@@ -2,6 +2,11 @@
 
 namespace unglue\client\helpers;
 
+use RegexIterator;
+use RecursiveRegexIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use RecursiveCallbackFilterIterator;
 use luya\helpers\FileHelper as BaseFileHelper;
 
 /**
@@ -16,18 +21,30 @@ class FileHelper extends BaseFileHelper
      * Find all files for a certain extension.
      *
      * @param string $folder
-     * @param string $extension
+     * @param string $extension The name of the extension without dot example `unglue`
+     * @param array $exclude Its possible to provide an array with regular expression. If the expressions matches the
+     * file is exclued from the list , example rege `vendor/` would filter all files inside a folder named vendor.
      * @return array
      */
-    public static function findFilesByExtension($folder, $extension)
+    public static function findFilesByExtension($folder, $extension, array $exclude = [])
     {
         if (!is_dir($folder)) {
             return [];
         }
 
-        $directory = new \RecursiveDirectoryIterator($folder);
-        $iterator = new \RecursiveIteratorIterator($directory);
-        $regex =  new \RegexIterator($iterator, '/^.+\.'.preg_quote($extension).'$/i', \RecursiveRegexIterator::GET_MATCH);
+        $filter = function ($file, $key, $iterator) use ($exclude) {
+            foreach ($exclude as $pattern) {
+                if (preg_match('/'.preg_quote($pattern, '/').'/', $file->getRealPath())) {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
+        $directory = new RecursiveDirectoryIterator($folder, RecursiveDirectoryIterator::SKIP_DOTS);
+        $iterator = new RecursiveIteratorIterator(new RecursiveCallbackFilterIterator($directory, $filter));
+        $regex =  new RegexIterator($iterator, '/^.+\.'.preg_quote($extension).'$/i', RecursiveRegexIterator::GET_MATCH);
 
         return iterator_to_array($regex);
     }
