@@ -12,7 +12,7 @@ class WatchControllerTest extends ClientTestCase
         $ctrl = new WatchController('watch-controller', $this->app);
         $ctrl->verbose = 1;
         $this->assertSame([
-            'verbose', 'interactive', 'server', 'timeout',
+            'verbose', 'interactive', 'server', 'exclude', 'timeout', 
         ], $ctrl->options('index'));
         $this->expectException("yii\console\Exception");
         $ctrl->actionIndex('/does/not/exists');
