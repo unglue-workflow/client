@@ -69,7 +69,9 @@ abstract class BaseCompileController extends Command
     {
         $folder = $this->getFolder();
 
-        $unglues = FileHelper::findFilesByExtension($folder, 'unglue', StringHelper::explode(",", $this->exclude));
+        $this->verbosePrint("Exclude patterns: " . $this->exclude);
+
+        $unglues = FileHelper::findFilesByExtension($folder, 'unglue', StringHelper::explode($this->exclude, ',', true, true));
 
         if (count($unglues) == 0) {
             throw new Exception("Unable to find any .unglue files in '$folder' and subdirectories.");
