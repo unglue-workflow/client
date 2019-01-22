@@ -15,17 +15,21 @@ class ConfigConnectionTest extends ClientTestCase
     public function testConnectionObjects()
     {
         $ctrl = new CompileController('compile-controller', $this->app);
-
         $connection = new ConfigConnection(__DIR__.'/../data/output.unglue', __DIR__ .'/../', $this->api, $ctrl);
-
         $this->assertFalse($connection->writeUnglueConfigFolderDistFile(false, 'null'));
-
         $this->assertTrue($connection->test());
-
         $this->assertSame(2, $connection->handlers['unglue\client\tasks\JsFileHandler']->count());
         $this->assertSame(1, $connection->handlers['unglue\client\tasks\CssFileHandler']->count());
-
         $this->assertTrue($connection->iterate(true));
+    }
+
+    public function testReIndexFunction()
+    {
+        $ctrl = new CompileController('compile-controller', $this->app);
+        $connection = new ConfigConnection(__DIR__.'/../data/output.unglue', __DIR__ .'/../', $this->api, $ctrl);
+        $this->assertFalse($connection->writeUnglueConfigFolderDistFile(false, 'null'));
+        $this->assertTrue($connection->test());
+        $connection->reIndexConfigAndHandlerMap();
     }
 
     public function testCreateUnglueFileWithoutOptions()
