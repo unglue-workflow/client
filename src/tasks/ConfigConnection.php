@@ -116,6 +116,16 @@ class ConfigConnection implements ConnectionInterface
     }
 
     /**
+     * Reset the temporary unglue config file, so its regenerated next time.
+     * 
+     * @since 1.2.0
+     */
+    public function resetUnglueConfig()
+    {
+        $this->_config = null;
+    }
+
+    /**
      * The folder where all files are watched including subdirectories of the given folder
      *
      * @return string
@@ -258,5 +268,20 @@ class ConfigConnection implements ConnectionInterface
 
         // maybe if there is an error - or both have errors return false.
         return true;
+    }
+
+    /**
+     * Run all init methods from the handler objects.
+     * 
+     * This causes a re indexing of the file map for each handler.
+     * 
+     * @since 1.2.0
+     */
+    public function reIndexConfigAndHandlerMap()
+    {
+        $this->resetUnglueConfig();
+        foreach ($this->handlers as $handler) {
+            $handler->init();
+        }
     }
 }

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.2.0 (in progress)
+
++ [#8](https://github.com/unglue-workflow/client/issues/8) Reindex file map and clear temporary config file to detect new entries.
+
 ## 1.1.1 (22. January 2019)
 
 + [#9](https://github.com/unglue-workflow/client/issues/9) Fix issue where delete files do not crash watch command.
