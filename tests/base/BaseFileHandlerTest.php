@@ -31,6 +31,29 @@ class BaseFileHandlerTest extends ClientTestCase
         FileHelper::unlink($temp);
     }
 
+    /**
+     * Test index delete
+     *
+     * @see https://github.com/unglue-workflow/client/issues/9
+     */
+    public function testDeletedFileFromIndex()
+    {
+        $ctrl = new WatchController('watch', $this->app);
+        $ctrl->verbose = 1;
+        $con = new ConfigConnection('barfoo', 'barfoo', 'barfoo', $ctrl);
+        $f = new TestFileHandler($con);
+
+        $temp = tempnam(sys_get_temp_dir(), 'barfoodeleted');
+
+        $f->addToMap($temp);
+        $this->assertFalse($f->hasFileInMapChanged());
+        sleep(1);
+        FileHelper::unlink($temp);
+        $this->assertTrue($f->hasFileInMapChanged());
+
+        $this->assertTrue(empty($f->getMap()));
+    }
+
     public function testFailingRequest()
     {
         $ctrl = new WatchController('watch', $this->app);

@@ -57,6 +57,17 @@ abstract class BaseFileHandler implements FileHandlerInterface
     }
 
     /**
+     * Remove a file from the map by its index.
+     *
+     * @param integer $index The index inside the array.
+     * @since 1.1.1
+     */
+    public function removeFromMap($index)
+    {
+        unset($this->_map[$index]);
+    }
+
+    /**
      * Get all files in the current map array
      *
      * @return array
@@ -94,9 +105,13 @@ abstract class BaseFileHandler implements FileHandlerInterface
         clearstatcache();
         $hasChange = false;
         foreach ($this->getMap() as $key => $item) {
+            // check if the file exists on the file system, otherwise deleting a file would throw an exception.
+            if (!file_exists($item['file'])) {
+                $this->removeFromMap($key);
+                $hasChange = true;
+                break;
+            }
             $time = filemtime($item['file']);
-            $ra = is_readable($item['file']);
-            
             if ($this->config->getCommand()->verbose) {
                 ConsoleHelper::infoMessage($this->messagePrefix('watch ' . $item['file']));
             }
@@ -105,6 +120,7 @@ abstract class BaseFileHandler implements FileHandlerInterface
                 ConsoleHelper::infoMessage($this->messagePrefix("file " .$item['file'] . " has changed."));
                 $hasChange = true;
                 $this->_map[$key]['filemtime'] = $time;
+                break;
             }
             unset($time);
         }
@@ -154,6 +170,7 @@ abstract class BaseFileHandler implements FileHandlerInterface
         $curl->setHeader('Content-Length', strlen($json));
         $curl->post($this->config->getServer() . $endpoint, $json);
         $response = json_decode($curl->response, true);
+        $curl->close();
 
         if ($curl->isSuccess()) {
             ConsoleHelper::successMessage($this->messagePrefix("Compling done in " . round((microtime(true) - $time), 2) . "s"));

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.1 (22. January 2019)
+
++ [#9](https://github.com/unglue-workflow/client/issues/9) Fix issue where delete files do not crash watch command.
++ [#7](https://github.com/unglue-workflow/client/issues/7) Close curl connection after request.
+
 ## 1.1.0 (9. January 2019)
 
 + [#6](https://github.com/unglue-workflow/client/issues/6) Added a new exclude option to filter unglue files in certain folders. By default it will now filter unglue files in vendor folders.
