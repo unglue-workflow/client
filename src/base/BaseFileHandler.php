@@ -52,19 +52,19 @@ abstract class BaseFileHandler implements FileHandlerInterface
     public function addToMap($file)
     {
         if (is_file($file) && is_readable($file) && file_exists($file)) {
-            $this->_map[] = ['file' => $file, 'filemtime' => filemtime($file)];
+            $this->_map[$file] = ['file' => $file, 'filemtime' => filemtime($file)];
         }
     }
 
     /**
      * Remove a file from the map by its index.
      *
-     * @param integer $index The index inside the array.
+     * @param integer $file The file inside the array.
      * @since 1.1.1
      */
-    public function removeFromMap($index)
+    public function removeFromMap($file)
     {
-        unset($this->_map[$index]);
+        unset($this->_map[$file]);
     }
 
     /**
