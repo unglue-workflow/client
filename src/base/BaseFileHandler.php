@@ -51,6 +51,11 @@ abstract class BaseFileHandler implements FileHandlerInterface
      */
     public function addToMap($file)
     {
+        // check for symbolic links
+        if (is_link($file)) {
+            $file = readlink($file);
+        }
+     
         if (is_file($file) && is_readable($file) && file_exists($file)) {
             $this->_map[$file] = ['file' => $file, 'filemtime' => filemtime($file)];
         }

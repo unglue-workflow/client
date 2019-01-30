@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## in progress
+
++ [#10](https://github.com/unglue-workflow/client/issues/10) Check if file is link.
+
 ## 1.2.0 (22. January 2019)
 
 + [#8](https://github.com/unglue-workflow/client/issues/8) Reindex file map and clear temporary config file to detect new entries.
