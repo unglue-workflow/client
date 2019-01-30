@@ -42,7 +42,7 @@ class FileHelper extends BaseFileHelper
             return true;
         };
 
-        $directory = new RecursiveDirectoryIterator($folder, RecursiveDirectoryIterator::SKIP_DOTS);
+        $directory = new RecursiveDirectoryIterator($folder, RecursiveDirectoryIterator::SKIP_DOTS | RecursiveDirectoryIterator::FOLLOW_SYMLINKS);
         $iterator = new RecursiveIteratorIterator(new RecursiveCallbackFilterIterator($directory, $filter));
         $regex =  new RegexIterator($iterator, '/^.+\.'.preg_quote($extension).'$/i', RecursiveRegexIterator::GET_MATCH);
 
