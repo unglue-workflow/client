@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## in progress
+## 1.3.0 (11. Feburary 2019)
 
-+ [#10](https://github.com/unglue-workflow/client/issues/10) Check if file is link.
++ [#11](https://github.com/unglue-workflow/client/issues/11) Allow wildcard js file paths like `/lib/*.js` in order to define js and sprite sections.
++ [#10](https://github.com/unglue-workflow/client/issues/10) Follow symlink paths (read symlink).
 
 ## 1.2.0 (22. January 2019)
 

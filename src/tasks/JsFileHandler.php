@@ -28,7 +28,9 @@ class JsFileHandler extends BaseFileHandler
     public function init()
     {
         foreach ($this->config->getHasUnglueConfigSection('js', []) as $file) {
-            $this->addToMap($this->config->getUnglueConfigFolderPath($file));
+            foreach (FileHelper::findFilesForWildcardPath($this->config->getUnglueConfigFolderPath($file)) as $path) {
+                $this->addToMap($path);
+            }
         }
     }
 

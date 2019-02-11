@@ -8,6 +8,7 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RecursiveCallbackFilterIterator;
 use luya\helpers\FileHelper as BaseFileHelper;
+use luya\helpers\StringHelper;
 
 /**
  * Helper for file Tasks.
@@ -47,6 +48,24 @@ class FileHelper extends BaseFileHelper
         $regex =  new RegexIterator($iterator, '/^.+\.'.preg_quote($extension).'$/i', RecursiveRegexIterator::GET_MATCH);
 
         return iterator_to_array($regex);
+    }
+
+    /**
+     * Get an array of files from an extracted wildcard path.
+     * 
+     * If no wildcard defintions are used an array with the input path is provided.
+     *
+     * @param string $path The path with the wildcard defintion (or without). like `files/lib/*.js`.
+     * @return array
+     * @since 1.3
+     */
+    public static function findFilesForWildcardPath($path)
+    {
+        if (!StringHelper::contains('*', $path)) {
+            return [$path];
+        }
+
+        return glob($path, GLOB_NOSORT);
     }
 
     /**

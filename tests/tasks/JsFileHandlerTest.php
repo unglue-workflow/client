@@ -36,4 +36,28 @@ class JsFileHandlerTest extends ClientTestCase
         $js = new JsFileHandler($con);
         $this->assertFalse($js->handleUpload());
     }
+
+    public function testMultipleJsFileByWildcard()
+    {
+        $folder = $this->app->basePath . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR;
+
+        $unglue = $this->createUnglueFile('jsfileswithwildcard.unglue', [
+            'js' => [
+                'tests/data/js/*.js',
+            ]
+        ]);
+
+        $ctrl = new CompileController('js-compile-controller', $this->app);
+        $ctrl->verbose = 1;
+        $con = new ConfigConnection($unglue['source'], $unglue['folder'], $this->api, $ctrl);
+        $con->test();
+        $con->iterate(true);
+        $js = new JsFileHandler($con);
+        $r = $js->handleUpload();
+
+
+        $result = $unglue['folder'] . $unglue['distName']. '.js';
+        $content = file_get_contents($result);
+        $this->assertContains('console.log("b"),console.log("a");', $content);
+    }
 }
