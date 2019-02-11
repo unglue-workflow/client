@@ -58,6 +58,7 @@ class JsFileHandlerTest extends ClientTestCase
 
         $result = $unglue['folder'] . $unglue['distName']. '.js';
         $content = file_get_contents($result);
-        $this->assertContains('console.log("b"),console.log("a");', $content);
+        $this->assertContains('console.log("b")', $content);
+        $this->assertContains('console.log("a")', $content);
     }
 }

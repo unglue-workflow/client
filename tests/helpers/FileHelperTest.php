@@ -22,8 +22,8 @@ class FileHelperTest extends ClientTestCase
 
         list ($f1, $f2) = FileHelper::findFilesForWildcardPath($prefix . 'js/*.js');
 
-        $this->assertContains('b.js', $f1);
-        $this->assertContains('a.js', $f2);
+        $this->assertContains('.js', $f1);
+        $this->assertContains('.js', $f2);
 
         $f = FileHelper::findFilesForWildcardPath($prefix . 'js/**'); // wil contain lib folder as well.
 
