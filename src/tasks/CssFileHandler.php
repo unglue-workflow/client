@@ -38,7 +38,7 @@ class CssFileHandler extends BaseFileHandler
     /**
      * If css section does not exists in unglue config file return count 0 in order
      * to make sure handler is not started with empty section.
-     * 
+     *
      * @return integer
      */
     public function count()

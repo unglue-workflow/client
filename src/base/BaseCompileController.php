@@ -35,7 +35,6 @@ abstract class BaseCompileController extends Command
      */
     public $symlinks = false;
 
-
     /**
      * {@inheritDoc}
      */

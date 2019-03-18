@@ -117,7 +117,7 @@ class ConfigConnection implements ConnectionInterface
 
     /**
      * Reset the temporary unglue config file, so its regenerated next time.
-     * 
+     *
      * @since 1.2.0
      */
     public function resetUnglueConfig()
@@ -272,9 +272,9 @@ class ConfigConnection implements ConnectionInterface
 
     /**
      * Run all init methods from the handler objects.
-     * 
+     *
      * This causes a re indexing of the file map for each handler.
-     * 
+     *
      * @since 1.2.0
      */
     public function reIndexConfigAndHandlerMap()

@@ -64,7 +64,7 @@ class FileHelper extends BaseFileHelper
 
     /**
      * Get an array of files from an extracted wildcard path.
-     * 
+     *
      * If no wildcard defintions are used an array with the input path is provided.
      *
      * @param string $path The path with the wildcard defintion (or without). like `files/lib/*.js`.
