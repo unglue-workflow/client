@@ -29,12 +29,20 @@ abstract class BaseCompileController extends Command
     public $exclude = 'vendor/,public_html/assets/';
 
     /**
+     * @var boolean Whether the system should follow sym links or not. As it may cause Problems for several reasons, this behavior is tunred of by default. The
+     * symlinks option is mainly used to search for unglue files and for scss files.
+     * @since 1.4.0
+     */
+    public $symlinks = false;
+
+
+    /**
      * {@inheritDoc}
      */
     public function options($actionID)
     {
         return array_merge(parent::options($actionID), [
-            'server', 'exclude'
+            'server', 'exclude', 'symlinks'
         ]);
     }
 
@@ -71,10 +79,12 @@ abstract class BaseCompileController extends Command
 
         $this->verbosePrint("Exclude patterns: " . $this->exclude);
 
-        $unglues = FileHelper::findFilesByExtension($folder, 'unglue', StringHelper::explode($this->exclude, ',', true, true));
+        $unglues = FileHelper::findFilesByExtension($folder, 'unglue', $this->getExcludeList(), [
+            FileHelper::OPTION_FOLLOW_SYM_LINKS => $this->symlinks,
+        ]);
 
         if (count($unglues) == 0) {
-            throw new Exception("Unable to find any .unglue files in '$folder' and subdirectories.");
+            throw new Exception("Unable to find any .unglue file in '$folder' and or any subdirectories.");
         }
 
         $connections = [];
@@ -93,5 +103,16 @@ abstract class BaseCompileController extends Command
         }
 
         return $connections;
+    }
+
+    /**
+     * Get an array with all folders to exclude
+     *
+     * @return array An array based from $this->exclude list.
+     * @since 1.4.0
+     */
+    private function getExcludeList()
+    {
+        return StringHelper::explode($this->exclude, ',', true, true);
     }
 }

@@ -12,7 +12,7 @@ class WatchControllerTest extends ClientTestCase
         $ctrl = new WatchController('watch-controller', $this->app);
         $ctrl->verbose = 1;
         $this->assertSame([
-            'verbose', 'interactive', 'server', 'exclude', 'timeout', 'reindex',
+            'verbose', 'interactive', 'server', 'exclude', 'symlinks', 'timeout', 'reindex',
         ], $ctrl->options('index'));
         $this->expectException("yii\console\Exception");
         $ctrl->actionIndex('/does/not/exists');
@@ -24,7 +24,7 @@ class WatchControllerTest extends ClientTestCase
         $ctrl->verbose = 1;
         $ctrl->reindex = 1;
         $this->assertSame([
-            'verbose', 'interactive', 'server', 'exclude', 'timeout', 'reindex',
+            'verbose', 'interactive', 'server', 'exclude', 'symlinks', 'timeout', 'reindex',
         ], $ctrl->options('index'));
         $this->expectException("yii\console\Exception");
         $ctrl->actionIndex('/does/not/exists');

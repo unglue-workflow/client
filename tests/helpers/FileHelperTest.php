@@ -14,6 +14,12 @@ class FileHelperTest extends ClientTestCase
         $this->assertSame([], $files);
     }
 
+    public function testOptionsWithNoChanges()
+    {
+        $files = FileHelper::findFilesByExtension($this->app->basePath, 'unglue', ['tests/'], ['followSymLinks' => true]);
+        $this->assertSame([], $files);
+    }
+
     public function testFindFilesForWildcardPath()
     {
         $this->assertSame(['input.csv'], FileHelper::findFilesForWildcardPath('input.csv'));

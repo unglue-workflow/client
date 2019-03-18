@@ -27,8 +27,8 @@ class JsFileHandler extends BaseFileHandler
      */
     public function init()
     {
-        foreach ($this->config->getHasUnglueConfigSection('js', []) as $file) {
-            foreach (FileHelper::findFilesForWildcardPath($this->config->getUnglueConfigFolderPath($file)) as $path) {
+        foreach ($this->getConfig()->getHasUnglueConfigSection('js', []) as $file) {
+            foreach (FileHelper::findFilesForWildcardPath($this->getConfig()->getUnglueConfigFolderPath($file)) as $path) {
                 $this->addToMap($path);
             }
         }
@@ -39,7 +39,7 @@ class JsFileHandler extends BaseFileHandler
      */
     public function handleUpload()
     {
-        $files = $this->getFilesContent($this->config->getUnglueConfigFolder());
+        $files = $this->getFilesContent($this->getConfig()->getUnglueConfigFolder());
 
         if (empty($files)) {
             ConsoleHelper::errorMessage($this->messagePrefix("No js files found to transmit. count: " . $this->count()));
@@ -47,7 +47,7 @@ class JsFileHandler extends BaseFileHandler
         }
 
         $response = $this->generateRequest('/compile/js', [
-            'distFile' => $this->config->getUnglueConfigFileBaseName() . '.js',
+            'distFile' => $this->getConfig()->getUnglueConfigFileBaseName() . '.js',
             'files' => $files,
         ]);
 
@@ -55,6 +55,6 @@ class JsFileHandler extends BaseFileHandler
             return false;
         }
 
-        return $this->config->writeUnglueConfigFolderDistFile($response['code'], 'js');
+        return $this->getConfig()->writeUnglueConfigFolderDistFile($response['code'], 'js');
     }
 }

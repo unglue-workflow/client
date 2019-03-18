@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.4.0 (18. March 2019)
+
++ [#12](https://github.com/unglue-workflow/client/issues/12) Disable following symlinks by default. Add option `--symlinks=1` in order to enable following symlinks.
+
 ## 1.3.0 (11. Feburary 2019)
 
 + [#11](https://github.com/unglue-workflow/client/issues/11) Allow wildcard js file paths like `/lib/*.js` in order to define js and sprite sections.

@@ -21,14 +21,25 @@ abstract class BaseFileHandler implements FileHandlerInterface
     /**
      * @var ConfigConnection Contains the config connection object from constructor.
      */
-    protected $config;
+    private $_config;
 
     /**
      * {@inheritDoc}
      */
     public function __construct(ConfigConnection $configConnection)
     {
-        $this->config = $configConnection;
+        $this->_config = $configConnection;
+    }
+
+    /**
+     * Access the ConfigConnection object
+     *
+     * @return ConfigConnection
+     * @since 1.4.0
+     */
+    public function getConfig()
+    {
+        return $this->_config;
     }
 
     /**
@@ -39,7 +50,7 @@ abstract class BaseFileHandler implements FileHandlerInterface
      */
     public function messagePrefix($message = null)
     {
-        return $this->config->getUnglueConfigName() . " [".$this->name()."] " . $message;
+        return $this->getConfig()->getUnglueConfigName() . " [".$this->name()."] " . $message;
     }
 
     private $_map = [];
@@ -117,7 +128,7 @@ abstract class BaseFileHandler implements FileHandlerInterface
                 break;
             }
             $time = filemtime($item['file']);
-            if ($this->config->getCommand()->verbose) {
+            if ($this->getConfig()->getCommand()->verbose) {
                 ConsoleHelper::infoMessage($this->messagePrefix('watch ' . $item['file']));
             }
 
@@ -167,13 +178,13 @@ abstract class BaseFileHandler implements FileHandlerInterface
     {
         $time = microtime(true);
         ConsoleHelper::infoMessage($this->messagePrefix("Send API request"));
-        $payload['options'] = $this->config->getHasUnglueConfigSection('options', []);
+        $payload['options'] = $this->getConfig()->getHasUnglueConfigSection('options', []);
 
         $json = json_encode($payload);
         $curl = new Curl();
         $curl->setHeader('Content-Type', 'application/json');
         $curl->setHeader('Content-Length', strlen($json));
-        $curl->post($this->config->getServer() . $endpoint, $json);
+        $curl->post($this->getConfig()->getServer() . $endpoint, $json);
         $response = json_decode($curl->response, true);
         $curl->close();
 

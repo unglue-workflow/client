@@ -9,6 +9,7 @@ use RecursiveIteratorIterator;
 use RecursiveCallbackFilterIterator;
 use luya\helpers\FileHelper as BaseFileHelper;
 use luya\helpers\StringHelper;
+use luya\helpers\ArrayHelper;
 
 /**
  * Helper for file Tasks.
@@ -18,6 +19,8 @@ use luya\helpers\StringHelper;
  */
 class FileHelper extends BaseFileHelper
 {
+    const OPTION_FOLLOW_SYM_LINKS = 'followSymLinks';
+
     /**
      * Find all files for a certain extension.
      *
@@ -25,9 +28,11 @@ class FileHelper extends BaseFileHelper
      * @param string $extension The name of the extension without dot example `unglue`
      * @param array $exclude Its possible to provide an array with regular expression. If the expressions matches the
      * file is exclued from the list , example rege `vendor/` would filter all files inside a folder named vendor.
+     * @param array $options An array with options:
+     * - followSymLinks: boolean, whether symlinks should be followed or not, default is false.
      * @return array
      */
-    public static function findFilesByExtension($folder, $extension, array $exclude = [])
+    public static function findFilesByExtension($folder, $extension, array $exclude = [], array $options = [])
     {
         if (!is_dir($folder)) {
             return [];
@@ -43,7 +48,14 @@ class FileHelper extends BaseFileHelper
             return true;
         };
 
-        $directory = new RecursiveDirectoryIterator($folder, RecursiveDirectoryIterator::SKIP_DOTS | RecursiveDirectoryIterator::FOLLOW_SYMLINKS);
+        if (ArrayHelper::getValue($options, self::OPTION_FOLLOW_SYM_LINKS, false)) {
+            $args = RecursiveDirectoryIterator::SKIP_DOTS | RecursiveDirectoryIterator::FOLLOW_SYMLINKS;
+        } else {
+            $args = RecursiveDirectoryIterator::SKIP_DOTS;
+        }
+
+        $directory = new RecursiveDirectoryIterator($folder, $args);
+        
         $iterator = new RecursiveIteratorIterator(new RecursiveCallbackFilterIterator($directory, $filter));
         $regex =  new RegexIterator($iterator, '/^.+\.'.preg_quote($extension).'$/i', RecursiveRegexIterator::GET_MATCH);
 

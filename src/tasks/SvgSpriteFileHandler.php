@@ -27,8 +27,8 @@ class SvgSpriteFileHandler extends BaseFileHandler
      */
     public function init()
     {
-        foreach ($this->config->getHasUnglueConfigSection('svg', []) as $file) {
-            foreach (FileHelper::findFilesForWildcardPath($this->config->getUnglueConfigFolderPath($file)) as $path) {
+        foreach ($this->getConfig()->getHasUnglueConfigSection('svg', []) as $file) {
+            foreach (FileHelper::findFilesForWildcardPath($this->getConfig()->getUnglueConfigFolderPath($file)) as $path) {
                 $this->addToMap($path);
             }
         }
@@ -39,7 +39,7 @@ class SvgSpriteFileHandler extends BaseFileHandler
      */
     public function handleUpload()
     {
-        $files = $this->getFilesContent($this->config->getUnglueConfigFolder());
+        $files = $this->getFilesContent($this->getConfig()->getUnglueConfigFolder());
 
         if (empty($files)) {
             ConsoleHelper::errorMessage($this->messagePrefix("No svg files found to transmit. count: " . $this->count()));
@@ -54,6 +54,6 @@ class SvgSpriteFileHandler extends BaseFileHandler
             return false;
         }
 
-        return $this->config->writeUnglueConfigFolderDistFile($response['code'], 'svg');
+        return $this->getConfig()->writeUnglueConfigFolderDistFile($response['code'], 'svg');
     }
 }

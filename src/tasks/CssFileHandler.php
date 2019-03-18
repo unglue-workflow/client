@@ -27,7 +27,9 @@ class CssFileHandler extends BaseFileHandler
      */
     public function init()
     {
-        $files = FileHelper::findFilesByExtension($this->config->getWatchFolder(), 'scss');
+        $files = FileHelper::findFilesByExtension($this->getConfig()->getWatchFolder(), 'scss', [], [
+            FileHelper::OPTION_FOLLOW_SYM_LINKS => $this->getConfig()->getCommand()->symlinks,
+        ]);
         foreach ($files as $path => $name) {
             $this->addToMap($path);
         }
@@ -55,17 +57,17 @@ class CssFileHandler extends BaseFileHandler
     {
         $mainFiles = [];
         foreach ($this->getCssFilesFromConfig() as $scss) {
-            $mainFiles[] = $this->config->getUnglueConfigFolderPath($scss);
+            $mainFiles[] = $this->getConfig()->getUnglueConfigFolderPath($scss);
         }
 
         $response = $this->generateRequest('/compile/css', [
-            'distFile' => $this->config->getUnglueConfigFileBaseName().'.css',
+            'distFile' => $this->getConfig()->getUnglueConfigFileBaseName().'.css',
             'mainFiles' => $mainFiles,
-            'files' => $this->getFilesContent($this->config->getUnglueConfigFolder()),
+            'files' => $this->getFilesContent($this->getConfig()->getUnglueConfigFolder()),
         ]);
 
         if ($response) {
-            return $this->config->writeUnglueConfigFolderDistFile($response['code'], 'css');
+            return $this->getConfig()->writeUnglueConfigFolderDistFile($response['code'], 'css');
         }
 
         return false;
@@ -79,6 +81,6 @@ class CssFileHandler extends BaseFileHandler
      */
     protected function getCssFilesFromConfig()
     {
-        return $this->config->getHasUnglueConfigSection('css', []);
+        return $this->getConfig()->getHasUnglueConfigSection('css', []);
     }
 }
