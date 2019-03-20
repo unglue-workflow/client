@@ -62,8 +62,10 @@ abstract class BaseFileHandler implements FileHandlerInterface
      */
     public function addToMap($file)
     {
+        $realFilePath = realpath($file);
+
         // make sure a file is not added to the map twice
-        if (isset($this->_map[$file])) {
+        if (isset($this->_map[$realFilePath])) {
             return;
         }
 
@@ -73,7 +75,7 @@ abstract class BaseFileHandler implements FileHandlerInterface
         }
      
         if (is_file($file) && is_readable($file) && file_exists($file)) {
-            $this->_map[$file] = ['file' => $file, 'filemtime' => filemtime($file)];
+            $this->_map[$realFilePath] = ['file' => $file, 'filemtime' => filemtime($file)];
         }
     }
 
