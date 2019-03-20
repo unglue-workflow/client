@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.4.1 (20. March 2019)
+
++ [#13](https://github.com/unglue-workflow/client/issues/13) Fixed bug where css files where not added to the list of transmitted files (only scss files where sent).
+
 ## 1.4.0 (18. March 2019)
 
 + [#12](https://github.com/unglue-workflow/client/issues/12) Disable following symlinks by default. Add option `--symlinks=1` in order to enable following symlinks.

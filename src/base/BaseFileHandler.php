@@ -62,6 +62,11 @@ abstract class BaseFileHandler implements FileHandlerInterface
      */
     public function addToMap($file)
     {
+        // make sure a file is not added to the map twice
+        if (isset($this->_map[$file])) {
+            return;
+        }
+
         // check for symbolic links
         if (is_link($file)) {
             $file = readlink($file);

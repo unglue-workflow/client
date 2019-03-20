@@ -30,8 +30,13 @@ class CssFileHandler extends BaseFileHandler
         $files = FileHelper::findFilesByExtension($this->getConfig()->getWatchFolder(), 'scss', [], [
             FileHelper::OPTION_FOLLOW_SYM_LINKS => $this->getConfig()->getCommand()->symlinks,
         ]);
+
         foreach ($files as $path => $name) {
             $this->addToMap($path);
+        }
+
+        foreach ($this->getMainFiles() as $file) {
+            $this->addToMap($file);
         }
     }
 
@@ -51,18 +56,29 @@ class CssFileHandler extends BaseFileHandler
     }
 
     /**
-     * {@inheritDoc}
+     * Get the fullpath for the main files defined in the css section
+     *
+     * @return array
+     * @since 1.4.1
      */
-    public function handleUpload()
+    protected function getMainFiles()
     {
         $mainFiles = [];
         foreach ($this->getCssFilesFromConfig() as $scss) {
             $mainFiles[] = $this->getConfig()->getUnglueConfigFolderPath($scss);
         }
 
+        return $mainFiles;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function handleUpload()
+    {
         $response = $this->generateRequest('/compile/css', [
             'distFile' => $this->getConfig()->getUnglueConfigFileBaseName().'.css',
-            'mainFiles' => $mainFiles,
+            'mainFiles' => $this->getMainFiles(),
             'files' => $this->getFilesContent($this->getConfig()->getUnglueConfigFolder()),
         ]);
 
