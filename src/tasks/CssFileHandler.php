@@ -65,7 +65,7 @@ class CssFileHandler extends BaseFileHandler
     {
         $mainFiles = [];
         foreach ($this->getCssFilesFromConfig() as $scss) {
-            $mainFiles[] = $this->getConfig()->getUnglueConfigFolderPath($scss);
+            $mainFiles[] = realpath($this->getConfig()->getUnglueConfigFolderPath($scss));
         }
 
         return $mainFiles;
