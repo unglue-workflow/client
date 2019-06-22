@@ -7,3 +7,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/7a7f18ea0ebc8556637d/maintainability)](https://codeclimate.com/github/unglue-workflow/client/maintainability)
 
 Documentation: [https://docs.unglue.io](https://docs.unglue.io)
+
+## Docker
+
+Build image from root directory `docker build --no-cache -t xyz -f phar-action/Dockerfile . && docker run xyz`.

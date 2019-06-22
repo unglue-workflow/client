@@ -10,10 +10,11 @@
         }
     ],
     "require": {
-        "luyadev/luya-core" : "~1.0.0"
+        "luyadev/luya-core" : "^1.0"
     },
     "require-dev": {
-        "luyadev/luya-testsuite" : "~1.0"
+        "luyadev/luya-testsuite" : "^1.0",
+        "macfja/phar-builder": "^0.2.8"
     },
     "autoload": {
         "psr-4": {
@@ -34,6 +35,15 @@
     "extra" : {
         "luya" : {
             "symlink": false
+        },
+        "phar-builder": {
+            "compression": "GZip",
+            "name": "unglue.phar",
+            "output-dir": "./",
+            "entry-point": "./src/bin/unglue",
+            "include": ["src"],
+            "include-dev": false,
+            "skip-shebang": false
         }
     }
 }
