@@ -7,6 +7,8 @@ use luya\console\Command;
 use unglue\client\helpers\FileHelper;
 use unglue\client\tasks\ConfigConnection;
 use yii\helpers\StringHelper;
+use Curl\Curl;
+use unglue\client\helpers\ConsoleHelper;
 
 /**
  * Base Compile Controller.
@@ -36,12 +38,18 @@ abstract class BaseCompileController extends Command
     public $symlinks = false;
 
     /**
+     * @var boolean If wait for server is enabled, the client will try to reconnect every 2 second until the server is available and process with the command afterwards.
+     * @since 1.5.0
+     */
+    public $retry = false;
+
+    /**
      * {@inheritDoc}
      */
     public function options($actionID)
     {
         return array_merge(parent::options($actionID), [
-            'server', 'exclude', 'symlinks'
+            'server', 'exclude', 'symlinks', 'retry'
         ]);
     }
 
@@ -86,6 +94,10 @@ abstract class BaseCompileController extends Command
             throw new Exception("Unable to find any .unglue file in '$folder' and or any subdirectories.");
         }
 
+        if ($this->retry) {
+            $this->waitForServer($this->server);
+        }
+
         $connections = [];
         foreach ($unglues as $name => $file) {
             $con = new ConfigConnection($name, $folder, rtrim($this->server, '/'), $this);
@@ -102,6 +114,28 @@ abstract class BaseCompileController extends Command
         }
 
         return $connections;
+    }
+
+    /**
+     * Check if the given server is online until processing.
+     *
+     * @param string $server
+     * @return boolean
+     * @since 1.5.0
+     */
+    private function waitForServer($server)
+    {
+        $error = true;
+        while ($error) {
+            ConsoleHelper::infoMessage("Try to connect to server \"{$server}\".");
+            $curl = new Curl();
+            $error = !$curl->get($server)->isSuccess();
+            sleep(2);
+        }
+
+        ConsoleHelper::successMessage("Connecting to server \"{$server}\" successfull.");
+
+        return true;
     }
 
     /**

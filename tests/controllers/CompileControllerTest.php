@@ -11,7 +11,7 @@ class CompileControllerTest extends ClientTestCase
     {
         $ctrl = new CompileController('compile', $this->app);
         $this->assertSame([
-            'verbose', 'interactive', 'server', 'exclude', 'symlinks',
+            'verbose', 'interactive', 'server', 'exclude', 'symlinks', 'retry',
         ], $ctrl->options('index'));
         $this->assertSame(0, $ctrl->actionIndex());
     }

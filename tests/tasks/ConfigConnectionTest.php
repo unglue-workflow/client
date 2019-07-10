@@ -53,7 +53,7 @@ class ConfigConnectionTest extends ClientTestCase
 
         $this->assertSame('.class{color:red}
 ', file_get_contents($distCss));
-        $this->assertSame('"use strict";function hello(l){console.log(hello)}', file_get_contents($distJs));
+        $this->assertSame('function hello(l){console.log(hello)}', file_get_contents($distJs));
     }
 
 
@@ -82,12 +82,10 @@ class ConfigConnectionTest extends ClientTestCase
         $this->assertSame('.class {
   color: red;
 }
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhcmZvby5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQVMsV0FBUztDQUFJIiwiZmlsZSI6Im15dGVzdC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2xhc3MgeyBjb2xvcjpyZWQ7IH0iXX0= */', file_get_contents($distCss));
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhcmZvby5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQVMsV0FBUztDQUFJIiwiZmlsZSI6Im15dGVzdC5jc3MifQ== */', file_get_contents($distCss));
 
-        $this->assertSame('"use strict";
-
-function hello(say) {
+        $this->assertSame('function hello(say) {
   console.log(hello);
-}//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvb2Jhci5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLFNBQUEsS0FBQSxDQUFBLEdBQUEsRUFBQTtBQUFBLFVBQUEsR0FBQSxDQUFBLEtBQUE7QUFBQSIsInNvdXJjZXNDb250ZW50IjpbImZ1bmN0aW9uIGhlbGxvKHNheSkge8KgY29uc29sZS5sb2coaGVsbG8pOyB9Il19', file_get_contents($distJs));
+}//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvb2Jhci5qcyJdLCJuYW1lcyI6WyJoZWxsbyIsInNheSIsImNvbnNvbGUiLCJsb2ciXSwibWFwcGluZ3MiOiJBQUFBLFNBQVNBLEtBQVQsQ0FBZUMsR0FBZixFQUFvQjtBQUFFQyxFQUFBQSxPQUFPLENBQUNDLEdBQVIsQ0FBWUgsS0FBWjtBQUFxQiIsInNvdXJjZVJvb3QiOiIuIiwic291cmNlc0NvbnRlbnQiOlsiZnVuY3Rpb24gaGVsbG8oc2F5KSB7wqBjb25zb2xlLmxvZyhoZWxsbyk7IH0iXX0=', file_get_contents($distJs));
     }
 }
