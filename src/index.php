@@ -1,9 +1,9 @@
 <?php
 
-include '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 $boot = new \luya\Boot();
-$boot->setBaseYiiFile('../vendor/yiisoft/yii2/Yii.php');
+$boot->setBaseYiiFile(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
 $boot->setConfigArray([
     'id' => 'clientunglue', 
     'basePath' => dirname(__DIR__), 
