@@ -37,7 +37,7 @@
             "symlink": false
         },
         "phar-builder": {
-            "compression": "GZip",
+            "compression": "none",
             "name": "unglue.phar",
             "output-dir": "./",
             "entry-point": "./src/bin/unglue",

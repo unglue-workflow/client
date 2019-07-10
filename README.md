@@ -11,3 +11,7 @@ Documentation: [https://docs.unglue.io](https://docs.unglue.io)
 ## Docker
 
 Build image from root directory `docker build --no-cache -t xyz -f phar-action/Dockerfile . && docker run xyz`.
+
+## Phar Builder 
+
+build phar file `php -d phar.readonly=0 vendor/bin/phar-builder package composer.json --no-interaction`
