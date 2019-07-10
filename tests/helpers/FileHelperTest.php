@@ -10,13 +10,13 @@ class FileHelperTest extends ClientTestCase
     public function testFindUnglueFIles()
     {
         $files = FileHelper::findFilesByExtension($this->app->basePath, 'unglue', ['tests/']);
-        $this->assertSame([], $files);
+        $this->assertNotEmpty($files);
     }
 
     public function testOptionsWithNoChanges()
     {
         $files = FileHelper::findFilesByExtension($this->app->basePath, 'unglue', ['tests/'], ['followSymLinks' => true]);
-        $this->assertSame([], $files);
+        $this->assertNotEmpty($files);
     }
 
     public function testFindFilesForWildcardPath()

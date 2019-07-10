@@ -40,10 +40,11 @@
             "compression": "none",
             "name": "unglue.phar",
             "output-dir": "./",
-            "entry-point": "./src/bin/unglue",
+            "entry-point": "./src/index.php",
             "include": ["src"],
             "include-dev": false,
-            "skip-shebang": false
+            "shebang": true,
+            "dev" : false
         }
     }
 }

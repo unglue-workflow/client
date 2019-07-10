@@ -82,7 +82,7 @@ class ConfigConnectionTest extends ClientTestCase
         $this->assertSame('.class {
   color: red;
 }
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhcmZvby5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQVMsV0FBUztDQUFJIiwiZmlsZSI6Im15dGVzdC5jc3MifQ== */', file_get_contents($distCss));
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhcmZvby5zY3NzIiwibXl0ZXN0LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUFTLFVBQVM7QUNFbEIiLCJmaWxlIjoibXl0ZXN0LmNzcyJ9 */', file_get_contents($distCss));
 
         $this->assertSame('function hello(say) {
   console.log(hello);
