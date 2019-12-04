@@ -3,6 +3,7 @@ env:
     - CC_TEST_REPORTER_ID=571489f838defac84dcb407418ae171bd20d2c48304e1b3b68e0cc9ba9b3c810
 language: php
 php:
+  - 7.0
   - 7.1
   - 7.2
   - 7.3
@@ -13,6 +14,7 @@ matrix:
       - php: nightly
       - php: 7.4
       - php: 7.1
+      - php: 7.0
 before_script:
   - if [[ "$TRAVIS_PHP_VERSION" == "7.1" ]]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
