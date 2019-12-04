@@ -10,7 +10,7 @@ Documentation: [https://docs.unglue.io](https://docs.unglue.io)
 
 ## Phar Builder
 
-In order to build the unglue client phar file run:
+In order to build the unglue client phar file `unglue.phar` run:
 
 ```
 php -d phar.readonly=0 vendor/bin/phar-builder package composer.json --no-interaction
