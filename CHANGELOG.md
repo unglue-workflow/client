@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.5.0
+## 1.5.0 (4. December 2019)
 
 + [#16](https://github.com/unglue-workflow/client/issues/16) Add retry option to wait for server.
 

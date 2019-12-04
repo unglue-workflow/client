@@ -1,6 +1,12 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+/*************************************************************
+ * 
+ * THIS FILE IS ONLY REQUIRED FOR THE PHAR FILE GENERATOR.
+ * 
+ * php -d phar.readonly=0 vendor/bin/phar-builder package composer.json --no-interaction
+ * 
+ *************************************************************/
 
 $boot = new \luya\Boot();
 $boot->setBaseYiiFile(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
