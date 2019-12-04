@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 1.5.0 (4. December 2019)
 
 + [#16](https://github.com/unglue-workflow/client/issues/16) Add retry option to wait for server.
++ Added phar file `unglue.phar`
++ Enabled php 7.4 travis testing.
 
 ## 1.4.1 (20. March 2019)
 
