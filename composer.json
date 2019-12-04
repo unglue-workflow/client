@@ -32,6 +32,11 @@
     "archive": {
         "exclude": ["/tests"]
     },
+    "config": {
+        "platform": {
+            "php": "7.2.5"
+        }
+    },
     "extra" : {
         "luya" : {
             "symlink": false
