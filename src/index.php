@@ -2,11 +2,15 @@
 
 /*************************************************************
  * 
- * THIS FILE IS ONLY REQUIRED FOR THE PHAR FILE GENERATOR.
+ * THIS FILE IS ONLY REQUIRED FOR THE PHAR FILE GENERATOR!
+ * 
+ * BUG: Until fixdd, ensure you cleanup the vendor/luyadev/installer.php file and remove the LUYA modules which are part of the testsuite.
  * 
  * php -d phar.readonly=0 vendor/bin/phar-builder package composer.json --no-interaction
  * 
  *************************************************************/
+
+require_once(__DIR__ . '/../vendor/autoload.php');
 
 $boot = new \luya\Boot();
 $boot->setBaseYiiFile(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0286ddebacae61e4f8d1c1219bcf1419",
+    "content-hash": "13616846882d8bde86382dcf107dc50a",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -325,6 +325,123 @@
             "time": "2019-10-28T03:44:26+00:00"
         },
         {
+            "name": "giggsey/libphonenumber-for-php",
+            "version": "8.11.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/giggsey/libphonenumber-for-php.git",
+                "reference": "d429c468fdc8d7b68aefc6f5a2cb7fee0cc26ee9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/d429c468fdc8d7b68aefc6f5a2cb7fee0cc26ee9",
+                "reference": "d429c468fdc8d7b68aefc6f5a2cb7fee0cc26ee9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "giggsey/locale": "^1.7",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "pear/pear-core-minimal": "^1.9",
+                "pear/pear_exception": "^1.0",
+                "pear/versioncontrol_git": "^0.5",
+                "phing/phing": "^2.7",
+                "php-coveralls/php-coveralls": "^1.0|^2.0",
+                "phpunit/phpunit": "^4.8.36|^5.0",
+                "symfony/console": "^2.8|^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "8.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "libphonenumber\\": "src/"
+                },
+                "exclude-from-classmap": [
+                    "/src/data/",
+                    "/src/carrier/data/",
+                    "/src/geocoding/data/",
+                    "/src/timezone/data/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Joshua Gigg",
+                    "email": "giggsey@gmail.com",
+                    "homepage": "https://giggsey.com/"
+                }
+            ],
+            "description": "PHP Port of Google's libphonenumber",
+            "homepage": "https://github.com/giggsey/libphonenumber-for-php",
+            "keywords": [
+                "geocoding",
+                "geolocation",
+                "libphonenumber",
+                "mobile",
+                "phonenumber",
+                "validation"
+            ],
+            "time": "2020-02-12T11:21:37+00:00"
+        },
+        {
+            "name": "giggsey/locale",
+            "version": "1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/giggsey/Locale.git",
+                "reference": "85a1b251bad11c986fec2a051b10d4b80a5caa1b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/giggsey/Locale/zipball/85a1b251bad11c986fec2a051b10d4b80a5caa1b",
+                "reference": "85a1b251bad11c986fec2a051b10d4b80a5caa1b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "pear/pear-core-minimal": "^1.9",
+                "pear/pear_exception": "^1.0",
+                "pear/versioncontrol_git": "^0.5",
+                "phing/phing": "~2.7",
+                "php-coveralls/php-coveralls": "^1.0|^2.0",
+                "phpunit/phpunit": "^4.8|^5.0",
+                "symfony/console": "^2.8|^3.0|^4.0",
+                "symfony/filesystem": "^2.8|^3.0|^4.0",
+                "symfony/finder": "^2.8|^3.0|^4.0",
+                "symfony/process": "^2.8|^3.0|^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Giggsey\\Locale\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joshua Gigg",
+                    "email": "giggsey@gmail.com",
+                    "homepage": "http://giggsey.com/"
+                }
+            ],
+            "description": "Locale functions required by libphonenumber-for-php",
+            "time": "2019-10-09T18:53:14+00:00"
+        },
+        {
             "name": "luyadev/luya-composer",
             "version": "1.0.6",
             "source": {
@@ -376,20 +493,21 @@
         },
         {
             "name": "luyadev/luya-core",
-            "version": "1.0.23",
+            "version": "1.0.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/luyadev/luya-core.git",
-                "reference": "5f709ac6760ee90deee641f77fe41e27f153f95b"
+                "reference": "a0974a2f86f897652e60f48f5056b3d4467d93e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/luyadev/luya-core/zipball/5f709ac6760ee90deee641f77fe41e27f153f95b",
-                "reference": "5f709ac6760ee90deee641f77fe41e27f153f95b",
+                "url": "https://api.github.com/repos/luyadev/luya-core/zipball/a0974a2f86f897652e60f48f5056b3d4467d93e7",
+                "reference": "a0974a2f86f897652e60f48f5056b3d4467d93e7",
                 "shasum": ""
             },
             "require": {
                 "curl/curl": "^2.0 || ^1.0",
+                "giggsey/libphonenumber-for-php": "^8.11",
                 "luyadev/luya-composer": "^1.0",
                 "phpmailer/phpmailer": "^6.0",
                 "yiisoft/yii2": "~2.0.15"
@@ -429,20 +547,20 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2019-11-27T17:10:09+00:00"
+            "time": "2020-01-07T15:33:57+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v6.1.3",
+            "version": "v6.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "a25ae38e03de4ee4031725498a600012364787c7"
+                "reference": "c5e61d0729507049cec9673aa1a679f9adefd683"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/a25ae38e03de4ee4031725498a600012364787c7",
-                "reference": "a25ae38e03de4ee4031725498a600012364787c7",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/c5e61d0729507049cec9673aa1a679f9adefd683",
+                "reference": "c5e61d0729507049cec9673aa1a679f9adefd683",
                 "shasum": ""
             },
             "require": {
@@ -491,20 +609,20 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2019-11-21T09:37:46+00:00"
+            "time": "2019-12-10T11:17:38+00:00"
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.30",
+            "version": "2.0.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "dfeeaf4dbdd23c9cd29b9246921e8a9ca2dbabe4"
+                "reference": "a4aca1a2154098844a039d21112cafd31d70b8fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/dfeeaf4dbdd23c9cd29b9246921e8a9ca2dbabe4",
-                "reference": "dfeeaf4dbdd23c9cd29b9246921e8a9ca2dbabe4",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/a4aca1a2154098844a039d21112cafd31d70b8fd",
+                "reference": "a4aca1a2154098844a039d21112cafd31d70b8fd",
                 "shasum": ""
             },
             "require": {
@@ -591,7 +709,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2019-11-19T21:22:20+00:00"
+            "time": "2020-01-21T22:29:38+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -1339,16 +1457,16 @@
         },
         {
             "name": "luyadev/luya-module-admin",
-            "version": "2.3.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/luyadev/luya-module-admin.git",
-                "reference": "cc0d70b082029ccb97795061446ba5753a2953ef"
+                "reference": "e291b04db1194fc5b9232bc5a13e7c22a610bff5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/luyadev/luya-module-admin/zipball/cc0d70b082029ccb97795061446ba5753a2953ef",
-                "reference": "cc0d70b082029ccb97795061446ba5753a2953ef",
+                "url": "https://api.github.com/repos/luyadev/luya-module-admin/zipball/e291b04db1194fc5b9232bc5a13e7c22a610bff5",
+                "reference": "e291b04db1194fc5b9232bc5a13e7c22a610bff5",
                 "shasum": ""
             },
             "require": {
@@ -1357,7 +1475,7 @@
                 "sizeg/yii2-jwt": "^1.2",
                 "whichbrowser/parser": "^2.0",
                 "yiisoft/yii2-imagine": "~2.1.0",
-                "yiisoft/yii2-queue": "~2.0.0"
+                "yiisoft/yii2-queue": "^2.0"
             },
             "require-dev": {
                 "bower-asset/angular": "^1.7",
@@ -1416,20 +1534,20 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2019-11-12T11:40:00+00:00"
+            "time": "2019-12-16T15:59:49+00:00"
         },
         {
             "name": "luyadev/luya-module-cms",
-            "version": "2.2.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/luyadev/luya-module-cms.git",
-                "reference": "6a3cc4cef5b02477a1c46f8eac0e1d08d34095e9"
+                "reference": "d792102ad3d5b61981b0ed930a7444c520166b6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/luyadev/luya-module-cms/zipball/6a3cc4cef5b02477a1c46f8eac0e1d08d34095e9",
-                "reference": "6a3cc4cef5b02477a1c46f8eac0e1d08d34095e9",
+                "url": "https://api.github.com/repos/luyadev/luya-module-cms/zipball/d792102ad3d5b61981b0ed930a7444c520166b6e",
+                "reference": "d792102ad3d5b61981b0ed930a7444c520166b6e",
                 "shasum": ""
             },
             "require-dev": {
@@ -1480,20 +1598,20 @@
                 "yii2",
                 "yii2-cms"
             ],
-            "time": "2019-11-12T16:39:13+00:00"
+            "time": "2019-12-13T11:13:53+00:00"
         },
         {
             "name": "luyadev/luya-testsuite",
-            "version": "1.0.23",
+            "version": "1.0.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/luyadev/luya-testsuite.git",
-                "reference": "9c9823a5b1e1cb71ed379fa865481f58f2e7305f"
+                "reference": "4ce9f3faa66d64cabb7fff7c64d5e5cbe820eaba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/luyadev/luya-testsuite/zipball/9c9823a5b1e1cb71ed379fa865481f58f2e7305f",
-                "reference": "9c9823a5b1e1cb71ed379fa865481f58f2e7305f",
+                "url": "https://api.github.com/repos/luyadev/luya-testsuite/zipball/4ce9f3faa66d64cabb7fff7c64d5e5cbe820eaba",
+                "reference": "4ce9f3faa66d64cabb7fff7c64d5e5cbe820eaba",
                 "shasum": ""
             },
             "require": {
@@ -1508,6 +1626,11 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.0.x-dev"
+                },
+                "luya": {
+                    "bootstrap": [
+                        "luya\\testsuite\\Bootstrap"
+                    ]
                 }
             },
             "autoload": {
@@ -1533,7 +1656,7 @@
                 "module",
                 "php"
             ],
-            "time": "2019-10-22T10:13:18+00:00"
+            "time": "2019-12-30T14:08:21+00:00"
         },
         {
             "name": "macfja/phar-builder",
@@ -1648,16 +1771,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.9.3",
+            "version": "1.9.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "007c053ae6f31bba39dfa19a7726f56e9763bbea"
+                "reference": "b2c28789e80a97badd14145fda39b545d83ca3ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/007c053ae6f31bba39dfa19a7726f56e9763bbea",
-                "reference": "007c053ae6f31bba39dfa19a7726f56e9763bbea",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/b2c28789e80a97badd14145fda39b545d83ca3ef",
+                "reference": "b2c28789e80a97badd14145fda39b545d83ca3ef",
                 "shasum": ""
             },
             "require": {
@@ -1692,7 +1815,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2019-08-09T12:45:53+00:00"
+            "time": "2020-01-17T21:11:47+00:00"
         },
         {
             "name": "neutron/signal-handler",
@@ -1893,40 +2016,38 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "4.3.2",
+            "version": "5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "b83ff7cfcfee7827e1e78b637a5904fe6a96698e"
+                "reference": "a48807183a4b819072f26e347bbd0b5199a9d15f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/b83ff7cfcfee7827e1e78b637a5904fe6a96698e",
-                "reference": "b83ff7cfcfee7827e1e78b637a5904fe6a96698e",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/a48807183a4b819072f26e347bbd0b5199a9d15f",
+                "reference": "a48807183a4b819072f26e347bbd0b5199a9d15f",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0",
-                "phpdocumentor/reflection-common": "^1.0.0 || ^2.0.0",
-                "phpdocumentor/type-resolver": "~0.4 || ^1.0.0",
-                "webmozart/assert": "^1.0"
+                "ext-filter": "^7.1",
+                "php": "^7.2",
+                "phpdocumentor/reflection-common": "^2.0",
+                "phpdocumentor/type-resolver": "^1.0",
+                "webmozart/assert": "^1"
             },
             "require-dev": {
-                "doctrine/instantiator": "^1.0.5",
-                "mockery/mockery": "^1.0",
-                "phpunit/phpunit": "^6.4"
+                "doctrine/instantiator": "^1",
+                "mockery/mockery": "^1"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.x-dev"
+                    "dev-master": "5.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "phpDocumentor\\Reflection\\": [
-                        "src/"
-                    ]
+                    "phpDocumentor\\Reflection\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1937,10 +2058,14 @@
                 {
                     "name": "Mike van Riel",
                     "email": "me@mikevanriel.com"
+                },
+                {
+                    "name": "Jaap van Otterdijk",
+                    "email": "account@ijaap.nl"
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2019-09-12T14:27:41+00:00"
+            "time": "2020-02-09T09:16:15+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -1991,33 +2116,33 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.9.0",
+            "version": "v1.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "f6811d96d97bdf400077a0cc100ae56aa32b9203"
+                "reference": "b4400efc9d206e83138e2bb97ed7f5b14b831cd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/f6811d96d97bdf400077a0cc100ae56aa32b9203",
-                "reference": "f6811d96d97bdf400077a0cc100ae56aa32b9203",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/b4400efc9d206e83138e2bb97ed7f5b14b831cd9",
+                "reference": "b4400efc9d206e83138e2bb97ed7f5b14b831cd9",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "php": "^5.3|^7.0",
                 "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0|^5.0",
-                "sebastian/comparator": "^1.1|^2.0|^3.0",
-                "sebastian/recursion-context": "^1.0|^2.0|^3.0"
+                "sebastian/comparator": "^1.2.3|^2.0|^3.0|^4.0",
+                "sebastian/recursion-context": "^1.0|^2.0|^3.0|^4.0"
             },
             "require-dev": {
-                "phpspec/phpspec": "^2.5|^3.2",
+                "phpspec/phpspec": "^2.5 || ^3.2",
                 "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.5 || ^7.1"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8.x-dev"
+                    "dev-master": "1.10.x-dev"
                 }
             },
             "autoload": {
@@ -2050,7 +2175,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2019-10-03T11:07:50+00:00"
+            "time": "2020-01-20T15:57:02+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -3190,16 +3315,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.4.1",
+            "version": "v4.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "f0aea3df20d15635b3cb9730ca5eea1c65b7f201"
+                "reference": "f512001679f37e6a042b51897ed24a2f05eba656"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/f0aea3df20d15635b3cb9730ca5eea1c65b7f201",
-                "reference": "f0aea3df20d15635b3cb9730ca5eea1c65b7f201",
+                "url": "https://api.github.com/repos/symfony/console/zipball/f512001679f37e6a042b51897ed24a2f05eba656",
+                "reference": "f512001679f37e6a042b51897ed24a2f05eba656",
                 "shasum": ""
             },
             "require": {
@@ -3262,20 +3387,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-12-01T10:06:17+00:00"
+            "time": "2020-01-25T12:44:29+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v4.4.1",
+            "version": "v4.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "ce8743441da64c41e2a667b8eb66070444ed911e"
+                "reference": "3a50be43515590faf812fbd7708200aabc327ec3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/ce8743441da64c41e2a667b8eb66070444ed911e",
-                "reference": "ce8743441da64c41e2a667b8eb66070444ed911e",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/3a50be43515590faf812fbd7708200aabc327ec3",
+                "reference": "3a50be43515590faf812fbd7708200aabc327ec3",
                 "shasum": ""
             },
             "require": {
@@ -3311,7 +3436,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2019-11-17T21:56:56+00:00"
+            "time": "2020-01-04T13:00:46+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3490,16 +3615,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v4.4.1",
+            "version": "v4.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "51c0135ef3f44c5803b33dc60e96bf4f77752726"
+                "reference": "f5697ab4cb14a5deed7473819e63141bf5352c36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/51c0135ef3f44c5803b33dc60e96bf4f77752726",
-                "reference": "51c0135ef3f44c5803b33dc60e96bf4f77752726",
+                "url": "https://api.github.com/repos/symfony/process/zipball/f5697ab4cb14a5deed7473819e63141bf5352c36",
+                "reference": "f5697ab4cb14a5deed7473819e63141bf5352c36",
                 "shasum": ""
             },
             "require": {
@@ -3535,7 +3660,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2019-11-28T13:33:56+00:00"
+            "time": "2020-01-09T09:50:08+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -3637,16 +3762,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.42.4",
+            "version": "v1.42.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "e587180584c3d2d6cb864a0454e777bb6dcb6152"
+                "reference": "87b2ea9d8f6fd014d0621ca089bb1b3769ea3f8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/e587180584c3d2d6cb864a0454e777bb6dcb6152",
-                "reference": "e587180584c3d2d6cb864a0454e777bb6dcb6152",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/87b2ea9d8f6fd014d0621ca089bb1b3769ea3f8e",
+                "reference": "87b2ea9d8f6fd014d0621ca089bb1b3769ea3f8e",
                 "shasum": ""
             },
             "require": {
@@ -3655,8 +3780,7 @@
             },
             "require-dev": {
                 "psr/container": "^1.0",
-                "symfony/debug": "^3.4|^4.2",
-                "symfony/phpunit-bridge": "^4.4@dev|^5.0"
+                "symfony/phpunit-bridge": "^4.4|^5.0"
             },
             "type": "library",
             "extra": {
@@ -3685,7 +3809,6 @@
                 },
                 {
                     "name": "Twig Team",
-                    "homepage": "https://twig.symfony.com/contributors",
                     "role": "Contributors"
                 },
                 {
@@ -3699,7 +3822,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-11-11T16:49:32+00:00"
+            "time": "2020-02-11T05:59:23+00:00"
         },
         {
             "name": "webignition/readable-duration",
@@ -3794,16 +3917,16 @@
         },
         {
             "name": "whichbrowser/parser",
-            "version": "v2.0.37",
+            "version": "v2.0.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WhichBrowser/Parser-PHP.git",
-                "reference": "9c6ad8eadc23294b1c66d92876c11f13c5d4cf48"
+                "reference": "4899110cd2f87b01e04ced62dbb9dec541031dee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WhichBrowser/Parser-PHP/zipball/9c6ad8eadc23294b1c66d92876c11f13c5d4cf48",
-                "reference": "9c6ad8eadc23294b1c66d92876c11f13c5d4cf48",
+                "url": "https://api.github.com/repos/WhichBrowser/Parser-PHP/zipball/4899110cd2f87b01e04ced62dbb9dec541031dee",
+                "reference": "4899110cd2f87b01e04ced62dbb9dec541031dee",
                 "shasum": ""
             },
             "require": {
@@ -3812,11 +3935,11 @@
             },
             "require-dev": {
                 "icomefromthenet/reverse-regex": "0.0.6.3",
-                "phpunit/php-code-coverage": "^2.2|^3.0",
-                "phpunit/phpunit": "^4.0|^5.0",
+                "phpunit/php-code-coverage": "^2.2 || ^3.0",
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
                 "satooshi/php-coveralls": "^1.0",
                 "squizlabs/php_codesniffer": "2.5.*",
-                "symfony/yaml": ">=2.8"
+                "symfony/yaml": "~2.8 || ~3.4 || ~4.2 || ~5.0"
             },
             "suggest": {
                 "cache/array-adapter": "Allows testing of the caching functionality"
@@ -3849,7 +3972,7 @@
                 "ua",
                 "useragent"
             ],
-            "time": "2018-10-02T09:26:41+00:00"
+            "time": "2020-02-12T10:54:23+00:00"
         },
         {
             "name": "yiisoft/yii2-imagine",
@@ -3901,27 +4024,29 @@
         },
         {
             "name": "yiisoft/yii2-queue",
-            "version": "2.0.2",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-queue.git",
-                "reference": "8c2b337f7d9ea934c2affdfc21c9fb387d0a0773"
+                "reference": "25c1142558768ec0e835171c972a4edc2fb59cf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/8c2b337f7d9ea934c2affdfc21c9fb387d0a0773",
-                "reference": "8c2b337f7d9ea934c2affdfc21c9fb387d0a0773",
+                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/25c1142558768ec0e835171c972a4edc2fb59cf0",
+                "reference": "25c1142558768ec0e835171c972a4edc2fb59cf0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.0",
-                "symfony/process": "*",
-                "yiisoft/yii2": "~2.0.13"
+                "symfony/process": "^3.3||^4.0",
+                "yiisoft/yii2": "~2.0.14"
             },
             "require-dev": {
-                "enqueue/amqp-lib": "^0.8",
+                "aws/aws-sdk-php": ">=2.4",
+                "enqueue/amqp-lib": "^0.8||^0.9.10",
+                "enqueue/stomp": "^0.8.39",
                 "jeremeamia/superclosure": "*",
-                "pda/pheanstalk": "*",
+                "pda/pheanstalk": "v3.*",
                 "php-amqplib/php-amqplib": "*",
                 "phpunit/phpunit": "~4.4",
                 "yiisoft/yii2-debug": "*",
@@ -3929,7 +4054,9 @@
                 "yiisoft/yii2-redis": "*"
             },
             "suggest": {
+                "aws/aws-sdk-php": "Need for aws SQS.",
                 "enqueue/amqp-lib": "Need for AMQP interop queue.",
+                "enqueue/stomp": "Need for Stomp queue.",
                 "ext-gearman": "Need for Gearman queue.",
                 "ext-pcntl": "Need for process signals.",
                 "pda/pheanstalk": "Need for Beanstalk queue.",
@@ -3939,7 +4066,7 @@
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -3952,7 +4079,9 @@
                     "yii\\queue\\file\\": "src/drivers/file",
                     "yii\\queue\\gearman\\": "src/drivers/gearman",
                     "yii\\queue\\redis\\": "src/drivers/redis",
-                    "yii\\queue\\sync\\": "src/drivers/sync"
+                    "yii\\queue\\sync\\": "src/drivers/sync",
+                    "yii\\queue\\sqs\\": "src/drivers/sqs",
+                    "yii\\queue\\stomp\\": "src/drivers/stomp"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3965,7 +4094,7 @@
                     "email": "zhuravljov@gmail.com"
                 }
             ],
-            "description": "Yii2 Queue Extension which supported DB, Redis, RabbitMQ, Beanstalk and Gearman",
+            "description": "Yii2 Queue Extension which supported DB, Redis, RabbitMQ, Beanstalk, SQS and Gearman",
             "keywords": [
                 "async",
                 "beanstalk",
@@ -3975,9 +4104,10 @@
                 "queue",
                 "rabbitmq",
                 "redis",
+                "sqs",
                 "yii"
             ],
-            "time": "2017-12-26T17:16:14+00:00"
+            "time": "2019-06-04T18:58:40+00:00"
         }
     ],
     "aliases": [],
@@ -3986,5 +4116,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "platform-overrides": {
+        "php": "7.2.5"
+    }
 }
