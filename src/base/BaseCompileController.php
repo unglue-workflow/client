@@ -28,7 +28,7 @@ abstract class BaseCompileController extends Command
      * it will exclude unglue files from `vendor/` and `public_html/assets/`.
      * @since 1.1.0
      */
-    public $exclude = 'vendor/,public_html/assets/';
+    public $exclude = 'vendor/,public_html/assets/,runtime';
 
     /**
      * @var boolean Whether the system should follow sym links or not. As it may cause Problems for several reasons, this behavior is tunred of by default. The
