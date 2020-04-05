@@ -40,7 +40,7 @@ class FileHelper extends BaseFileHelper
 
         $filter = function ($file, $key, $iterator) use ($exclude) {
             foreach ($exclude as $pattern) {
-                if (preg_match('/'.preg_quote($pattern, '/').'/', $file->getRealPath())) {
+                if (preg_match('/'.preg_quote(trim($pattern, '/'), '/').'/', $file->getRealPath())) {
                     return false;
                 }
             }
