@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.5.1
+## 1.5.1 (5. April 2020)
 
 + [#17](https://github.com/unglue-workflow/client/pull/17) Fix excluded directories with trailing slashes.
 
