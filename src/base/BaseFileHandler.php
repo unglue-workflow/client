@@ -3,6 +3,7 @@
 namespace unglue\client\base;
 
 use Curl\Curl;
+use luya\helpers\StringHelper;
 use unglue\client\helpers\ConsoleHelper;
 use unglue\client\interfaces\FileHandlerInterface;
 use unglue\client\tasks\ConfigConnection;
@@ -73,9 +74,16 @@ abstract class BaseFileHandler implements FileHandlerInterface
         if (is_link($file)) {
             $file = readlink($file);
         }
-     
+
         if (is_file($file) && is_readable($file) && file_exists($file)) {
+
             $this->_map[$realFilePath] = ['file' => $file, 'filemtime' => filemtime($file)];
+
+            return true;
+        }
+
+        if ($this->getConfig()->getCommand()->verbose) {
+            ConsoleHelper::infoMessage($this->messagePrefix("file {$file} is not readable."));
         }
     }
 

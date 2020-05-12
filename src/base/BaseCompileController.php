@@ -38,7 +38,7 @@ abstract class BaseCompileController extends Command
     public $symlinks = false;
 
     /**
-     * @var boolean If wait for server is enabled, the client will try to reconnect every 2 second until the server is available and process with the command afterwards.
+     * @var boolean If retry is enabled, the client will try to reconnect every 2 second until the server is available and process with the command afterwards.
      * @since 1.5.0
      */
     public $retry = false;
@@ -110,7 +110,7 @@ abstract class BaseCompileController extends Command
         }
 
         if (empty($connections)) {
-            throw new Exception("No valid connection detected.");
+            throw new Exception(count($unglues) . " unglue file(s), bot none passes the test. This might happen if the defined source in the unglue file is not reachable.");
         }
 
         return $connections;

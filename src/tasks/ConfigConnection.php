@@ -2,10 +2,7 @@
 
 namespace unglue\client\tasks;
 
-use Curl\Curl;
-use yii\helpers\Console;
 use yii\helpers\Json;
-use unglue\client\helpers\FileHelper;
 use unglue\client\helpers\ConsoleHelper;
 use luya\console\Command;
 use unglue\client\interfaces\ConnectionInterface;
