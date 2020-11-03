@@ -42,14 +42,16 @@
             "symlink": false
         },
         "phar-builder": {
-            "compression": "none",
+            "compression": "bz2",
             "name": "unglue.phar",
             "output-dir": "./",
             "entry-point": "./src/index.php",
             "include": ["src"],
             "include-dev": false,
             "shebang": true,
-            "skip-shebang" : true
+            "skip-shebang" : false,
+            "excluded": ["/tests", "/testdata", "/vendor/giggsey", "/vendor/flowjs", "vendor/lcobucci"],
+            "dev" : false
         }
     }
 }

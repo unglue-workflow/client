@@ -4,7 +4,7 @@
  * 
  * THIS FILE IS ONLY REQUIRED FOR THE PHAR FILE GENERATOR!
  * 
- * BUG: Until fixdd, ensure you cleanup the vendor/luyadev/installer.php file and remove the LUYA modules which are part of the testsuite.
+ * BUG: Until fixed, ensure you cleanup the vendor/luyadev/installer.php file and remove the LUYA modules which are part of the testsuite.
  * 
  * php -d phar.readonly=0 vendor/bin/phar-builder package composer.json --no-interaction
  * 
