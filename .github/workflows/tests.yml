@@ -5,7 +5,7 @@ on: [push, pull_request]
 env:
   DEFAULT_COMPOSER_FLAGS: "--prefer-dist --no-interaction --ignore-platform-reqs"
   PHPUNIT_EXCLUDE_GROUP: mssql,oci,wincache,xcache,zenddata,cubrid
-  CC_TEST_REPORTER_ID: CODECLIMATE_REPORTER_ID
+  CC_TEST_REPORTER_ID: 571489f838defac84dcb407418ae171bd20d2c48304e1b3b68e0cc9ba9b3c810
 jobs:
   phpunit:
     name: PHP ${{ matrix.php }} on ${{ matrix.os }}
@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        php: ['7.0', '7.1', '7.2', '7.3', '7.4']
+        php: ['7.1', '7.2', '7.3', '7.4']
 
     steps:
       ## checkout the repoistory 

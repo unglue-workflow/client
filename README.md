@@ -1,5 +1,6 @@
 # Unglue Client
 
+![Tests](https://github.com/unglue-workflow/client/workflows/Tests/badge.svg)
 [![Latest Stable Version](https://poser.pugx.org/unglue/client/v/stable)](https://packagist.org/packages/unglue/client)
 [![Total Downloads](https://poser.pugx.org/unglue/client/downloads)](https://packagist.org/packages/unglue/client)
 [![Build Status](https://travis-ci.org/unglue-workflow/client.svg?branch=master)](https://travis-ci.org/unglue-workflow/client)
