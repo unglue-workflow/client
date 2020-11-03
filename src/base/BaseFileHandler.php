@@ -203,14 +203,19 @@ abstract class BaseFileHandler implements FileHandlerInterface
         $response = json_decode($curl->response, true);
         $curl->close();
 
+        if ($curl->curl_error) {
+            ConsoleHelper::errorMessage($curl->curl_error_message . " (code $curl->curl_error_code)");
+            return false;
+        }
+
         if ($curl->isSuccess()) {
             ConsoleHelper::successMessage($this->messagePrefix("Compling done in " . round((microtime(true) - $time), 2) . "s"));
             return $response;
         }
 
-        $message = (isset($response['message']) && !empty($response['message'])) ? $response['message'] : $curl->error_message;
+        $message = (isset($response['message']) && !empty($response['message'])) ? $response['message']  : '';
 
-        ConsoleHelper::errorMessage($message);
+        ConsoleHelper::errorMessage($message . $curl->error_message . " (code $curl->error_code)");
 
         return false;
     }
