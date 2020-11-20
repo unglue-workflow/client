@@ -7,6 +7,16 @@
  * BUG: Until fixed, ensure you cleanup the vendor/luyadev/installer.php file and remove the LUYA modules which are part of the testsuite.
  * 
  * php -d phar.readonly=0 vendor/bin/phar-builder package composer.json --no-interaction
+ *
+ *## Phar Builder
+ *
+ * In order to build the unglue client phar file `unglue.phar` run:
+ * 
+ * > BUG: Until fixd, ensure you cleanup the vendor/luyadev/installer.php file and remove the LUYA modules which are part of the testsuite.
+ * 
+ * ```
+ * php -d phar.readonly=0 vendor/bin/phar-builder package composer.json --no-interaction && chmod +x unglue.phar
+ * ```
  * 
  *************************************************************/
 
