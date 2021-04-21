@@ -13,7 +13,7 @@ class BaseCompileControllerTest extends ClientTestCase
 
         $c = new TestBaseCompileController('base-test', $this->app);
         $c->setFolder($unglue['folder']);
-        $this->assertContains('client/testdata', $c->getFolder());
+        $this->assertStringContainsString('client/testdata', $c->getFolder());
 
         $this->expectException("yii\console\Exception");
         $c->createConnections();
