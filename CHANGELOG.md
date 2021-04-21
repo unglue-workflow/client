@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.5.3 (21. April 2021)
+
++ Added PHP 8 tests, allow new LUYA core version.
+
 ## 1.5.2 (3. November 2020)
 
 + Improved verbosity for connection errors. Updated phar file. Moved to Github Actions
