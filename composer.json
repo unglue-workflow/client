@@ -10,10 +10,10 @@
         }
     ],
     "require": {
-        "luyadev/luya-core" : "^1.0"
+        "luyadev/luya-core" : "^1.0|^2.0"
     },
     "require-dev": {
-        "luyadev/luya-testsuite" : "^1.0",
+        "luyadev/luya-testsuite" : "^2.0",
         "macfja/phar-builder": "^0.2.8"
     },
     "autoload": {
@@ -32,11 +32,6 @@
     "archive": {
         "exclude": ["/tests"]
     },
-    "config": {
-        "platform": {
-            "php": "7.2.5"
-        }
-    },
     "extra" : {
         "luya" : {
             "symlink": false
@@ -53,5 +48,16 @@
             "excluded": ["/tests", "/testdata", "/vendor/giggsey", "/vendor/flowjs", "vendor/lcobucci"],
             "dev" : false
         }
-    }
+    },
+    "config":{
+        "fxp-asset":{
+           "enabled":false
+        }
+     },
+     "repositories":[
+        {
+           "type":"composer",
+           "url":"https://asset-packagist.org"
+        }
+     ]
 }
