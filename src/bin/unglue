@@ -29,6 +29,7 @@ $boot->setConfigArray([
     'basePath' => dirname(__DIR__), 
     'enableCoreCommands' => false,
     'defaultRoute' => 'help',
+	'silentExitOnException' => false,
     'controllerMap' => [
         'help' => 'yii\console\controllers\HelpController',
         'watch' => 'unglue\client\controllers\WatchController',

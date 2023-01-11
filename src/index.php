@@ -4,15 +4,13 @@
  * 
  * THIS FILE IS ONLY REQUIRED FOR THE PHAR FILE GENERATOR!
  * 
- * BUG: Until fixed, ensure you cleanup the vendor/luyadev/installer.php file and remove the LUYA modules which are part of the testsuite.
- * 
- * php -d phar.readonly=0 vendor/bin/phar-builder package composer.json --no-interaction
- *
- *## Phar Builder
+ * ## Phar Builder
  *
  * In order to build the unglue client phar file `unglue.phar` run:
  * 
  * > BUG: Until fixd, ensure you cleanup the vendor/luyadev/installer.php file and remove the LUYA modules which are part of the testsuite.
+ * 
+ * Before generate remove `luyadev/luya-testsuite` from composer.json and run composer update, this should also reduce the filesize of the phar file
  * 
  * ```
  * php -d phar.readonly=0 vendor/bin/phar-builder package composer.json --no-interaction && chmod +x unglue.phar
@@ -29,6 +27,7 @@ $boot->setConfigArray([
     'basePath' => dirname(__DIR__), 
     'enableCoreCommands' => false,
     'defaultRoute' => 'help',
+    'silentExitOnException' => false,
     'controllerMap' => [
         'help' => 'yii\console\controllers\HelpController',
         'watch' => 'unglue\client\controllers\WatchController',
