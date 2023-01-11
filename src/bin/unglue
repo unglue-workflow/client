@@ -19,21 +19,26 @@ foreach ($loaders as $file) {
 			$vendor = pathinfo($file, PATHINFO_DIRNAME);
 			break 2;
 		}
-	}	
+	}
 }
 
 $boot = new \luya\Boot();
 $boot->setBaseYiiFile($vendor . '/yiisoft/yii2/Yii.php');
 $boot->setConfigArray([
-    'id' => 'clientunglue', 
-    'basePath' => dirname(__DIR__), 
-    'enableCoreCommands' => false,
-    'defaultRoute' => 'help',
-	'silentExitOnException' => false,
-    'controllerMap' => [
-        'help' => 'yii\console\controllers\HelpController',
-        'watch' => 'unglue\client\controllers\WatchController',
-        'compile' => 'unglue\client\controllers\CompileController',
-    ],
+	'id' => 'clientunglue',
+	'basePath' => dirname(__DIR__),
+	'enableCoreCommands' => false,
+	'defaultRoute' => 'help',
+	'components' => [
+		'errorHandler' => [
+			'class' => 'yii\console\ErrorHandler',
+			'silentExitOnException' => false,
+		],
+	],
+	'controllerMap' => [
+		'help' => 'yii\console\controllers\HelpController',
+		'watch' => 'unglue\client\controllers\WatchController',
+		'compile' => 'unglue\client\controllers\CompileController',
+	],
 ]);
 $boot->applicationConsole();
