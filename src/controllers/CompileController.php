@@ -3,6 +3,7 @@
 namespace unglue\client\controllers;
 
 use unglue\client\base\BaseCompileController;
+use yii\console\ExitCode;
 
 /**
  * Compile all files once.
@@ -17,6 +18,6 @@ class CompileController extends BaseCompileController
         $this->setFolder($path);
         $this->createConnections();
 
-        return self::EXIT_CODE_NORMAL;
+        ExitCode::OK;
     }
 }
