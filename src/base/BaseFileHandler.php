@@ -204,7 +204,7 @@ abstract class BaseFileHandler implements FileHandlerInterface
         $curl->close();
 
         if ($curl->curl_error) {
-            ConsoleHelper::errorMessage($curl->curl_error_message . " (code $curl->curl_error_code)");
+            ConsoleHelper::errorMessage($curl->curl_error_message . " (code $curl->curl_error_code)", $this->getConfig()->getCommand());
             return false;
         }
 
@@ -215,7 +215,7 @@ abstract class BaseFileHandler implements FileHandlerInterface
 
         $message = (isset($response['message']) && !empty($response['message'])) ? $response['message']  : '';
 
-        ConsoleHelper::errorMessage($message . $curl->error_message . " (code $curl->error_code)");
+        ConsoleHelper::errorMessage($message . $curl->error_message . " (code $curl->error_code)", $this->getConfig()->getCommand());
 
         return false;
     }

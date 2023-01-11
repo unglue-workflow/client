@@ -2,6 +2,9 @@
 
 namespace unglue\client\helpers;
 
+use unglue\client\base\BaseCompileController;
+use unglue\client\tasks\ConfigConnection;
+use yii\console\Exception;
 use yii\helpers\Console;
 
 /**
@@ -26,12 +29,18 @@ class ConsoleHelper extends Console
      * Output error message
      *
      * @param string $message
+     * @param BaseCompileController $config
      * @return boolean
      */
-    public static function errorMessage($message)
+    public static function errorMessage($message, BaseCompileController $config)
     {
-        echo Console::ansiFormat('Error: ' . $message, [Console::FG_RED]) . PHP_EOL;
-        return false;
+        if ($config->silent) {
+            echo Console::ansiFormat('Error: ' . $message, [Console::FG_RED]) . PHP_EOL;
+            return false;
+        } else {
+            throw new Exception($message);
+        }
+        
     }
 
     /**

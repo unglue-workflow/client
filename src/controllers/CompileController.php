@@ -18,6 +18,6 @@ class CompileController extends BaseCompileController
         $this->setFolder($path);
         $this->createConnections();
 
-        ExitCode::OK;
+        return ExitCode::OK;
     }
 }

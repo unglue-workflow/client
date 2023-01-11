@@ -42,7 +42,7 @@ class SvgSpriteFileHandler extends BaseFileHandler
         $files = $this->getFilesContent($this->getConfig()->getUnglueConfigFolder());
 
         if (empty($files)) {
-            ConsoleHelper::errorMessage($this->messagePrefix("No svg files found to transmit. count: " . $this->count()));
+            ConsoleHelper::errorMessage($this->messagePrefix("No svg files found to transmit. count: " . $this->count()), $this->getConfig()->getCommand());
             return false;
         }
 

@@ -44,12 +44,18 @@ abstract class BaseCompileController extends Command
     public $retry = false;
 
     /**
+     * @var boolean If silent is false, all exception will end with a error exit code of the script. This is usefull for CD/CI systems.
+     * @var 1.6.0
+     */
+    public $silent = true;
+
+    /**
      * {@inheritDoc}
      */
     public function options($actionID)
     {
         return array_merge(parent::options($actionID), [
-            'server', 'exclude', 'symlinks', 'retry'
+            'server', 'exclude', 'symlinks', 'retry', 'silent'
         ]);
     }
 

@@ -5,6 +5,8 @@ namespace unglue\client\tasks;
 use yii\helpers\Json;
 use unglue\client\helpers\ConsoleHelper;
 use luya\console\Command;
+use unglue\client\base\BaseCompileController;
+use unglue\client\base\BaseFileHandler;
 use unglue\client\interfaces\ConnectionInterface;
 
 /**
@@ -31,20 +33,13 @@ class ConfigConnection implements ConnectionInterface
     private $_server;
 
     /**
-     * @var Command The command controller object.
+     * @var BaseCompileController The command controller object.
      */
     private $_command;
 
     /**
-     * @var JsFileHandler The javascript files handler object.
+     * @var BaseFileHandler[]
      */
-    //public $jsHandler;
-
-    /**
-     * @var CssFileHandler The css files handler object.
-     */
-    //public $cssHandler;
-
     public $handlers = [];
 
     /**
@@ -53,9 +48,9 @@ class ConfigConnection implements ConnectionInterface
      * @param string $configFile
      * @param string $folder
      * @param string $server
-     * @param Command $command
+     * @param BaseCompileController $command
      */
-    public function __construct($configFile, $folder, $server, Command $command)
+    public function __construct($configFile, $folder, $server, BaseCompileController $command)
     {
         $this->_configFile = $configFile;
         $this->_folder = $folder;
@@ -66,7 +61,7 @@ class ConfigConnection implements ConnectionInterface
     /**
      * Get the context console command object
      *
-     * @return Command
+     * @return BaseCompileController
      */
     public function getCommand()
     {
@@ -182,7 +177,7 @@ class ConfigConnection implements ConnectionInterface
         $file = $this->getUnglueConfigFolderDistFilePath($extension);
         $write = @file_put_contents($file, $content);
         if (!$write) {
-            ConsoleHelper::errorMessage("Unable to write file '{$file}'.");
+            ConsoleHelper::errorMessage("Unable to write file '{$file}'.", $this->getCommand());
             return false;
         }
 
