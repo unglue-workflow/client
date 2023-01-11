@@ -81,6 +81,6 @@
     }
   ],
   "scripts": {
-    "phar": "php -d phar.readonly=0 vendor/bin/phar-builder package composer.json --no-interaction && chmod +x unglue.phar"
+    "phar": "rm -rf vendor/luyadev/installer.php && php -d phar.readonly=0 vendor/bin/phar-builder package composer.json --no-interaction && chmod +x unglue.phar"
   }
 }
